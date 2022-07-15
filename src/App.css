@@ -1,9 +1,12 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  overflow-x: hidden;
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
+  background-color: #adadad;
 }
 
 a {
@@ -17,7 +20,12 @@ a {
 
 .map-container {
   width: 100%;
-  height: 100vh;
+  height: 72vh;
+}
+@media only screen and (max-width: 600px) {
+  .map-container {
+    height: 62.73vh;
+  }
 }
 
 .combobox-input {
