@@ -6,19 +6,29 @@ import {
   Autocomplete,
   DirectionsRenderer,
 } from "@react-google-maps/api";
+
 import { useState, useRef } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
-const center = { lat: 62.24, lng: 25.75 };
+import useGeoLocation from "../hooks/useGeoLocation";
+import "../App.css";
+const libraries = ["places"];
 const Map = () => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries: ["places"],
+    libraries,
   });
+
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
+
+  const location = useGeoLocation();
+  const mapRef = useRef();
+
+  const center = location.coordinates;
+  const defaultLocation = { lat: 62.24, lng: 25.75 };
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef();
@@ -58,74 +68,78 @@ const Map = () => {
   };
 
   return (
-    <div className="bg-light ">
-      <div className=" hstack gap-2  row rounded p-2 pt-3    ">
-        <Autocomplete>
-          <InputGroup>
-            <input
-              className=" form-control me-auto border border-primary"
-              type="text"
-              placeholder="Origin"
-              ref={originRef}
-            />
-            <Button
-              id="button-addon2"
-              onClick={() => {
-                map.panTo(center);
-                map.setZoom(15);
-              }}
-            >
-              <FaLocationArrow />
-            </Button>
-          </InputGroup>
-        </Autocomplete>
+    <div>
+      <div className=" customBg fixed-top container-fluid shadow pt-1 mt-2 w-75  ">
+        <div className=" hstack gap-2  row rounded p-2 pt-1    ">
+          <Autocomplete>
+            <InputGroup>
+              <input
+                className=" form-control me-auto border border-warning "
+                type="text"
+                placeholder="Origin"
+                ref={originRef}
+              />
+              <Button
+                id="button-addon2"
+                variant="warning"
+                onClick={() => {
+                  map.panTo(center);
+                  map.setZoom(15);
+                }}
+              >
+                <FaLocationArrow />
+              </Button>
+            </InputGroup>
+          </Autocomplete>
 
-        <Autocomplete>
-          <InputGroup>
-            <input
-              className="form-control me-auto border border-primary "
-              type="text"
-              placeholder="Destination"
-              ref={destinationRef}
-            />
-            <Button onClick={clearRoute}>
-              <FaTimes />
-            </Button>
-          </InputGroup>
-        </Autocomplete>
+          <Autocomplete>
+            <InputGroup>
+              <input
+                className="form-control me-auto border border-warning bg-light  "
+                type="text"
+                placeholder="Destination"
+                ref={destinationRef}
+              />
+              <Button onClick={clearRoute} variant="warning">
+                <FaTimes />
+              </Button>
+            </InputGroup>
+          </Autocomplete>
+        </div>
+        <div className=" pb-1 d-flex justify-content-center ">
+          <Form.Select
+            placeholder="Select service"
+            aria-label="Default select example"
+            className=" border border-warning w-50 bg-light "
+          >
+            <option value="1">Tier</option>
+            <option value="2">Joe</option>
+            <option value="3">Voi</option>
+          </Form.Select>
+        </div>
+        <div className="  pb-1 pt-0  d-flex justify-content-center">
+          <Button
+            size="l"
+            variant="warning"
+            type="submit"
+            className="w-50"
+            onClick={calculateRoute}
+          >
+            Calculate
+          </Button>
+        </div>
       </div>
-      <div className=" pb-1 pt-0 d-flex justify-content-center ">
-        <Form.Select
-          placeholder="Select service"
-          aria-label="Default select example"
-          className=" border border-primary w-75 "
-        >
-          <option value="1">Tier</option>
-          <option value="2">Joe</option>
-          <option value="3">Voi</option>
-        </Form.Select>
-      </div>
-      <div className="  pb-1 pt-0  d-flex justify-content-center">
-        <Button
-          size="l"
-          variant="primary"
-          type="submit"
-          className="w-75"
-          onClick={calculateRoute}
-        >
-          Calculate
-        </Button>
-      </div>
-
       <GoogleMap
-        center={center}
+        center={defaultLocation}
         zoom={15}
+        ref={mapRef}
         mapContainerClassName="map-container"
         options={{
           zoomControl: false,
           streetViewControl: false,
           mapTypeControl: false,
           fullscreenControl: false,
+          disableDefaultUI: true,
         }}
         onLoad={(map) => setMap(map)}
       >
@@ -134,16 +148,16 @@ const Map = () => {
           <DirectionsRenderer directions={directionsResponse} />
         )}
       </GoogleMap>
-      <div class="pb-0  d-flex justify-content-around border border-primary fw-bold  ">
-        <div class="d-flex align-items-center ">
+      <div className=" d-flex justify-content-around fw-bold customBg fixed-bottom container-fluid  pt-1   ">
+        <div className="d-flex align-items-center ">
           Distance:
           {distance}
         </div>
-        <div class="d-flex align-items-center">
+        <div className="d-flex align-items-center">
           Duration:
           {duration}
         </div>
-        <div class="d-flex align-items-center">
+        <div className="d-flex align-items-center">
           Price:
           {price}
         </div>

@@ -18,13 +18,33 @@ a {
   box-sizing: border-box;
 }
 
+.btn-primary {
+  background: aqua;
+}
+
+.btn-outline-primary {
+  color: #000;
+}
+.customBg {
+  padding-top: 180px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(3.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pac-container {
+  z-index: 1051 !important;
+}
 .map-container {
   width: 100%;
-  height: 72vh;
+  height: 100vh;
 }
 @media only screen and (max-width: 600px) {
   .map-container {
-    height: 62.73vh;
+    height: 96.5vh;
   }
 }
 
