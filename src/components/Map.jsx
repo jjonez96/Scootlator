@@ -28,7 +28,6 @@ const Map = () => {
   const mapRef = useRef();
 
   const center = location.coordinates;
-  const defaultLocation = { lat: 62.24, lng: 25.75 };
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef();
@@ -130,7 +129,7 @@ const Map = () => {
         </div>
       </div>
       <GoogleMap
-        center={defaultLocation}
+        center={center}
         zoom={15}
         ref={mapRef}
         mapContainerClassName="map-container"
@@ -148,20 +147,27 @@ const Map = () => {
           <DirectionsRenderer directions={directionsResponse} />
         )}
       </GoogleMap>
-      <div className=" d-flex justify-content-around fw-bold customBg fixed-bottom container-fluid  pt-1   ">
-        <div className="d-flex align-items-center ">
-          Distance:
-          {distance}
+      {price.length === 0 ? (
+        <div></div>
+      ) : (
+        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom border border-dark container-fluid  pt-1   ">
+          <div className="d-flex align-items-center ">
+            Distance:
+            <br />
+            {distance}
+          </div>
+          <div className="d-flex align-items-center">
+            Duration:
+            <br />
+            {duration}
+          </div>
+          <div className="d-flex align-items-center">
+            Price:
+            <br />
+            {price}
+          </div>
         </div>
-        <div className="d-flex align-items-center">
-          Duration:
-          {duration}
-        </div>
-        <div className="d-flex align-items-center">
-          Price:
-          {price}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
