@@ -6,7 +6,6 @@ import {
   Autocomplete,
   DirectionsRenderer,
 } from "@react-google-maps/api";
-
 import { useState, useRef } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
 import useGeoLocation from "../hooks/useGeoLocation";
@@ -23,16 +22,21 @@ const Map = () => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
-
   const location = useGeoLocation();
+
   const mapRef = useRef();
 
   const center = location.coordinates;
+  const spot = `${center.lat}, ${center.lng}`;
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
+
+  const onChangeHandler = (event) => {
+    let spots = spot.event.target.value;
+  };
 
   if (!isLoaded) {
     return <p className="text-center">Loading...</p>;
@@ -65,7 +69,6 @@ const Map = () => {
     originRef.current.value = "";
     destinationRef.current.value = "";
   };
-
   return (
     <div>
       <div className=" customBg fixed-top container-fluid shadow pt-1 mt-2 w-75  ">
@@ -77,11 +80,14 @@ const Map = () => {
                 type="text"
                 placeholder="Origin"
                 ref={originRef}
+                value={spot}
+                onChange={(event) => onChangeHandler(event)}
               />
               <Button
                 id="button-addon2"
                 variant="warning"
                 onClick={() => {
+                  window.location.reload(true);
                   map.panTo(center);
                   map.setZoom(15);
                 }}
@@ -150,7 +156,7 @@ const Map = () => {
       {price.length === 0 ? (
         <div></div>
       ) : (
-        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom border border-dark container-fluid  pt-1   ">
+        <div className=" asd d-flex justify-content-around fw-bold bg-warning fixed-bottom border border-dark container-fluid  pt-1   ">
           <div className="d-flex align-items-center ">
             Distance:
             <br />
