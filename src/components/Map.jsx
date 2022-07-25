@@ -10,7 +10,9 @@ import { useState, useRef } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
 import useGeoLocation from "../hooks/useGeoLocation";
 import "../App.css";
-const libraries = ["places"];
+
+const libraries = ["places", "geometry"];
+
 const Map = () => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -22,25 +24,28 @@ const Map = () => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
+
   const location = useGeoLocation();
 
   const mapRef = useRef();
 
-  const center = location.coordinates;
-  const spot = `${center.lat}, ${center.lng}`;
-
   /** @type React.MutableRefObject<HTMLInputElement> */
-  const originRef = useRef();
+  const originRef = useRef(null);
+  const center = location.coordinates;
+  const handleSpotClick = () => {
+    originRef.current.value = `${center.lat}, ${center.lng}`;
+  };
+
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
-
-  const onChangeHandler = (event) => {
-    let spots = spot.event.target.value;
-  };
 
   if (!isLoaded) {
     return <p className="text-center">Loading...</p>;
   }
+  let service = ["Joe", "Tier", "Voi"];
+
+  let prices = [0.22, 0.33, 0.44];
+
   const calculateRoute = async () => {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
       return;
@@ -56,9 +61,20 @@ const Map = () => {
     setDirectionResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    setPrice(
-      1 + parseInt(results.routes[0].legs[0].duration.text) * 0.22 + "€"
-    );
+    for (let i = 0; i < prices.length; i++) {
+      setPrice(
+        1 + parseInt(results.routes[0].legs[0].duration.text) * prices[i] + "€"
+      );
+      console.log(prices[i]);
+    }
+  };
+  const handleChange = (e) => {
+    let services = [
+      { name: "Joe", price: 0.22 },
+      { name: "Tier", price: 0.32 },
+      { name: "Voi", price: 0.42 },
+    ];
+    console.log(handleChange(services));
   };
 
   const clearRoute = () => {
@@ -66,12 +82,26 @@ const Map = () => {
     setDistance("");
     setDuration("");
     setPrice("");
-    originRef.current.value = "";
     destinationRef.current.value = "";
+    originRef.current.value = "";
   };
+
   return (
     <div>
       <div className=" customBg fixed-top container-fluid shadow pt-1 mt-2 w-75  ">
+        <div className=" pb-1 d-flex justify-content-center ">
+          <Form.Select
+            placeholder="Select service"
+            aria-label="Default select example"
+            className=" border border-warning w-50 bg-light "
+          >
+            {service.map((servicess, i) => (
+              <option key={i} value={i}>
+                {servicess}
+              </option>
+            ))}
+          </Form.Select>
+        </div>
         <div className=" hstack gap-2  row rounded p-2 pt-1    ">
           <Autocomplete>
             <InputGroup>
@@ -80,16 +110,14 @@ const Map = () => {
                 type="text"
                 placeholder="Origin"
                 ref={originRef}
-                value={spot}
-                onChange={(event) => onChangeHandler(event)}
               />
               <Button
                 id="button-addon2"
                 variant="warning"
-                onClick={() => {
-                  window.location.reload(true);
+                onClick={(e) => {
                   map.panTo(center);
                   map.setZoom(15);
+                  handleSpotClick(e);
                 }}
               >
                 <FaLocationArrow />
@@ -111,17 +139,7 @@ const Map = () => {
             </InputGroup>
           </Autocomplete>
         </div>
-        <div className=" pb-1 d-flex justify-content-center ">
-          <Form.Select
-            placeholder="Select service"
-            aria-label="Default select example"
-            className=" border border-warning w-50 bg-light "
-          >
-            <option value="1">Tier</option>
-            <option value="2">Joe</option>
-            <option value="3">Voi</option>
-          </Form.Select>
-        </div>
+
         <div className="  pb-1 pt-0  d-flex justify-content-center">
           <Button
             size="l"
