@@ -38,13 +38,42 @@ const Map = () => {
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
+  const services = [
+    {
+      name: "Joe",
+      pricePerMin: 0.2,
+    },
+    {
+      name: "Tier",
+      pricePerMin: 0.22,
+    },
+    {
+      name: "Voi",
+      pricePerMin: 0.22,
+    },
+    {
+      name: "Lime",
+      pricePerMin: 0.22,
+    },
+    {
+      name: "Dott",
+      pricePerMin: 0.19,
+    },
+    {
+      name: "Bird",
+      pricePerMin: 0.19,
+    },
+  ];
+
+  let servicePrices = [];
+  services.map((e) => {
+    servicePrices.push(e.pricePerMin);
+  });
+  const [selected, setSelected] = useState(...servicePrices);
 
   if (!isLoaded) {
     return <p className="text-center">Loading...</p>;
   }
-  let service = ["Joe", "Tier", "Voi"];
-
-  let prices = [0.22, 0.33, 0.44];
 
   const calculateRoute = async () => {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
@@ -61,20 +90,9 @@ const Map = () => {
     setDirectionResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    for (let i = 0; i < prices.length; i++) {
-      setPrice(
-        1 + parseInt(results.routes[0].legs[0].duration.text) * prices[i] + "€"
-      );
-      console.log(prices[i]);
-    }
-  };
-  const handleChange = (e) => {
-    let services = [
-      { name: "Joe", price: 0.22 },
-      { name: "Tier", price: 0.32 },
-      { name: "Voi", price: 0.42 },
-    ];
-    console.log(handleChange(services));
+    setPrice(
+      1 + parseInt(results.routes[0].legs[0].duration.text) * selected + "€"
+    );
   };
 
   const clearRoute = () => {
@@ -89,19 +107,6 @@ const Map = () => {
   return (
     <div>
       <div className=" customBg fixed-top container-fluid shadow pt-1 mt-2 w-75  ">
-        <div className=" pb-1 d-flex justify-content-center ">
-          <Form.Select
-            placeholder="Select service"
-            aria-label="Default select example"
-            className=" border border-warning w-50 bg-light "
-          >
-            {service.map((servicess, i) => (
-              <option key={i} value={i}>
-                {servicess}
-              </option>
-            ))}
-          </Form.Select>
-        </div>
         <div className=" hstack gap-2  row rounded p-2 pt-1    ">
           <Autocomplete>
             <InputGroup>
@@ -116,7 +121,7 @@ const Map = () => {
                 variant="warning"
                 onClick={(e) => {
                   map.panTo(center);
-                  map.setZoom(15);
+                  map.setZoom(17);
                   handleSpotClick(e);
                 }}
               >
@@ -139,7 +144,23 @@ const Map = () => {
             </InputGroup>
           </Autocomplete>
         </div>
-
+        <div className=" pb-1 d-flex justify-content-center ">
+          <Form.Select
+            placeholder="Select service"
+            aria-label="Default select example"
+            className=" border border-warning w-50 bg-light "
+            onChange={(e) => setSelected(e.target.value)}
+          >
+            {services.map((service) => (
+              <option
+                key={`${service.pricePerMin},${service.name}`}
+                value={service.pricePerMin}
+              >
+                {service.name} ({service.pricePerMin}€/min)
+              </option>
+            ))}
+          </Form.Select>
+        </div>
         <div className="  pb-1 pt-0  d-flex justify-content-center">
           <Button
             size="l"
@@ -174,7 +195,7 @@ const Map = () => {
       {price.length === 0 ? (
         <div></div>
       ) : (
-        <div className=" asd d-flex justify-content-around fw-bold bg-warning fixed-bottom border border-dark container-fluid  pt-1   ">
+        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom border border-dark container-fluid  pt-1   ">
           <div className="d-flex align-items-center ">
             Distance:
             <br />
