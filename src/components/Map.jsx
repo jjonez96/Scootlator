@@ -1,4 +1,5 @@
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
+import { MdElectricScooter } from "react-icons/md";
 import {
   useJsApiLoader,
   GoogleMap,
@@ -31,6 +32,7 @@ const Map = () => {
 
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef(null);
+  const defaultLocation = { lat: 62.24, lng: 25.75 };
   const center = location.coordinates;
   const handleSpotClick = () => {
     originRef.current.value = `${center.lat}, ${center.lng}`;
@@ -67,12 +69,22 @@ const Map = () => {
 
   let servicePrices = [];
   services.map((e) => {
-    servicePrices.push(e.pricePerMin);
+    return servicePrices.push(e.pricePerMin);
   });
   const [selected, setSelected] = useState(...servicePrices);
 
   if (!isLoaded) {
-    return <p className="text-center">Loading...</p>;
+    return (
+      <div className="overlay">
+        <div className="d-flex justify-content-center">
+          <div className="spinner-grow spinner-grow-sm text-light opacity-25">
+            <p className="text-warning">
+              <MdElectricScooter size={60} />
+            </p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const calculateRoute = async () => {
@@ -106,14 +118,14 @@ const Map = () => {
 
   return (
     <div>
-      <div className=" customBg fixed-top container-fluid shadow pt-1 mt-2 w-75  ">
+      <div className=" customBg fixed-top container shadow mt-1  ">
         <div className=" hstack gap-2  row rounded p-2 pt-1    ">
           <Autocomplete>
             <InputGroup>
               <input
                 className=" form-control me-auto border border-warning "
                 type="text"
-                placeholder="Origin"
+                placeholder="Lähtö"
                 ref={originRef}
               />
               <Button
@@ -135,7 +147,7 @@ const Map = () => {
               <input
                 className="form-control me-auto border border-warning bg-light  "
                 type="text"
-                placeholder="Destination"
+                placeholder="Määränpää"
                 ref={destinationRef}
               />
               <Button onClick={clearRoute} variant="warning">
@@ -146,9 +158,8 @@ const Map = () => {
         </div>
         <div className=" pb-1 d-flex justify-content-center ">
           <Form.Select
-            placeholder="Select service"
             aria-label="Default select example"
-            className=" border border-warning w-50 bg-light "
+            className=" border border-warning w-75 bg-light "
             onChange={(e) => setSelected(e.target.value)}
           >
             {services.map((service) => (
@@ -161,7 +172,8 @@ const Map = () => {
             ))}
           </Form.Select>
         </div>
-        <div className="  pb-1 pt-0  d-flex justify-content-center">
+
+        <div className="  pb-1 pt-1  d-flex justify-content-center">
           <Button
             size="l"
             variant="warning"
@@ -169,12 +181,12 @@ const Map = () => {
             className="w-50"
             onClick={calculateRoute}
           >
-            Calculate
+            Laske
           </Button>
         </div>
       </div>
       <GoogleMap
-        center={center}
+        center={defaultLocation}
         zoom={15}
         ref={mapRef}
         mapContainerClassName="map-container"
@@ -195,21 +207,19 @@ const Map = () => {
       {price.length === 0 ? (
         <div></div>
       ) : (
-        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom border border-dark container-fluid  pt-1   ">
-          <div className="d-flex align-items-center ">
-            Distance:
+        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom shadow container rounded  rounded pt-1  ">
+          <div className="d-flex align-items-center mb-1">
+            Pituus:
             <br />
             {distance}
           </div>
-          <div className="d-flex align-items-center">
-            Duration:
-            <br />
-            {duration}
+          <div className="d-flex align-items-center mb-1">
+            Kesto:
+            <br />~{duration}
           </div>
-          <div className="d-flex align-items-center">
-            Price:
-            <br />
-            {price}
+          <div className="d-flex align-items-center mb-1">
+            Hinta:
+            <br />~{price}
           </div>
         </div>
       )}
