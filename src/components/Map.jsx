@@ -11,9 +11,9 @@ import { useState, useRef } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
 import useGeoLocation from "../hooks/useGeoLocation";
 import "../App.css";
+const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const libraries = ["places", "geometry"];
-
 const Map = () => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -35,11 +35,27 @@ const Map = () => {
   const destinationRef = useRef();
 
   const center = location.coordinates;
-  const handleOriginClick = () => {
-    originRef.current.value = `${center.lat}, ${center.lng}`;
-  };
+
   const handleDestinationClick = (ev) => {
-    destinationRef.current.value = `${ev.latLng.lat()}, ${ev.latLng.lng()}`;
+    const url = `${geocodeJson}?key=${
+      process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    }&latlng=${ev.latLng.lat()}, ${ev.latLng.lng()}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((location) => {
+        const place = location.results[0];
+        destinationRef.current.value = `${place.formatted_address}`;
+      });
+  };
+
+  const handleOriginClick = () => {
+    const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${center.lat},${center.lng}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((location) => {
+        const place = location.results[0];
+        originRef.current.value = `${place.formatted_address}`;
+      });
   };
 
   const services = [
@@ -176,7 +192,7 @@ const Map = () => {
           </Form.Select>
         </div>
 
-        <div className="  pb-1 pt-1  d-flex justify-content-center">
+        <div className="pb-1 pt-1  d-flex justify-content-center">
           <Button
             size="l"
             variant="warning"
@@ -190,7 +206,7 @@ const Map = () => {
       </div>
       <GoogleMap
         center={center}
-        zoom={15}
+        zoom={13}
         ref={mapRef}
         onClick={(ev) => {
           handleDestinationClick(ev);
@@ -198,6 +214,7 @@ const Map = () => {
         mapContainerClassName="map-container"
         options={{
           zoomControl: false,
+
           streetViewControl: false,
           mapTypeControl: false,
           fullscreenControl: false,
