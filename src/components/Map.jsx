@@ -29,26 +29,25 @@ const Map = () => {
   const location = useGeoLocation();
 
   const mapRef = useRef();
-
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef(null);
-  const defaultLocation = { lat: 62.24, lng: 25.75 };
-  const center = location.coordinates;
-  const handleSpotClick = () => {
-    originRef.current.value = `${center.lat}, ${center.lng}`;
-  };
-
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
+
+  const center = location.coordinates;
+  const handleOriginClick = () => {
+    originRef.current.value = `${center.lat}, ${center.lng}`;
+  };
+  const handleDestinationClick = (ev) => {
+    destinationRef.current.value = `${ev.latLng.lat()}, ${ev.latLng.lng()}`;
+  };
+
   const services = [
-    {
-      name: "Joe",
-      pricePerMin: 0.2,
-    },
     {
       name: "Tier",
       pricePerMin: 0.22,
     },
+
     {
       name: "Voi",
       pricePerMin: 0.22,
@@ -56,6 +55,10 @@ const Map = () => {
     {
       name: "Lime",
       pricePerMin: 0.22,
+    },
+    {
+      name: "Joe",
+      pricePerMin: 0.2,
     },
     {
       name: "Dott",
@@ -69,7 +72,7 @@ const Map = () => {
 
   let servicePrices = [];
   services.map((e) => {
-    return servicePrices.push(e.pricePerMin);
+    return servicePrices.push(e.pricePerMin.toFixed(2));
   });
   const [selected, setSelected] = useState(...servicePrices);
 
@@ -133,8 +136,8 @@ const Map = () => {
                 variant="warning"
                 onClick={(e) => {
                   map.panTo(center);
-                  map.setZoom(17);
-                  handleSpotClick(e);
+                  map.setZoom(15);
+                  handleOriginClick(e);
                 }}
               >
                 <FaLocationArrow />
@@ -150,7 +153,7 @@ const Map = () => {
                 placeholder="Määränpää"
                 ref={destinationRef}
               />
-              <Button onClick={clearRoute} variant="warning">
+              <Button variant="warning" onClick={clearRoute}>
                 <FaTimes />
               </Button>
             </InputGroup>
@@ -186,9 +189,12 @@ const Map = () => {
         </div>
       </div>
       <GoogleMap
-        center={defaultLocation}
+        center={center}
         zoom={15}
         ref={mapRef}
+        onClick={(ev) => {
+          handleDestinationClick(ev);
+        }}
         mapContainerClassName="map-container"
         options={{
           zoomControl: false,
@@ -205,7 +211,7 @@ const Map = () => {
         )}
       </GoogleMap>
       {price.length === 0 ? (
-        <div></div>
+        <></>
       ) : (
         <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom shadow container rounded  rounded pt-1  ">
           <div className="d-flex align-items-center mb-1">
