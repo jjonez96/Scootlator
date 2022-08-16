@@ -1,31 +1,21 @@
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
-import { MdElectricScooter } from "react-icons/md";
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-  Autocomplete,
-  DirectionsRenderer,
-} from "@react-google-maps/api";
-import { useState, useRef } from "react";
+import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
+import { useState, useRef, useEffect } from "react";
 import { Button, InputGroup, Form } from "react-bootstrap";
 import useGeoLocation from "../hooks/useGeoLocation";
+import useAutoComplete from "../hooks/useAutoComplete";
 import "../App.css";
+import { MdElectricScooter } from "react-icons/md";
+import CalculationResults from "./CalculationResults";
+
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
-const libraries = ["places", "geometry"];
 const Map = () => {
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries,
-  });
-
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
-
   const location = useGeoLocation();
 
   const mapRef = useRef();
@@ -33,8 +23,41 @@ const Map = () => {
   const originRef = useRef(null);
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
-
+  const autocompleteRef = useRef();
   const center = location.coordinates;
+  const defaultLocation = { lat: 62.24, lng: 25.75 };
+  const googleMapsApi = useAutoComplete();
+
+  useEffect(() => {
+    if (googleMapsApi) {
+      autocompleteRef.current = new googleMapsApi.places.Autocomplete(
+        destinationRef.current,
+        {
+          componentRestrictions: { country: "fi" },
+          fields: ["place_id", "geometry", "formatted_address", "name"],
+          strictBounds: false,
+        }
+      );
+    }
+  }, [googleMapsApi]);
+
+  useEffect(() => {
+    if (googleMapsApi) {
+      autocompleteRef.current = new googleMapsApi.places.Autocomplete(
+        originRef.current,
+        {
+          componentRestrictions: { country: "fi" },
+          fields: ["place_id", "geometry", "formatted_address", "name"],
+          strictBounds: false,
+        }
+      );
+    }
+  }, [googleMapsApi]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    return false;
+  };
 
   const handleDestinationClick = (ev) => {
     const url = `${geocodeJson}?key=${
@@ -69,6 +92,10 @@ const Map = () => {
       pricePerMin: 0.22,
     },
     {
+      name: "Ryde",
+      pricePerMin: 0.22,
+    },
+    {
       name: "Lime",
       pricePerMin: 0.22,
     },
@@ -92,20 +119,6 @@ const Map = () => {
   });
   const [selected, setSelected] = useState(...servicePrices);
 
-  if (!isLoaded) {
-    return (
-      <div className="overlay">
-        <div className="d-flex justify-content-center">
-          <div className="spinner-grow spinner-grow-sm text-light opacity-25">
-            <p className="text-warning">
-              <MdElectricScooter size={60} />
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const calculateRoute = async () => {
     if (originRef.current.value === "" || destinationRef.current.value === "") {
       return;
@@ -126,6 +139,20 @@ const Map = () => {
     );
   };
 
+  if (!googleMapsApi) {
+    return (
+      <div className="overlay">
+        <div className="d-flex justify-content-center">
+          <div className="spinner-grow spinner-grow-sm text-light opacity-25">
+            <p className="text-warning">
+              <MdElectricScooter size={60} />
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const clearRoute = () => {
     setDirectionResponse(null);
     setDistance("");
@@ -139,7 +166,7 @@ const Map = () => {
     <div>
       <div className=" customBg fixed-top container shadow mt-1  ">
         <div className=" hstack gap-2  row rounded p-2 pt-1    ">
-          <Autocomplete>
+          <form onSubmit={handleSubmit}>
             <InputGroup>
               <input
                 className=" form-control me-auto border border-warning "
@@ -159,9 +186,8 @@ const Map = () => {
                 <FaLocationArrow />
               </Button>
             </InputGroup>
-          </Autocomplete>
-
-          <Autocomplete>
+          </form>
+          <form onSubmit={handleSubmit}>
             <InputGroup>
               <input
                 className="form-control me-auto border border-warning bg-light  "
@@ -173,7 +199,7 @@ const Map = () => {
                 <FaTimes />
               </Button>
             </InputGroup>
-          </Autocomplete>
+          </form>
         </div>
         <div className=" pb-1 d-flex justify-content-center ">
           <Form.Select
@@ -205,8 +231,8 @@ const Map = () => {
         </div>
       </div>
       <GoogleMap
-        center={center}
-        zoom={13}
+        center={defaultLocation}
+        zoom={7}
         ref={mapRef}
         onClick={(ev) => {
           handleDestinationClick(ev);
@@ -227,25 +253,11 @@ const Map = () => {
           <DirectionsRenderer directions={directionsResponse} />
         )}
       </GoogleMap>
-      {price.length === 0 ? (
-        <></>
-      ) : (
-        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom shadow container rounded  rounded pt-1  ">
-          <div className="d-flex align-items-center mb-1">
-            Pituus:
-            <br />
-            {distance}
-          </div>
-          <div className="d-flex align-items-center mb-1">
-            Kesto:
-            <br />~{duration}
-          </div>
-          <div className="d-flex align-items-center mb-1">
-            Hinta:
-            <br />~{price}
-          </div>
-        </div>
-      )}
+      <CalculationResults
+        duration={duration}
+        price={price}
+        distance={distance}
+      />
     </div>
   );
 };
