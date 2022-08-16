@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Tier",
+    "pricePerMin": 0.22
+  },
+
+  {
+    "name": "Voi",
+    "pricePerMin": 0.22
+  },
+  {
+    "name": "Ryde",
+    "pricePerMin": 0.22
+  },
+  {
+    "name": "Lime",
+    "pricePerMin": 0.22
+  },
+  {
+    "name": "Joe",
+    "pricePerMin": 0.2
+  },
+  {
+    "name": "Dott",
+    "pricePerMin": 0.19
+  },
+  {
+    "name": "Bird",
+    "pricePerMin": 0.19
+  }
+]
