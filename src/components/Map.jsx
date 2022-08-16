@@ -12,6 +12,7 @@ const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = () => {
   /** States */
+  /** testi */
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionResponse] = useState(null);
   const [distance, setDistance] = useState("");
