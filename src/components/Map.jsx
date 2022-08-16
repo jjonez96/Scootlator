@@ -1,36 +1,40 @@
-import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
 import { useState, useRef, useEffect } from "react";
-import { Button, InputGroup, Form } from "react-bootstrap";
 import useGeoLocation from "../hooks/useGeoLocation";
 import useAutoComplete from "../hooks/useAutoComplete";
 import "../App.css";
-import { MdElectricScooter } from "react-icons/md";
 import CalculationResults from "./CalculationResults";
+import services from "../services.json";
+import Forms from "./Forms";
+import LoadingScreen from "./LoadingScreen";
 
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = () => {
+  /** States */
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
-  const location = useGeoLocation();
 
+  /** Custom hooks */
+  const location = useGeoLocation();
+  const autocomplete = useAutoComplete();
+
+  /** Refs */
   const mapRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef(null);
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
   const autocompleteRef = useRef();
+
   const center = location.coordinates;
-  const defaultLocation = { lat: 62.24, lng: 25.75 };
-  const googleMapsApi = useAutoComplete();
 
   useEffect(() => {
-    if (googleMapsApi) {
-      autocompleteRef.current = new googleMapsApi.places.Autocomplete(
+    if (autocomplete) {
+      autocompleteRef.current = new autocomplete.places.Autocomplete(
         destinationRef.current,
         {
           componentRestrictions: { country: "fi" },
@@ -39,11 +43,11 @@ const Map = () => {
         }
       );
     }
-  }, [googleMapsApi]);
+  }, [autocomplete]);
 
   useEffect(() => {
-    if (googleMapsApi) {
-      autocompleteRef.current = new googleMapsApi.places.Autocomplete(
+    if (autocomplete) {
+      autocompleteRef.current = new autocomplete.places.Autocomplete(
         originRef.current,
         {
           componentRestrictions: { country: "fi" },
@@ -52,7 +56,7 @@ const Map = () => {
         }
       );
     }
-  }, [googleMapsApi]);
+  }, [autocomplete]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,38 +85,6 @@ const Map = () => {
       });
   };
 
-  const services = [
-    {
-      name: "Tier",
-      pricePerMin: 0.22,
-    },
-
-    {
-      name: "Voi",
-      pricePerMin: 0.22,
-    },
-    {
-      name: "Ryde",
-      pricePerMin: 0.22,
-    },
-    {
-      name: "Lime",
-      pricePerMin: 0.22,
-    },
-    {
-      name: "Joe",
-      pricePerMin: 0.2,
-    },
-    {
-      name: "Dott",
-      pricePerMin: 0.19,
-    },
-    {
-      name: "Bird",
-      pricePerMin: 0.19,
-    },
-  ];
-
   let servicePrices = [];
   services.map((e) => {
     return servicePrices.push(e.pricePerMin.toFixed(2));
@@ -139,18 +111,8 @@ const Map = () => {
     );
   };
 
-  if (!googleMapsApi) {
-    return (
-      <div className="overlay">
-        <div className="d-flex justify-content-center">
-          <div className="spinner-grow spinner-grow-sm text-light opacity-25">
-            <p className="text-warning">
-              <MdElectricScooter size={60} />
-            </p>
-          </div>
-        </div>
-      </div>
-    );
+  if (!autocomplete) {
+    return <LoadingScreen />;
   }
 
   const clearRoute = () => {
@@ -165,73 +127,22 @@ const Map = () => {
   return (
     <div>
       <div className=" customBg fixed-top container shadow mt-1  ">
-        <div className=" hstack gap-2  row rounded p-2 pt-1    ">
-          <form onSubmit={handleSubmit}>
-            <InputGroup>
-              <input
-                className=" form-control me-auto border border-warning "
-                type="text"
-                placeholder="Lähtö"
-                ref={originRef}
-              />
-              <Button
-                id="button-addon2"
-                variant="warning"
-                onClick={(e) => {
-                  map.panTo(center);
-                  map.setZoom(15);
-                  handleOriginClick(e);
-                }}
-              >
-                <FaLocationArrow />
-              </Button>
-            </InputGroup>
-          </form>
-          <form onSubmit={handleSubmit}>
-            <InputGroup>
-              <input
-                className="form-control me-auto border border-warning bg-light  "
-                type="text"
-                placeholder="Määränpää"
-                ref={destinationRef}
-              />
-              <Button variant="warning" onClick={clearRoute}>
-                <FaTimes />
-              </Button>
-            </InputGroup>
-          </form>
-        </div>
-        <div className=" pb-1 d-flex justify-content-center ">
-          <Form.Select
-            aria-label="Default select example"
-            className=" border border-warning w-75 bg-light "
-            onChange={(e) => setSelected(e.target.value)}
-          >
-            {services.map((service) => (
-              <option
-                key={`${service.pricePerMin},${service.name}`}
-                value={service.pricePerMin}
-              >
-                {service.name} ({service.pricePerMin}€/min)
-              </option>
-            ))}
-          </Form.Select>
-        </div>
-
-        <div className="pb-1 pt-1  d-flex justify-content-center">
-          <Button
-            size="l"
-            variant="warning"
-            type="submit"
-            className="w-50"
-            onClick={calculateRoute}
-          >
-            Laske
-          </Button>
-        </div>
+        <Forms
+          setSelected={setSelected}
+          services={services}
+          originRef={originRef}
+          destinationRef={destinationRef}
+          map={map}
+          handleDestinationClick={handleDestinationClick}
+          handleOriginClick={handleOriginClick}
+          handleSubmit={handleSubmit}
+          clearRoute={clearRoute}
+          center={center}
+          calculateRoute={calculateRoute}
+        />
       </div>
       <GoogleMap
-        center={defaultLocation}
+        center={center}
         zoom={7}
         ref={mapRef}
         onClick={(ev) => {
