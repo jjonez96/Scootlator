@@ -6,8 +6,8 @@ const CalculationResults = (props) => {
       {props.price.length === 0 ? (
         <></>
       ) : (
-        <div className=" d-flex justify-content-around fw-bold bg-warning fixed-bottom shadow container rounded  rounded pt-1  ">
-          <div className="d-flex align-items-center mb-1">
+        <div className=" customBg fw-bold bg-info container fixed-bottom  d-flex justify-content-around shadow mt-1  ">
+          <div className="d-flex align-items-center mb-1  ">
             Pituus:
             <br />
             {props.distance}
