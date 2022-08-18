@@ -31,7 +31,7 @@ a {
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  width: 50% !important;
+  width: 45% !important;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 @media only screen and (max-width: 600px) {

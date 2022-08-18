@@ -24,12 +24,15 @@ const useGeoLocation = () => {
       },
     });
   };
-
   useEffect(() => {
-    if ("geolocation" in navigator) {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
     }
-
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
   }, []);
 
   return location;
