@@ -1,5 +1,10 @@
-import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
-import { useState, useRef, useEffect } from "react";
+import {
+  GoogleMap,
+  Marker,
+  DirectionsRenderer,
+  useJsApiLoader,
+} from "@react-google-maps/api";
+import { useState, useRef } from "react";
 import useGeoLocation from "../hooks/useGeoLocation";
 import "../App.css";
 import CalculationResults from "./CalculationResults";
@@ -11,16 +16,21 @@ const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = () => {
   /** States */
-  /** testi */
+
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
+  const [libraries] = useState(["places"]);
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
 
   /** Custom hooks */
   const location = useGeoLocation();
-  let autocomplete = window.google.maps;
 
   /** Refs */
   const mapRef = useRef();
@@ -28,31 +38,6 @@ const Map = () => {
   const originRef = useRef(null);
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
-  const autocompleteRef = useRef();
-
-  const defaultLocation = { lat: 62.24, lng: 25.75 };
-  useEffect(() => {
-    if (autocomplete) {
-      let settings = {
-        componentRestrictions: { country: "fi" },
-        fields: ["place_id", "geometry", "formatted_address", "name"],
-        strictBounds: false,
-      };
-      autocompleteRef.current = new autocomplete.places.Autocomplete(
-        originRef.current,
-        settings
-      );
-      autocompleteRef.current = new autocomplete.places.Autocomplete(
-        destinationRef.current,
-        settings
-      );
-    }
-  }, [autocomplete]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    return false;
-  };
 
   const handleDestinationClick = (ev) => {
     const url = `${geocodeJson}?key=${
@@ -65,8 +50,8 @@ const Map = () => {
         destinationRef.current.value = `${place.formatted_address}`;
       });
   };
-
   const center = location.coordinates;
+
   const handleOriginClick = () => {
     const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${center.lat},${center.lng}`;
     fetch(url)
@@ -79,7 +64,7 @@ const Map = () => {
 
   let servicePrices = [];
   services.map((e) => {
-    return servicePrices.push(e.pricePerMin.toFixed(2));
+    return servicePrices.push(e.pricePerMin);
   });
 
   const [selected, setSelected] = useState(...servicePrices);
@@ -104,7 +89,7 @@ const Map = () => {
     );
   };
 
-  if (!autocomplete) {
+  if (!isLoaded) {
     return <LoadingScreen />;
   }
 
@@ -128,14 +113,14 @@ const Map = () => {
           map={map}
           handleDestinationClick={handleDestinationClick}
           handleOriginClick={handleOriginClick}
-          handleSubmit={handleSubmit}
           clearRoute={clearRoute}
           center={center}
           calculateRoute={calculateRoute}
         />
       </div>
+
       <GoogleMap
-        center={defaultLocation}
+        center={center}
         zoom={7}
         ref={mapRef}
         onClick={(ev) => {
