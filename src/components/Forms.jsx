@@ -3,10 +3,10 @@ import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { useRef, useEffect } from "react";
 
 const Forms = (props) => {
+  const autocomplete = window.google.maps;
   const autocompleteRef = useRef();
   const originRef = props.originRef;
   const destinationRef = props.destinationRef;
-  const autocomplete = window.google.maps;
   const center = props.center;
 
   const defaultBounds = {
@@ -42,7 +42,7 @@ const Forms = (props) => {
   };
 
   return (
-    <div className=" hstack gap-1 row rounded pt-1 pb-1   ">
+    <div className=" hstack gap-2 row rounded pt-1 pb-1   ">
       <form onSubmit={handleSubmit} className="was-validated">
         <InputGroup>
           <input
@@ -85,7 +85,7 @@ const Forms = (props) => {
               key={`${service.pricePerMin},${service.name}`}
               value={service.pricePerMin}
             >
-              {service.name} ({service.pricePerMin}€/min)
+              {service.name} {service.pricePerMin}€/min
             </option>
           ))}
         </Form.Select>

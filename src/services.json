@@ -1,30 +1,30 @@
 [
   {
-    "name": "Tier",
+    "name": "Aloitus 1€",
+    "pricePerMin": 0.25
+  },
+  {
+    "name": "Aloitus 1€",
+    "pricePerMin": 0.24
+  },
+  {
+    "name": "Aloitus 1€",
+    "pricePerMin": 0.23
+  },
+  {
+    "name": "Aloitus 1€",
     "pricePerMin": 0.22
   },
   {
-    "name": "Voi",
-    "pricePerMin": 0.22
+    "name": "Aloitus 1€",
+    "pricePerMin": 0.21
   },
   {
-    "name": "Ryde",
-    "pricePerMin": 0.22
-  },
-  {
-    "name": "Lime",
-    "pricePerMin": 0.22
-  },
-  {
-    "name": "Joe",
+    "name": "Aloitus 1€",
     "pricePerMin": 0.2
   },
   {
-    "name": "Dott",
-    "pricePerMin": 0.19
-  },
-  {
-    "name": "Bird",
+    "name": "Aloitus 1€",
     "pricePerMin": 0.19
   }
 ]

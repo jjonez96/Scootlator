@@ -4,11 +4,11 @@ import {
   DirectionsRenderer,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import useGeoLocation from "../hooks/useGeoLocation";
 import "../App.css";
 import CalculationResults from "./CalculationResults";
-import services from "../services.json";
+
 import Forms from "./Forms";
 import LoadingScreen from "./LoadingScreen";
 
@@ -16,28 +16,43 @@ const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = () => {
   /** States */
-
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionsResponse, setDirectionResponse] = useState(null);
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [libraries] = useState(["places"]);
+  const [tierVaasa, setTierVaasa] = useState("");
 
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    libraries,
-  });
+  useEffect(() => {
+    fetch("http://localhost:9000/tierAPI")
+      .then((res) => res.text())
+      .then((res) => setTierVaasa(res));
+  }, []);
 
-  /** Custom hooks */
+  const services = [
+    {
+      name: "Voi Vaasa",
+      pricePerMin: 0.25,
+    },
+    {
+      name: "Tier Vaasa",
+      pricePerMin: tierVaasa,
+    },
+  ];
+
   const location = useGeoLocation();
-
   /** Refs */
   const mapRef = useRef();
   /** @type React.MutableRefObject<HTMLInputElement> */
   const originRef = useRef(null);
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
 
   const handleDestinationClick = (ev) => {
     const url = `${geocodeJson}?key=${
@@ -129,7 +144,6 @@ const Map = () => {
         mapContainerClassName="map-container"
         options={{
           zoomControl: false,
-
           streetViewControl: false,
           mapTypeControl: false,
           fullscreenControl: false,
