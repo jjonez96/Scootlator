@@ -1,6 +1,7 @@
 import { Form, InputGroup, Button } from "react-bootstrap";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { useRef, useEffect } from "react";
+const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Forms = (props) => {
   const autocomplete = window.google.maps;
@@ -41,28 +42,34 @@ const Forms = (props) => {
     return false;
   };
 
+  const handleOriginClick = () => {
+    const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${center.lat},${center.lng}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((location) => {
+        const place = location.results[0];
+        originRef.current.value = `${place.formatted_address}`;
+      });
+  };
+
   return (
-    <div className=" hstack gap-2 row rounded pt-1 pb-1   ">
-      <form onSubmit={handleSubmit} className="was-validated">
+    <div className=" hstack gap-2 row rounded pt-1 pb-1    ">
+      <form onSubmit={handleSubmit}>
         <InputGroup>
           <input
-            className=" form-control rounded"
+            className="form-control rounded border-info"
             type="text"
             placeholder="Lähtö"
             ref={originRef}
-            required
           />
-          <Button
-            variant="info"
-            className="mx-1 rounded "
+          <FaLocationArrow
+            className="icon "
             onClick={(e) => {
               props.map.panTo(center);
               props.map.setZoom(15);
-              props.handleOriginClick(e);
+              handleOriginClick(e);
             }}
-          >
-            <FaLocationArrow />
-          </Button>
+          />
         </InputGroup>
       </form>
       <form onSubmit={handleSubmit} className="was-validated">
@@ -74,12 +81,17 @@ const Forms = (props) => {
           required
         />
       </form>
-      <div className=" d-flex justify-content-center ">
+      <div className=" d-flex justify-content-center was-validated ">
         <Form.Select
           aria-label="Default select example"
-          className=" border border-info "
+          className=" form-control "
+          ref={props.selectInputRef}
           onChange={(e) => props.setSelected(e.target.value)}
+          required
         >
+          <option disabled={false} value="">
+            -- Valitse palvelu --
+          </option>
           {props.services.map((service) => (
             <option
               key={`${service.pricePerMin},${service.name}`}
@@ -106,7 +118,6 @@ const Forms = (props) => {
         >
           Laske
         </Button>
-        <b className="text-danger m-2">{props.status}</b>
       </div>
     </div>
   );

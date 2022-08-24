@@ -64,5 +64,22 @@ a {
   height: 100%;
   z-index: 1000;
   top: 47%;
-  left: 0px;
+  right: 50px;
+}
+
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  height: 20px;
+  color: rgb(83, 83, 83);
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1051 !important;
+}
+.icon:hover,
+:focus {
+  color: #000;
 }
