@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 const usePrices = () => {
-  const [tier, setTier] = useState(0);
+  const [tier, setTier] = useState(0.24);
 
   /*Tier pricePerMin api*/
+
   useEffect(() => {
     fetch("http://localhost:7000")
       .then((res) => res.text())

@@ -53,38 +53,37 @@ const Forms = (props) => {
   };
 
   return (
-    <div className=" hstack gap-2 row rounded pt-1 pb-1    ">
-      <form onSubmit={handleSubmit}>
-        <InputGroup>
-          <input
-            className="form-control rounded border-info"
-            type="text"
-            placeholder="Lähtö"
-            ref={originRef}
-          />
-          <FaLocationArrow
-            className="icon "
-            onClick={(e) => {
-              props.map.panTo(center);
-              props.map.setZoom(15);
-              handleOriginClick(e);
-            }}
-          />
-        </InputGroup>
-      </form>
-      <form onSubmit={handleSubmit} className="was-validated">
+    <div className="hstack gap-2 row pt-1 pb-1">
+      <h5 className="text-center mt-1 mb-1">Laske scoot matkasi!</h5>
+      <form onSubmit={handleSubmit} className=" form-floating ">
         <input
-          className="form-control "
+          className="form-control rounded bg-light border-info input-height"
           type="text"
-          placeholder="Määränpää"
+          ref={originRef}
+        />
+        <label htmlFor="form-floating">Lähtö</label>
+        <FaLocationArrow
+          className="icon"
+          onClick={(e) => {
+            props.map.panTo(center);
+            props.map.setZoom(15);
+            handleOriginClick(e);
+          }}
+        />
+      </form>
+      <form onSubmit={handleSubmit} className="was-validated form-floating">
+        <input
+          className="form-control input-height"
+          type="text"
           ref={destinationRef}
           required
         />
+        <label htmlFor="form-floating">Määränpää</label>
       </form>
-      <div className=" d-flex justify-content-center was-validated ">
+      <div className="d-flex justify-content-center was-validated inputs">
         <Form.Select
           aria-label="Default select example"
-          className=" form-control "
+          className="form-control bg-light"
           ref={props.selectInputRef}
           onChange={(e) => props.setSelected(e.target.value)}
           required

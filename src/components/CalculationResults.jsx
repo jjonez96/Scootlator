@@ -7,20 +7,20 @@ const CalculationResults = (props) => {
       {price === "" ? (
         <></>
       ) : (
-        <div className=" customBg fw-bold bg-info container fixed-bottom  d-flex justify-content-around shadow mt-1  ">
-          <div className="d-flex align-items-center m-1  ">
+        <div className="Bg fw-bold bg-info container fixed-bottom  d-flex justify-content-around shadow mt-1 ">
+          <div className="m-1  ">
             Pituus:
             <br />
             {props.distance}
           </div>
-          <div className="d-flex align-items-center m-1">
+          <div className="m-1">
             Kesto:
             <br />~{props.duration}
           </div>
           {price === "NaN€" ? (
-            <p className="d-flex align-items-center m-1">Palvelua ei valittu</p>
+            <p className="m-1">Palvelua ei valittu</p>
           ) : (
-            <div className="d-flex align-items-center m-1">
+            <div className="m-1">
               Hinta:
               <br />~{price}
             </div>
