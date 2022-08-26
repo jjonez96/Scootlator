@@ -35,8 +35,8 @@ const App = () => {
   services.map((e) => {
     return servicePrices.push(e.pricePerMin);
   });
-  const [selected, setSelected] = useState(...services);
 
+  const [selected, setSelected] = useState(...services);
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
     const directionService = new google.maps.DirectionsService();
@@ -75,7 +75,7 @@ const App = () => {
 
   return (
     <>
-      <div className=" customBg fixed-top container shadow mt-1  ">
+      <div className=" customBg fixed-top container shadow">
         <Forms
           setSelected={setSelected}
           services={services}
