@@ -5,7 +5,7 @@ const LoadingScreen = () => {
   return (
     <div className="overlay">
       <div className="d-flex justify-content-center">
-        <div className="spinner-grow spinner-grow-sm text-light ">
+        <div className="spinner-grow spinner-grow-sm text-light">
           <p className="text-warning">
             <MdElectricScooter size={100} />
           </p>

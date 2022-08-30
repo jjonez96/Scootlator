@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 const useGeoLocation = () => {
   const [location, setLocation] = useState({
     loaded: false,
@@ -24,6 +25,7 @@ const useGeoLocation = () => {
       },
     });
   };
+
   useEffect(() => {
     const options = {
       enableHighAccuracy: true,

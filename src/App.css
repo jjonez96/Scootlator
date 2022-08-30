@@ -16,7 +16,12 @@ a {
 * {
   box-sizing: border-box;
 }
-
+.d {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  bottom: 40px;
+}
 .btn-outline-primary {
   color: #000;
 }
@@ -32,10 +37,13 @@ a {
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   width: 45% !important;
+  transform: translate(20px);
+  scroll-behavior: smooth;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 .Bg {
+  width: 45% !important;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -43,6 +51,11 @@ a {
 
 @media only screen and (max-width: 600px) {
   .customBg {
+    width: 100% !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .Bg {
     width: 100% !important;
   }
 }

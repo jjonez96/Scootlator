@@ -37,6 +37,7 @@ const App = () => {
   });
 
   const [selected, setSelected] = useState(...services);
+
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
     const directionService = new google.maps.DirectionsService();
@@ -46,11 +47,12 @@ const App = () => {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.BICYCLING,
     });
+
     setDirectionResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
     setPrice(
-      1 + parseInt(results.routes[0].legs[0].duration.text) * selected + "€"
+      1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
     );
   };
 
@@ -74,8 +76,8 @@ const App = () => {
   }
 
   return (
-    <>
-      <div className=" customBg fixed-top container shadow">
+    <div>
+      <div className="customBg fixed-top container shadow">
         <Forms
           setSelected={setSelected}
           services={services}
@@ -100,7 +102,7 @@ const App = () => {
         price={price}
         distance={distance}
       />
-    </>
+    </div>
   );
 };
 

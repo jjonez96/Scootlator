@@ -8,7 +8,8 @@ const Map = (props) => {
   const destinationRef = props.destinationRef;
   const mapRef = useRef();
 
-  const handleDestinationClick = (ev) => {
+  /**Click handler for changing coordinates to address on map*/
+  const handleDestinationMapClick = (ev) => {
     const url = `${geocodeJson}?key=${
       process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     }&latlng=${ev.latLng.lat()}, ${ev.latLng.lng()}`;
@@ -27,7 +28,7 @@ const Map = (props) => {
         zoom={7}
         ref={mapRef}
         onClick={(ev) => {
-          handleDestinationClick(ev);
+          handleDestinationMapClick(ev);
         }}
         mapContainerClassName="map-container"
         options={{
