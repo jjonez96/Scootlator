@@ -1,6 +1,6 @@
 import React from "react";
-import { RiPinDistanceFill, RiTimeFill, RiPriceTag3Fill } from "react-icons/ri";
 import { Animated } from "react-animated-css";
+import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
 
 const CalculationResults = (props) => {
   const price = props.price;
@@ -20,7 +20,7 @@ const CalculationResults = (props) => {
               Kesto <RiTimeFill />
               <br />~{props.duration}
             </div>
-            {price === "NaN €" ? (
+            {price === "NaN €" || price === "1 €" ? (
               <p className="mt-3">Palvelua ei valittu</p>
             ) : (
               <div className="m-1">

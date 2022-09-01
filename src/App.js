@@ -1,13 +1,12 @@
-import "./App.css";
 import { useJsApiLoader } from "@react-google-maps/api";
-import { useState, useRef } from "react";
-import React from "react";
-import Map from "./components/Map";
-import Forms from "./components/Forms";
+import React, { useRef, useState } from "react";
+import "./App.css";
 import CalculationResults from "./components/CalculationResults";
+import Forms from "./components/Forms";
 import LoadingScreen from "./components/LoadingScreen";
-import useServices from "./hooks/useServices";
+import Map from "./components/Map";
 import useGeoLocation from "./hooks/useGeoLocation";
+import useServices from "./hooks/useServices";
 
 const App = () => {
   /** States */
@@ -76,8 +75,8 @@ const App = () => {
   }
 
   return (
-    <div>
-      <div className="customBg fixed-top container shadow">
+    <>
+      <div className="customBg fixed-top container shadow p-1">
         <Forms
           setSelected={setSelected}
           services={services}
@@ -102,7 +101,7 @@ const App = () => {
         price={price}
         distance={distance}
       />
-    </div>
+    </>
   );
 };
 
