@@ -1,5 +1,5 @@
+import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
 import { useRef } from "react";
-import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = (props) => {
@@ -7,7 +7,6 @@ const Map = (props) => {
   const directionResponse = props.directionResponse;
   const destinationRef = props.destinationRef;
   const mapRef = useRef();
-
   /**Click handler for changing coordinates to address on map*/
   const handleDestinationMapClick = (ev) => {
     const url = `${geocodeJson}?key=${

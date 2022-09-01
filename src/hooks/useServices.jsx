@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 const usePrices = () => {
   const [tier, setTier] = useState(0.24);
 
@@ -9,14 +9,19 @@ const usePrices = () => {
       .then((res) => setTier(res));
   }, []);
 
-  const services = [
+  let tierPrice = {
+    name: "Tier",
+    pricePerMin: tier,
+  };
+
+  let services = [
     {
       name: "Aloitus 1€",
       pricePerMin: 0.25,
     },
     {
-      name: "Tier",
-      pricePerMin: tier,
+      name: "Aloitus 1€",
+      pricePerMin: 0.24,
     },
     {
       name: "Aloitus 1€",
@@ -39,6 +44,8 @@ const usePrices = () => {
       pricePerMin: 0.19,
     },
   ];
+
+  services.unshift(tierPrice);
 
   return services;
 };

@@ -1,8 +1,8 @@
-import { Form, Button } from "react-bootstrap";
-import { FaLocationArrow, FaTimes } from "react-icons/fa";
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated } from "react-animated-css";
+import { Button, Form } from "react-bootstrap";
+import { FaLocationArrow, FaTimes } from "react-icons/fa";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Forms = (props) => {
@@ -12,10 +12,6 @@ const Forms = (props) => {
   const destinationRef = props.destinationRef;
   const center = props.center;
 
-  const [click, setClick] = useState(false);
-  /**Click handler for closing and opening the form*/
-  const handleClick = () => setClick(!click);
-
   const defaultBounds = {
     north: center.lat + 0.1,
     south: center.lat - 0.1,
@@ -23,11 +19,24 @@ const Forms = (props) => {
     west: center.lng - 0.1,
   };
 
-  const settings = {
+  const sets = {
     componentRestrictions: { country: "fi" },
     fields: ["place_id", "geometry", "formatted_address", "name"],
     bounds: defaultBounds,
     strictBounds: false,
+  };
+
+  const [settings, setSettings] = useState(sets);
+
+  /**Click handler for closing and opening the form*/
+  const [click, setClick] = useState(false);
+  const logSettings = useMemo(() => {
+    setSettings(settings);
+  }, [settings]);
+
+  const handleClick = () => {
+    setClick(!click);
+    setSettings(sets);
   };
 
   useEffect(() => {
@@ -35,14 +44,13 @@ const Forms = (props) => {
       autocompleteRef.current = new autocomplete.places.Autocomplete(
         destinationRef.current,
         settings,
-
         (autocompleteRef.current = new autocomplete.places.Autocomplete(
           originRef.current,
           settings
         ))
       );
     }
-  }, [settings]);
+  }, [destinationRef, originRef, autocomplete, settings, logSettings]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,27 +69,19 @@ const Forms = (props) => {
   };
 
   return (
-    <div>
+    <>
       {click ? (
-        <div className="d-flex justify-content-between">
-          <h6 className="m-1 p-1">Laske scoot matkasi!</h6>
-          <MdKeyboardArrowDown
-            onClick={handleClick}
-            size={25}
-            className="mt-2 mx-2"
-          />
+        <div className="d-flex justify-content-between mt-1">
+          <h6>Laske scoot matkasi!</h6>
+          <MdKeyboardArrowDown onClick={handleClick} size={25} />
         </div>
       ) : (
         <Animated animationIn="fadeIn" isVisible={true}>
-          <div className="hstack gap-2 row mb-2">
-            <div className="d-flex justify-content-between">
-              <h6 className="m-1 p-1">Laske scoot matkasi!</h6>
-              <MdKeyboardArrowUp
-                onClick={handleClick}
-                size={25}
-                className="mt-2 mx-2"
-              />
-            </div>
+          <div className="d-flex justify-content-between mt-1">
+            <h6>Laske scoot matkasi!</h6>
+            <MdKeyboardArrowUp onClick={handleClick} size={25} />
+          </div>
+          <div className="hstack gap-2 row">
             <form onSubmit={handleSubmit} className="form-floating">
               <input
                 className="form-control rounded bg-light border-info input-height"
@@ -151,7 +151,7 @@ const Forms = (props) => {
           </div>
         </Animated>
       )}
-    </div>
+    </>
   );
 };
 
