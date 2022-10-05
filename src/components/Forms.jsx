@@ -88,7 +88,7 @@ const Forms = (props) => {
                 type="text"
                 ref={originRef}
               />
-              <label htmlFor="form-floating"></label>
+              <label htmlFor="form-floating">Lähtö</label>
               <FaLocationArrow
                 className="icon"
                 onClick={(e) => {
