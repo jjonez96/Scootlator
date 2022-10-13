@@ -28,17 +28,16 @@ const Forms = (props) => {
 
   const [settings, setSettings] = useState(sets);
 
-  /**Click handler for closing and opening the form*/
-  const [click, setClick] = useState(false);
   const logSettings = useMemo(() => {
     setSettings(settings);
   }, [settings]);
 
+  /**Click handler for closing and opening the form*/
+  const [show, setShow] = useState(false);
   const handleClick = () => {
-    setClick(!click);
+    setShow(!show);
     setSettings(sets);
   };
-
   useEffect(() => {
     if (autocomplete) {
       autocompleteRef.current = new autocomplete.places.Autocomplete(
@@ -70,7 +69,7 @@ const Forms = (props) => {
 
   return (
     <>
-      {click ? (
+      {show ? (
         <div className="d-flex justify-content-between mt-1">
           <h6>Laske scoot matkasi!</h6>
           <MdKeyboardArrowDown onClick={handleClick} size={25} />

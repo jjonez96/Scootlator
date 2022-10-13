@@ -7,6 +7,7 @@ const Map = (props) => {
   const directionResponse = props.directionResponse;
   const destinationRef = props.destinationRef;
   const mapRef = useRef();
+
   /**Click handler for changing coordinates to address on map*/
   const handleDestinationMapClick = (ev) => {
     const url = `${geocodeJson}?key=${

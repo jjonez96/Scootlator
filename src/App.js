@@ -36,7 +36,6 @@ const App = () => {
   });
 
   const [selected, setSelected] = useState(...services);
-
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
     const directionService = new google.maps.DirectionsService();
@@ -53,6 +52,7 @@ const App = () => {
     setPrice(
       1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
     );
+    console.log(results.routes);
   };
 
   const clearRoute = () => {
