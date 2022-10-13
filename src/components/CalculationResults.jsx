@@ -5,7 +5,7 @@ import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
 const CalculationResults = (props) => {
   const price = props.price;
   return (
-    <div>
+    <>
       {price === "" ? (
         <></>
       ) : (
@@ -31,7 +31,7 @@ const CalculationResults = (props) => {
           </div>
         </Animated>
       )}
-    </div>
+    </>
   );
 };
 
