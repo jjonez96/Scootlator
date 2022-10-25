@@ -1,9 +1,14 @@
 import React from "react";
 import { Animated } from "react-animated-css";
 import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
+import { MdHourglassFull } from "react-icons/md";
+
+import { Form } from "react-bootstrap";
 
 const CalculationResults = (props) => {
   const price = props.price;
+  const setSlowMode = props.setSlowMode;
+  const slow = props.slow;
   return (
     <>
       {price === "" ? (
@@ -20,6 +25,7 @@ const CalculationResults = (props) => {
               Kesto <RiTimeFill />
               <br />~{props.duration}
             </div>
+
             {price === "NaN €" || price === "1 €" ? (
               <p className="mt-3">Palvelua ei valittu</p>
             ) : (
@@ -28,6 +34,10 @@ const CalculationResults = (props) => {
                 <br />~{price}
               </div>
             )}
+            <div className="m-1">
+              Hidas ajo <MdHourglassFull />
+              <Form.Check type="switch" onChange={setSlowMode} checked={slow} />
+            </div>
           </div>
         </Animated>
       )}

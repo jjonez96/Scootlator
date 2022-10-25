@@ -11,6 +11,7 @@ const Forms = (props) => {
   const originRef = props.originRef;
   const destinationRef = props.destinationRef;
   const center = props.center;
+  const calculateRoute = props.calculateRoute;
 
   const defaultBounds = {
     north: center.lat + 0.1,
@@ -19,14 +20,14 @@ const Forms = (props) => {
     west: center.lng - 0.1,
   };
 
-  const sets = {
+  const mapSettings = {
     componentRestrictions: { country: "fi" },
     fields: ["place_id", "geometry", "formatted_address", "name"],
     bounds: defaultBounds,
     strictBounds: false,
   };
 
-  const [settings, setSettings] = useState(sets);
+  const [settings, setSettings] = useState(mapSettings);
 
   const logSettings = useMemo(() => {
     setSettings(settings);
@@ -36,8 +37,9 @@ const Forms = (props) => {
   const [show, setShow] = useState(false);
   const handleClick = () => {
     setShow(!show);
-    setSettings(sets);
+    setSettings(mapSettings);
   };
+
   useEffect(() => {
     if (autocomplete) {
       autocompleteRef.current = new autocomplete.places.Autocomplete(
@@ -78,6 +80,7 @@ const Forms = (props) => {
         <Animated animationIn="fadeIn" isVisible={true}>
           <div className="d-flex justify-content-between mt-1">
             <h6>Laske scoot matkasi!</h6>
+
             <MdKeyboardArrowUp onClick={handleClick} size={25} />
           </div>
           <div className="hstack gap-2 row">
@@ -142,7 +145,7 @@ const Forms = (props) => {
                 variant="info"
                 type="submit"
                 className="w-75 fw-bold rounded"
-                onClick={props.calculateRoute}
+                onClick={calculateRoute}
               >
                 Laske
               </Button>
