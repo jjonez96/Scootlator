@@ -1,7 +1,7 @@
 import React from "react";
 import { Animated } from "react-animated-css";
 import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
-import { MdHourglassFull } from "react-icons/md";
+import { GiTurtle } from "react-icons/gi";
 import { Form } from "react-bootstrap";
 
 const CalculationResults = (props) => {
@@ -37,8 +37,13 @@ const CalculationResults = (props) => {
               </div>
             )}
             <div className="m-1">
-              Hidas ajo <MdHourglassFull />
-              <Form.Check type="switch" onChange={setSlowMode} checked={slow} />
+              Hidas ajo <GiTurtle />
+              <Form.Check
+                type="switch"
+                onChange={setSlowMode}
+                checked={slow}
+                className="mx-4"
+              />
             </div>
           </div>
         </Animated>

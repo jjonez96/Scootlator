@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated } from "react-animated-css";
 import { Button, Form } from "react-bootstrap";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
@@ -58,6 +59,10 @@ const Forms = (props) => {
     return false;
   };
 
+  const clearDestination = () => {
+    destinationRef.current.value = "";
+  };
+
   /**Click handler for changing coordinates to address*/
   const handleOriginClick = () => {
     const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${center.lat},${center.lng}`;
@@ -83,12 +88,17 @@ const Forms = (props) => {
 
             <MdKeyboardArrowUp onClick={handleClick} size={25} />
           </div>
+
           <div className="hstack gap-2 row">
-            <form onSubmit={handleSubmit} className="form-floating">
+            <form
+              onSubmit={handleSubmit}
+              className="form-floating was-validated"
+            >
               <input
-                className="form-control rounded bg-light border-info input-height"
+                className="form-control input-height"
                 type="text"
                 ref={originRef}
+                required
               />
               <label htmlFor="form-floating">Lähtö</label>
               <FaLocationArrow
@@ -111,6 +121,12 @@ const Forms = (props) => {
                 required
               />
               <label htmlFor="form-floating">Määränpää</label>
+              <MdClose
+                className="icon"
+                onClick={(e) => {
+                  clearDestination(e);
+                }}
+              />
             </form>
             <div className="d-flex justify-content-center was-validated inputs">
               <Form.Select
@@ -121,7 +137,7 @@ const Forms = (props) => {
                 required
               >
                 <option disabled={false} value="">
-                  -- Valitse palvelu --
+                  Valitse palvelu
                 </option>
                 {props.services.map((service) => (
                   <option
