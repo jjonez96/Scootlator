@@ -93,6 +93,7 @@ label {
 .icon {
   height: 1.5rem;
   width: 1.5rem;
+  background-color: white;
   position: absolute;
   top: 50%;
   right: 20px;

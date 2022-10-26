@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 const usePrices = () => {
   const [tier, setTier] = useState();
 
-  /*Tier pricePerMin api from backend*/
+  /*Tier pricePerMin api from node server*/
   useEffect(() => {
     fetch("https://tierprice.herokuapp.com/")
       .then((res) => res.text())
@@ -13,10 +13,6 @@ const usePrices = () => {
     {
       name: "Tier",
       pricePerMin: tier,
-    },
-    {
-      name: "Aloitus 1€",
-      pricePerMin: 0.25,
     },
     {
       name: "Aloitus 1€",
