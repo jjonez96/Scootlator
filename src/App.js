@@ -16,6 +16,7 @@ const App = () => {
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [libraries] = useState(["places"]);
+  const [slow, setSlow] = useState(false);
 
   /** Refs */
   /** @type React.MutableRefObject<HTMLInputElement> */
@@ -29,12 +30,12 @@ const App = () => {
   const center = location.coordinates;
 
   /** Service selector */
-  const [slow, setSlow] = useState(false);
   const services = useServices();
   const servicePrices = [];
   services.map((e) => {
     return servicePrices.push(e.pricePerMin);
   });
+
   const [selected, setSelected] = useState(...services);
 
   const calculateRoute = async () => {
@@ -46,11 +47,9 @@ const App = () => {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.BICYCLING,
     });
-
     setDirectionResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-
     setPrice(
       1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
     );
@@ -86,7 +85,6 @@ const App = () => {
           ),
           setSlow(true)
         );
-    console.log(slow);
   };
 
   const clearRoute = () => {
@@ -105,6 +103,7 @@ const App = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+
   if (!isLoaded) {
     return <LoadingScreen />;
   }
