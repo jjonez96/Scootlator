@@ -11,7 +11,6 @@ const CalculationResults = (props) => {
 
   const float = parseFloat(price);
   const toFixedPrice = float.toFixed(2);
-
   return (
     <>
       {toFixedPrice === "NaN" ? (
@@ -28,7 +27,10 @@ const CalculationResults = (props) => {
               Kesto <RiTimeFill />
               <br />~{props.duration}
             </div>
+
             {toFixedPrice === "NaN €" || toFixedPrice === "1 €" ? (
+            {price === "NaN €" || price === "1 €" ? (
+
               <p className="mt-3">Palvelua ei valittu</p>
             ) : (
               <div className="m-1">
