@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Animated } from "react-animated-css";
 import { Button, Form } from "react-bootstrap";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Forms = (props) => {
@@ -21,18 +21,12 @@ const Forms = (props) => {
     west: center.lng - 0.1,
   };
 
-  const mapSettings = {
+  const settings = {
     componentRestrictions: { country: "fi" },
     fields: ["place_id", "geometry", "formatted_address", "name"],
     bounds: defaultBounds,
     strictBounds: false,
   };
-
-  const [settings, setSettings] = useState(mapSettings);
-
-  const logSettings = useMemo(() => {
-    setSettings(settings);
-  }, [settings]);
 
   useEffect(() => {
     if (autocomplete) {
@@ -45,7 +39,8 @@ const Forms = (props) => {
         ))
       );
     }
-  }, [destinationRef, originRef, autocomplete, settings, logSettings]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
