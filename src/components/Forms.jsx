@@ -34,13 +34,6 @@ const Forms = (props) => {
     setSettings(settings);
   }, [settings]);
 
-  /**Click handler for closing and opening the form*/
-  const [show, setShow] = useState(false);
-  const handleClick = () => {
-    setShow(!show);
-    setSettings(mapSettings);
-  };
-
   useEffect(() => {
     if (autocomplete) {
       autocompleteRef.current = new autocomplete.places.Autocomplete(
@@ -76,99 +69,81 @@ const Forms = (props) => {
 
   return (
     <>
-      {show ? (
-        <div className="d-flex justify-content-between mt-1">
-          <h6>Laske scoot matkasi!</h6>
-          <MdKeyboardArrowDown onClick={handleClick} size={25} />
-        </div>
-      ) : (
-        <Animated animationIn="fadeIn" isVisible={true}>
-          <div className="d-flex justify-content-between mt-1">
-            <h6>Laske scoot matkasi!</h6>
-
-            <MdKeyboardArrowUp onClick={handleClick} size={25} />
-          </div>
-
-          <div className="hstack gap-2 row">
-            <form
-              onSubmit={handleSubmit}
-              className="form-floating was-validated"
+      <Animated animationIn="fadeIn" isVisible={true}>
+        <h6 className="text-center">Laske e-scoot matka</h6>
+        <div className="hstack gap-2 row">
+          <form onSubmit={handleSubmit} className="form-floating was-validated">
+            <input
+              className="form-control input-height"
+              type="text"
+              ref={originRef}
+              required
+            />
+            <label htmlFor="form-floating">Lähtö</label>
+            <FaLocationArrow
+              className="icon"
+              onClick={(e) => {
+                props.map.panTo(center);
+                props.map.setZoom(15);
+                handleOriginClick(e);
+              }}
+            />
+          </form>
+          <form onSubmit={handleSubmit} className="was-validated form-floating">
+            <input
+              className="form-control input-height"
+              type="text"
+              ref={destinationRef}
+              required
+            />
+            <label htmlFor="form-floating">Määränpää</label>
+            <MdClose
+              className="icon"
+              onClick={(e) => {
+                clearDestination(e);
+              }}
+            />
+          </form>
+          <div className="d-flex justify-content-center was-validated inputs">
+            <Form.Select
+              aria-label="Default select example"
+              className="form-control bg-light"
+              ref={props.selectInputRef}
+              onChange={(e) => props.setSelected(e.target.value)}
+              required
             >
-              <input
-                className="form-control input-height"
-                type="text"
-                ref={originRef}
-                required
-              />
-              <label htmlFor="form-floating">Lähtö</label>
-              <FaLocationArrow
-                className="icon"
-                onClick={(e) => {
-                  props.map.panTo(center);
-                  props.map.setZoom(15);
-                  handleOriginClick(e);
-                }}
-              />
-            </form>
-            <form
-              onSubmit={handleSubmit}
-              className="was-validated form-floating"
-            >
-              <input
-                className="form-control input-height"
-                type="text"
-                ref={destinationRef}
-                required
-              />
-              <label htmlFor="form-floating">Määränpää</label>
-              <MdClose
-                className="icon"
-                onClick={(e) => {
-                  clearDestination(e);
-                }}
-              />
-            </form>
-            <div className="d-flex justify-content-center was-validated inputs">
-              <Form.Select
-                aria-label="Default select example"
-                className="form-control bg-light"
-                ref={props.selectInputRef}
-                onChange={(e) => props.setSelected(e.target.value)}
-                required
-              >
-                <option disabled={false} value="">
-                  Valitse palvelu
+              <option disabled={false} value="">
+                Valitse palvelu
+              </option>
+              {props.services.map((service) => (
+                <option
+                  key={`${service.pricePerMin},${service.name}`}
+                  value={service.pricePerMin}
+                >
+                  {service.name} {service.pricePerMin}€/min
                 </option>
-                {props.services.map((service) => (
-                  <option
-                    key={`${service.pricePerMin},${service.name}`}
-                    value={service.pricePerMin}
-                  >
-                    {service.name} {service.pricePerMin}€/min
-                  </option>
-                ))}
-              </Form.Select>
-              <Button
-                className="mx-2 text-dark"
-                variant="danger"
-                onClick={props.clearRoute}
-              >
-                <FaTimes />
-              </Button>
-            </div>
-            <div className="d-flex justify-content-center rounded">
-              <Button
-                variant="info"
-                type="submit"
-                className="w-75 fw-bold rounded"
-                onClick={calculateRoute}
-              >
-                Laske
-              </Button>
-            </div>
+              ))}
+            </Form.Select>
+            <Button
+              className="mx-2 text-dark"
+              variant="danger"
+              onClick={props.clearRoute}
+            >
+              <FaTimes />
+            </Button>
           </div>
-        </Animated>
-      )}
+          <div className="d-flex justify-content-center rounded">
+            <Button
+              variant="info"
+              type="submit"
+              className="w-75 fw-bold rounded"
+              onClick={calculateRoute}
+            >
+              Laske
+            </Button>
+          </div>
+        </div>
+      </Animated>
     </>
   );
 };

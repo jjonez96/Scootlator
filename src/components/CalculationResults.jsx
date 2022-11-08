@@ -37,7 +37,7 @@ const CalculationResults = (props) => {
               </div>
             )}
             <div className="m-1">
-              Hidas ajo <GiTurtle />
+              Hidasajo <GiTurtle />
               <Form.Check
                 type="switch"
                 onChange={setSlowMode}
