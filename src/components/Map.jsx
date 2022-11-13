@@ -21,12 +21,16 @@ const Map = (props) => {
         destinationRef.current.value = `${place.formatted_address}`;
       });
   };
+  const icon = {
+    url: "../location.png",
+    scaledSize: { width: 28, height: 28 },
+  };
 
   return (
     <>
       <GoogleMap
         center={center}
-        zoom={7}
+        zoom={12}
         ref={mapRef}
         onClick={(ev) => {
           handleDestinationMapClick(ev);
@@ -36,12 +40,15 @@ const Map = (props) => {
           zoomControl: false,
           streetViewControl: false,
           mapTypeControl: false,
+          rotateControlOptions: true,
+          rotateControl: true,
+          clickableIcons: false,
           fullscreenControl: false,
           disableDefaultUI: true,
         }}
         onLoad={(map) => props.setMap(map)}
       >
-        <Marker position={center} />
+        <Marker position={center} icon={icon} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
         )}

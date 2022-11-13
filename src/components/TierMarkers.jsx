@@ -30,7 +30,8 @@ const TierMarkers = () => {
       .then((res) => res.text())
       .then((res) => setTier(res));
   }, []);
-  const icon = { url: "../scooter.png", scaledSize: { width: 32, height: 32 } };
+
+  const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   return (
     <>
@@ -49,13 +50,19 @@ const TierMarkers = () => {
           onCloseClick={() => setSelectedMarker("")}
         >
           <div>
-            <h6>Tier Scoot</h6>
+            <h6>Tier e-scoot</h6>
             Akkua jäljellä: <b>{selectedMarker.batteryLevel}%</b>
             <br />
             Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
             <br />
             Hinta: <b>1€ + {tier}€/min</b>
             <br />
+            <a
+              className="vuokraa"
+              href="https://play.google.com/store/search?q=tier+scooter+app&c=apps&hl=fi"
+            >
+              Vuokraa
+            </a>
           </div>
         </InfoWindow>
       )}

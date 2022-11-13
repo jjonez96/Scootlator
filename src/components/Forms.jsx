@@ -78,7 +78,7 @@ const Forms = (props) => {
             className="icon"
             onClick={(e) => {
               props.map.panTo(center);
-              props.map.setZoom(15);
+              props.map.setZoom(18);
               handleOriginClick(e);
             }}
           />
