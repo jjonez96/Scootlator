@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
@@ -12,6 +12,7 @@ const Forms = (props) => {
   const destinationRef = props.destinationRef;
   const center = props.center;
   const calculateRoute = props.calculateRoute;
+  const services = props.services;
 
   const defaultBounds = {
     north: center.lat + 0.1,
@@ -108,7 +109,7 @@ const Forms = (props) => {
             <option disabled={false} value="">
               Valitse palvelu
             </option>
-            {props.services.map((service) => (
+            {services.map((service) => (
               <option
                 key={`${service.pricePerMin},${service.name}`}
                 value={service.pricePerMin}

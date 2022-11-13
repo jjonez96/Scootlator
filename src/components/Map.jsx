@@ -1,11 +1,5 @@
-import {
-  DirectionsRenderer,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-  MarkerClusterer,
-} from "@react-google-maps/api";
-import { useRef, useEffect, useState } from "react";
+import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
+import { useRef } from "react";
 import CustomMarker from "./CustomMarker";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
