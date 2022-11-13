@@ -2,20 +2,21 @@ import React from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
-const CustomMarker = (props) => {
+const TierMarkers = () => {
   const [tier, setTier] = useState();
   const [selectedMarker, setSelectedMarker] = useState("");
-  const [marks, setMarks] = useState([]);
+  const [markers, setMarkers] = useState([]);
 
+  /*Tier scooter locations from node server*/
   useEffect(() => {
-    fetch("http://localhost:5000/")
+    fetch("https://tierlocations.herokuapp.com/")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
           return;
         }
-        response.json().then((marks) => {
-          setMarks(marks);
+        response.json().then((markers) => {
+          setMarkers(markers);
         });
       })
       .catch((err) => {
@@ -29,11 +30,13 @@ const CustomMarker = (props) => {
       .then((res) => res.text())
       .then((res) => setTier(res));
   }, []);
+  const icon = { url: "../scooter.png", scaledSize: { width: 32, height: 32 } };
 
   return (
     <>
-      {marks.map(({ id, attributes }) => (
+      {markers.map(({ id, attributes }) => (
         <Marker
+          icon={icon}
           key={id}
           title={"Tier"}
           position={attributes}
@@ -60,4 +63,4 @@ const CustomMarker = (props) => {
   );
 };
 
-export default CustomMarker;
+export default TierMarkers;
