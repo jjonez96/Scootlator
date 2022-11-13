@@ -1,6 +1,6 @@
 import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
 import { useRef } from "react";
-import CustomMarker from "./CustomMarker";
+import TierMarkers from "./TierMarkers";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = (props) => {
@@ -41,11 +41,11 @@ const Map = (props) => {
         }}
         onLoad={(map) => props.setMap(map)}
       >
-        <CustomMarker />
         <Marker position={center} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
         )}
+        <TierMarkers />
       </GoogleMap>
     </>
   );
