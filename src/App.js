@@ -31,6 +31,7 @@ const App = () => {
 
   /** Service selector */
   const services = useServices();
+
   const servicePrices = [];
   services.map((e) => {
     return servicePrices.push(e.pricePerMin);

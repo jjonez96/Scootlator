@@ -2,8 +2,11 @@ import React from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
-const CustomMarker = () => {
+const CustomMarker = (props) => {
+  const [tier, setTier] = useState();
+  const [selectedMarker, setSelectedMarker] = useState("");
   const [marks, setMarks] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:5000/")
       .then((response) => {
@@ -19,11 +22,16 @@ const CustomMarker = () => {
         console.log(err);
       });
   }, []);
-  const [selectedMarker, setSelectedMarker] = useState("");
-  console.log(marks);
-  const [infoWindowVisible, setInfoWindowVisible] = useState(false);
+
+  /*Tier pricePerMin api from node server*/
+  useEffect(() => {
+    fetch("https://tierprice.herokuapp.com/")
+      .then((res) => res.text())
+      .then((res) => setTier(res));
+  }, []);
+
   return (
-    <div>
+    <>
       {marks.map(({ id, attributes }) => (
         <Marker
           key={id}
@@ -33,16 +41,22 @@ const CustomMarker = () => {
         />
       ))}
       {selectedMarker && (
-        <InfoWindow position={selectedMarker} onClick={setInfoWindowVisible}>
+        <InfoWindow
+          position={selectedMarker}
+          onCloseClick={() => setSelectedMarker("")}
+        >
           <div>
             <h6>Tier Scoot</h6>
-            <b>Akkua jäljellä: {selectedMarker.batteryLevel}%</b>
+            Akkua jäljellä: <b>{selectedMarker.batteryLevel}%</b>
             <br />
-            <b>Maksiminopeus: {selectedMarker.maxSpeed}km/h</b>
+            Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
+            <br />
+            Hinta: <b>1€ + {tier}€/min</b>
+            <br />
           </div>
         </InfoWindow>
       )}
-    </div>
+    </>
   );
 };
 
