@@ -64,8 +64,10 @@ const Forms = (props) => {
 
   return (
     <>
-      <h6 className="text-center">Laske e-scoot matka</h6>
-      <div className="hstack gap-2 row">
+      <div>
+        <h6 className="text-center text-info">Laske e-scoot matka</h6>
+      </div>
+      <div className="hstack gap-2 row ">
         <form onSubmit={handleSubmit} className="form-floating was-validated">
           <input
             className="form-control input-height"
@@ -98,7 +100,7 @@ const Forms = (props) => {
             }}
           />
         </form>
-        <div className="d-flex justify-content-center was-validated inputs">
+        <div className="d-flex  justify-content-center was-validated inputs">
           <Form.Select
             aria-label="Default select example"
             className="form-control bg-light"
@@ -126,16 +128,14 @@ const Forms = (props) => {
             <FaTimes />
           </Button>
         </div>
-        <div className="d-flex justify-content-center rounded">
-          <Button
-            variant="info"
-            type="submit"
-            className="w-75 fw-bold rounded"
-            onClick={calculateRoute}
-          >
-            Laske
-          </Button>
-        </div>
+        <Button
+          variant="info"
+          type="submit"
+          className="custombtn container p-1 fw-bold"
+          onClick={calculateRoute}
+        >
+          Laske
+        </Button>
       </div>
     </>
   );

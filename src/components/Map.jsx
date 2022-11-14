@@ -1,6 +1,7 @@
 import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
 import { useRef } from "react";
 import TierMarkers from "./TierMarkers";
+import mapstyle from "../mapstyle";
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
 const Map = (props) => {
@@ -42,6 +43,7 @@ const Map = (props) => {
           mapTypeControl: false,
           rotateControlOptions: true,
           rotateControl: true,
+          styles: mapstyle,
           clickableIcons: false,
           fullscreenControl: false,
           disableDefaultUI: true,
