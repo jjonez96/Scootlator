@@ -51,8 +51,30 @@ const TierMarkers = () => {
         >
           <div>
             <h6>Tier e-scoot</h6>
-            Akkua jäljellä: <b>{selectedMarker.batteryLevel}%</b>
-            <br />
+            <div>
+              {selectedMarker.batteryLevel > 50 ? (
+                <div>
+                  Akkua jäljellä:&nbsp;
+                  <b style={{ color: "#00ff00" }}>
+                    {selectedMarker.batteryLevel}%
+                  </b>
+                </div>
+              ) : selectedMarker.batteryLevel > 25 ? (
+                <div>
+                  Akkua jäljellä:&nbsp;
+                  <b style={{ color: "#ffee00" }}>
+                    {selectedMarker.batteryLevel}%
+                  </b>
+                </div>
+              ) : (
+                <div>
+                  Akkua jäljellä:&nbsp;
+                  <b style={{ color: "#ff0000" }}>
+                    {selectedMarker.batteryLevel}%
+                  </b>
+                </div>
+              )}
+            </div>
             Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
             <br />
             Hinta: <b>1€ + {tier}€/min</b>
