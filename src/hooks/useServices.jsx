@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 const usePrices = () => {
-  const [tier, setTier] = useState();
+  const [tier, setTier] = useState(0);
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierprice.herokuapp.com/")
-      .then((res) => res.text())
+    fetch("https://tierpriceapi.onrender.com/")
+      .then((res) => res.json())
       .then((res) => setTier(res));
   }, []);
 
