@@ -3,13 +3,14 @@ import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
 const TierMarkers = () => {
-  const [tier, setTier] = useState();
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
+  const [tier, setTier] = useState(0);
 
   /*Tier scooter locations from node server*/
+
   useEffect(() => {
-    fetch("https://tierlocations.herokuapp.com/")
+    fetch("https://tierlocationsapi.onrender.com/")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
@@ -26,8 +27,8 @@ const TierMarkers = () => {
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierprice.herokuapp.com/")
-      .then((res) => res.text())
+    fetch("https://tierpriceapi.onrender.com/")
+      .then((res) => res.json())
       .then((res) => setTier(res));
   }, []);
 
