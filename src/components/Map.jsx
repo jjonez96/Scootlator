@@ -1,9 +1,9 @@
 import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
-import { useRef } from "react";
-import TierMarkers from "./TierMarkers";
+import { useRef, useState } from "react";
 import mapstyle from "../mapstyle";
-const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-
+import TierMarkers from "./TierMarkers";
+import { Form } from "react-bootstrap";
+import Forms from "./Forms";
 const Map = (props) => {
   const center = props.center;
   const directionResponse = props.directionResponse;
@@ -11,6 +11,7 @@ const Map = (props) => {
   const mapRef = useRef();
 
   /**Click handler for changing coordinates to address on map*/
+  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
   const handleDestinationMapClick = (ev) => {
     const url = `${geocodeJson}?key=${
       process.env.REACT_APP_GOOGLE_MAPS_API_KEY
@@ -25,6 +26,12 @@ const Map = (props) => {
   const icon = {
     url: "../location.png",
     scaledSize: { width: 28, height: 28 },
+  };
+
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleChange = (event) => {
+    setIsSubscribed((current) => !current);
   };
 
   return (
@@ -50,11 +57,20 @@ const Map = (props) => {
         }}
         onLoad={(map) => props.setMap(map)}
       >
+        <div className="fixed-top container  hstack gap-1 col checkscoot">
+          <Form.Check
+            type="checkbox"
+            onChange={handleChange}
+            value={isSubscribed}
+            id="subscribe"
+          />
+          <p className="text-info">Scootit</p>
+          {isSubscribed === true ? <div></div> : <TierMarkers />}
+        </div>
         <Marker position={center} icon={icon} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
         )}
-        <TierMarkers />
       </GoogleMap>
     </>
   );

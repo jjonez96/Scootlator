@@ -137,3 +137,18 @@ button.gm-ui-hover-effect > span {
     width: 95% !important;
   }
 }
+.checkscoot {
+  width: 45% !important;
+  position: fixed;
+  top: -6px !important;
+}
+.checkscoot,
+p {
+  position: relative;
+  top: 7px;
+}
+@media only screen and (max-width: 1200px) {
+  .checkscoot {
+    width: 100% !important;
+  }
+}

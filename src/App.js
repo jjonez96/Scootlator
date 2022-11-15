@@ -124,19 +124,19 @@ const App = () => {
           calculateRoute={calculateRoute}
         />
       </div>
-      <Map
-        destinationRef={destinationRef}
-        setMap={setMap}
-        map={map}
-        directionResponse={directionResponse}
-        center={center}
-      />
       <CalculationResults
         duration={duration}
         price={price}
         distance={distance}
         setSlowMode={setSlowMode}
         slow={slow}
+      />
+      <Map
+        destinationRef={destinationRef}
+        setMap={setMap}
+        map={map}
+        directionResponse={directionResponse}
+        center={center}
       />
     </>
   );
