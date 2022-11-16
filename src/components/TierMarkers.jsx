@@ -10,7 +10,7 @@ const TierMarkers = () => {
   /*Tier scooter locations from node server*/
 
   useEffect(() => {
-    fetch("https://tierlocationsapi.onrender.com/")
+    fetch("https://tierlocations.up.railway.app/")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
@@ -27,7 +27,7 @@ const TierMarkers = () => {
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierpriceapi.onrender.com/")
+    fetch("https://tierpriceapi.up.railway.app/")
       .then((res) => res.json())
       .then((res) => setTier(res));
   }, []);
