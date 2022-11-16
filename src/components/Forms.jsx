@@ -64,7 +64,7 @@ const Forms = (props) => {
   return (
     <>
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
-      <div className="hstack gap-2 row ">
+      <div className="hstack gap-1 row ">
         <form onSubmit={handleSubmit} className="form-floating was-validated">
           <input
             className="form-control input-height"

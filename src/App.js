@@ -86,7 +86,6 @@ const App = () => {
           setSlow(true)
         );
   };
-
   const clearRoute = () => {
     setDirectionResponse(null);
     setDistance("");

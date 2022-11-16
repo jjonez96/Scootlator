@@ -24,7 +24,8 @@ const TierMarkers = () => {
         console.log(err);
       });
   }, []);
-
+  let newTime = new Date(selectedMarker.lastLocationUpdate);
+  let time = newTime.getHours() + ":" + newTime.getMinutes();
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
     fetch("https://tierpriceapi.up.railway.app/")
@@ -51,7 +52,8 @@ const TierMarkers = () => {
           onCloseClick={() => setSelectedMarker("")}
         >
           <div>
-            <h6>Tier e-scoot</h6>
+            <h6 className="line">Tier e-scoot</h6>
+            <b>{time}</b>
             <div>
               {selectedMarker.batteryLevel > 50 ? (
                 <div>
