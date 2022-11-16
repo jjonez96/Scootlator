@@ -3,8 +3,6 @@ import { Button, Form } from "react-bootstrap";
 import { FaLocationArrow, FaTimes } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 
-const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-
 const Forms = (props) => {
   const autocomplete = window.google.maps;
   const autocompleteRef = useRef();
@@ -52,6 +50,7 @@ const Forms = (props) => {
   };
 
   /**Click handler for changing coordinates to address*/
+  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
   const handleOriginClick = () => {
     const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${center.lat},${center.lng}`;
     fetch(url)
@@ -64,9 +63,7 @@ const Forms = (props) => {
 
   return (
     <>
-      <div>
-        <h6 className="text-center text-info">Laske e-scoot matka</h6>
-      </div>
+      <h6 className="text-center text-info">Laske e-scoot matka</h6>
       <div className="hstack gap-2 row ">
         <form onSubmit={handleSubmit} className="form-floating was-validated">
           <input

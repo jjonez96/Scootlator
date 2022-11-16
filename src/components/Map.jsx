@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import mapstyle from "../mapstyle";
 import TierMarkers from "./TierMarkers";
 import { Form } from "react-bootstrap";
-import Forms from "./Forms";
+
 const Map = (props) => {
   const center = props.center;
   const directionResponse = props.directionResponse;
@@ -28,10 +28,10 @@ const Map = (props) => {
     scaledSize: { width: 28, height: 28 },
   };
 
-  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [onOffMarkers, setOnOffMarkers] = useState(false);
 
   const handleChange = (event) => {
-    setIsSubscribed((current) => !current);
+    setOnOffMarkers((current) => !current);
   };
 
   return (
@@ -61,11 +61,11 @@ const Map = (props) => {
           <Form.Check
             type="checkbox"
             onChange={handleChange}
-            value={isSubscribed}
-            id="subscribe"
+            value={onOffMarkers}
+            id=""
           />
           <p className="text-info">Scootit</p>
-          {isSubscribed === true ? <div></div> : <TierMarkers />}
+          {onOffMarkers === false ? <div></div> : <TierMarkers />}
         </div>
         <Marker position={center} icon={icon} />
         {directionResponse && (
