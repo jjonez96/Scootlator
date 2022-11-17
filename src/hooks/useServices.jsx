@@ -4,7 +4,7 @@ const usePrices = () => {
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierpriceapi.up.railway.app/")
+    fetch("https://tierprice.cyclic.app/api")
       .then((res) => res.json())
       .then((res) => setTier(res));
   }, []);

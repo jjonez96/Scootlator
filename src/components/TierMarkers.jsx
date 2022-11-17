@@ -10,7 +10,7 @@ const TierMarkers = () => {
   /*Tier scooter locations from node server*/
 
   useEffect(() => {
-    fetch("https://tierlocations.up.railway.app/")
+    fetch("https://tierlocations.cyclic.app/api")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
@@ -28,7 +28,7 @@ const TierMarkers = () => {
   let time = newTime.getHours() + ":" + newTime.getMinutes();
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierpriceapi.up.railway.app/")
+    fetch("https://tierprice.cyclic.app/api")
       .then((res) => res.json())
       .then((res) => setTier(res));
   }, []);
