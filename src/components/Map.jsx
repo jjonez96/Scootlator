@@ -57,14 +57,14 @@ const Map = (props) => {
         }}
         onLoad={(map) => props.setMap(map)}
       >
-        <div className="fixed-top container  hstack gap-1 col checkscoot">
+        <div className="fixed-top container hstack gap-1 col checkscoot">
+          <p className="text-info">Scootit</p>
           <Form.Check
-            type="checkbox"
+            type="switch"
             onChange={handleChange}
             value={onOffMarkers}
             id=""
           />
-          <p className="text-info">Scootit</p>
           {onOffMarkers === false ? <div></div> : <TierMarkers />}
         </div>
         <Marker position={center} icon={icon} />
