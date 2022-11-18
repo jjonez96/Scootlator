@@ -1,15 +1,15 @@
 import React from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
 
 const TierMarkers = () => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
-  const [tier, setTier] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
   /*Tier scooter locations from node server*/
-
   useEffect(() => {
+    setIsLoading(true);
     fetch("https://tierlocations.cyclic.app/api")
       .then((response) => {
         if (response.status !== 200) {
@@ -17,6 +17,7 @@ const TierMarkers = () => {
           return;
         }
         response.json().then((markers) => {
+          setIsLoading(false);
           setMarkers(markers);
         });
       })
@@ -24,19 +25,19 @@ const TierMarkers = () => {
         console.log(err);
       });
   }, []);
-  let newTime = new Date(selectedMarker.lastLocationUpdate);
-  let time = newTime.getHours() + ":" + newTime.getMinutes();
-  /*Tier pricePerMin api from node server*/
-  useEffect(() => {
-    fetch("https://tierprice.cyclic.app/api")
-      .then((res) => res.json())
-      .then((res) => setTier(res));
-  }, []);
+
+  const newTime = new Date(selectedMarker.lastLocationUpdate);
+  const minutes = String(newTime.getMinutes()).padStart(2, "0");
+  const hours = String(newTime.getHours()).padStart(2, "0");
+  const time = hours + ":" + minutes;
 
   const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   return (
     <>
+      {isLoading && (
+        <Spinner animation="border" variant="info" size="sm" className="p-1" />
+      )}
       {markers.map(({ id, attributes }) => (
         <Marker
           icon={icon}
@@ -52,9 +53,9 @@ const TierMarkers = () => {
           onCloseClick={() => setSelectedMarker("")}
         >
           <div>
-            <h6 className="line">Tier e-scoot</h6>
-            <b>{time}</b>
+            <h6>Tier e-scoot</h6>
             <div>
+              Päivitetty: <b>{time}</b>
               {selectedMarker.batteryLevel > 50 ? (
                 <div>
                   Akkua jäljellä:&nbsp;
@@ -79,8 +80,6 @@ const TierMarkers = () => {
               )}
             </div>
             Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
-            <br />
-            Hinta: <b>1€ + {tier}€/min</b>
             <br />
             <a
               className="vuokraa"

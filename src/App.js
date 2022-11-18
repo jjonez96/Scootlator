@@ -65,7 +65,6 @@ const App = () => {
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.BICYCLING,
     });
-
     setDirectionResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
@@ -86,6 +85,7 @@ const App = () => {
           setSlow(true)
         );
   };
+
   const clearRoute = () => {
     setDirectionResponse(null);
     setDistance("");
