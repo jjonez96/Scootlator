@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 const usePrices = () => {
-  const [tier, setTier] = useState(0);
+  const [tier, setTier] = useState(0.25);
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierprice.cyclic.app/api")
-      .then((res) => res.json())
-      .then((res) => setTier(res));
+    fetch("https://tierpriceapi.onrender.com/")
+      .then((response) => {
+        if (response.status !== 200) {
+          console.log("error", response.status);
+          return;
+        }
+        response.json().then((tier) => {
+          setTier(tier);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   let services = [

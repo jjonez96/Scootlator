@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { FaLocationArrow, FaTimes } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
+import { FaTimes } from "react-icons/fa";
+import { MdClose, MdMyLocation } from "react-icons/md";
 
 const Forms = (props) => {
   const autocomplete = window.google.maps;
@@ -73,7 +73,7 @@ const Forms = (props) => {
             required
           />
           <label htmlFor="form-floating">Lähtö</label>
-          <FaLocationArrow
+          <MdMyLocation
             className="icon"
             onClick={(e) => {
               props.map.panTo(center);
@@ -118,7 +118,7 @@ const Forms = (props) => {
             ))}
           </Form.Select>
           <Button
-            className="mx-2 text-dark"
+            className="mx-1 text-dark"
             variant="danger"
             onClick={props.clearRoute}
           >
