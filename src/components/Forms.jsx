@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
 import { MdClose, MdMyLocation } from "react-icons/md";
-
+import { IoIosArrowDown } from "react-icons/io";
 const Forms = (props) => {
   const autocomplete = window.google.maps;
   const autocompleteRef = useRef();
@@ -63,18 +63,20 @@ const Forms = (props) => {
 
   return (
     <>
-      <h6 className="text-center text-info move">Laske e-scoot matka</h6>
+      <h6 className="text-center text-info">Laske e-scoot matka</h6>
       <div className="hstack gap-1 row ">
         <form onSubmit={handleSubmit} className="form-floating was-validated">
           <input
-            className="form-control input-height"
+            className="form-control input-height bg-dark text-info"
             type="text"
             ref={originRef}
             required
           />
-          <label htmlFor="form-floating">Lähtö</label>
+          <label htmlFor="form-floating" className="text-info">
+            Lähtö
+          </label>
           <MdMyLocation
-            className="icon"
+            className="icon text-info bg-dark"
             onClick={(e) => {
               props.map.panTo(center);
               props.map.setZoom(18);
@@ -84,23 +86,28 @@ const Forms = (props) => {
         </form>
         <form onSubmit={handleSubmit} className="was-validated form-floating">
           <input
-            className="form-control input-height"
+            className="form-control input-height bg-dark text-info"
             type="text"
             ref={destinationRef}
             required
           />
-          <label htmlFor="form-floating">Määränpää</label>
+          <label htmlFor="form-floating" className="text-info">
+            Määränpää
+          </label>
           <MdClose
-            className="icon"
+            className="icon text-info bg-dark"
             onClick={(e) => {
               clearDestination(e);
             }}
           />
         </form>
-        <div className="d-flex  justify-content-center was-validated inputs">
+        <div className="d-flex justify-content-center was-validated">
+          <IoIosArrowDown
+            className="iconn text-info bg-dark"
+            onChange={(e) => props.setSelected(e.target.value)}
+          />
           <Form.Select
-            aria-label="Default select example"
-            className="form-control bg-light"
+            className="form-control text-info bg-dark"
             ref={props.selectInputRef}
             onChange={(e) => props.setSelected(e.target.value)}
             required
@@ -108,12 +115,14 @@ const Forms = (props) => {
             <option disabled={false} value="">
               Valitse palvelu
             </option>
+
             {services.map((service) => (
               <option
                 key={`${service.pricePerMin},${service.name}`}
                 value={service.pricePerMin}
+                className="dd"
               >
-                {service.name} {service.pricePerMin}€/min
+                {service.name} {service.pricePerMin}€/min + 1€ aloitusmaksu
               </option>
             ))}
           </Form.Select>

@@ -25,28 +25,8 @@ const usePrices = () => {
       pricePerMin: tier,
     },
     {
-      name: "Aloitus 1€",
-      pricePerMin: 0.24,
-    },
-    {
-      name: "Aloitus 1€",
-      pricePerMin: 0.23,
-    },
-    {
-      name: "Aloitus 1€",
+      name: "Voi",
       pricePerMin: 0.22,
-    },
-    {
-      name: "Aloitus 1€",
-      pricePerMin: 0.21,
-    },
-    {
-      name: "Aloitus 1€",
-      pricePerMin: 0.2,
-    },
-    {
-      name: "Aloitus 1€",
-      pricePerMin: 0.19,
     },
   ];
 
