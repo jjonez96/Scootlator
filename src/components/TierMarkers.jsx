@@ -7,10 +7,11 @@ const TierMarkers = () => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
   /*Tier scooter locations from node server*/
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://tierlocations.cyclic.app/api")
+    fetch("https://tierlocations.cyclic.app/")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
@@ -30,7 +31,6 @@ const TierMarkers = () => {
   const minutes = String(newTime.getMinutes()).padStart(2, "0");
   const hours = String(newTime.getHours()).padStart(2, "0");
   const time = hours + ":" + minutes;
-
   const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   return (

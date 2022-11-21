@@ -54,12 +54,48 @@ a {
   height: 40px !important;
   padding-top: 20px !important;
 }
-.inputs {
-  height: 40px !important;
-}
+
 .pac-container {
+  background-color: #212529;
+
+  box-shadow: none;
   z-index: 1051 !important;
 }
+.pac-matched {
+  color: red;
+}
+.pac-item-query {
+  color: red;
+}
+.pac-item {
+  cursor: default;
+  padding: 0 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  line-height: 30px;
+  text-align: left;
+  border-top: 1px solid #0dcaf0;
+  font-size: 11px;
+  color: #999;
+}
+.pac-item:hover {
+  background-color: #101214;
+}
+.pac-item-selected,
+.pac-item-selected:hover {
+  background-color: #101214;
+}
+.pac-matched {
+  color: #0dcaf0;
+}
+.pac-item-query {
+  color: #0dcaf0;
+}
+.pac-placeholder {
+  color: rgb(255, 0, 0);
+}
+
 label {
   position: relative;
   top: -8px !important;
@@ -91,29 +127,35 @@ label {
 .icon {
   height: 1.5rem;
   width: 1.5rem;
-  background-color: white;
   position: absolute;
   top: 50%;
   right: 20px;
   height: 20px;
-  color: rgb(83, 83, 83);
   transform: translateY(-50%);
   cursor: pointer;
-  z-index: 1051 !important;
+}
+.iconn {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: absolute;
+  top: 70%;
+  right: 63px;
+  height: 20px;
+  transform: translateY(-50%);
 }
 .icon:hover,
 :focus {
-  color: #000;
+  color: green;
 }
 .gm-style .gm-style-iw-d::-webkit-scrollbar-track,
 .gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
 .gm-style .gm-style-iw-c,
 .gm-style .gm-style-iw-t::after {
-  background: rgb(61, 61, 61);
+  background: #212529;
   color: #04e3a6;
 }
 .gm-style .gm-style-iw-tc::after {
-  background: rgb(61, 61, 61);
+  background: #212529;
 }
 button.gm-ui-hover-effect > span {
   background-color: #04e3a6 !important;
@@ -140,20 +182,25 @@ button.gm-ui-hover-effect > span {
 .checkscoot {
   width: 45% !important;
   position: fixed;
-  top: -6px !important;
-}
-.checkscoot,
-p {
-  position: relative;
-  top: 8px;
+  top: -2px !important;
+  right: 20px !important;
 }
 @media only screen and (max-width: 1200px) {
   .checkscoot {
     width: 100% !important;
   }
 }
-@media only screen and (max-width: 600px) {
-  .move {
-    margin-left: 30px !important;
-  }
+
+.dropdown-toggle::after {
+  content: none !important;
+  border: none !important;
+}
+
+.dropdown-toggle:focus {
+  box-shadow: none !important;
+}
+
+.dropdown-toggle {
+  background: transparent !important;
+  border: none !important;
 }
