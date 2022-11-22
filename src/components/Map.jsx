@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 import mapstyle from "../mapstyle";
 import TierMarkers from "./TierMarkers";
 import { Form, Dropdown } from "react-bootstrap";
-import { GiSnail } from "react-icons/gi";
 import { GoSettings } from "react-icons/go";
 import { MdElectricScooter } from "react-icons/md";
 
@@ -11,8 +10,7 @@ const Map = (props) => {
   const center = props.center;
   const directionResponse = props.directionResponse;
   const destinationRef = props.destinationRef;
-  const setSlowMode = props.setSlowMode;
-  const slow = props.slow;
+
   const mapRef = useRef();
 
   /**Click handler for changing coordinates to address on map*/
@@ -67,20 +65,18 @@ const Map = (props) => {
             <Dropdown.Toggle size="sm">
               <GoSettings size={16} className="text-info" />
             </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-dark text-center text-info">
+            <Dropdown.Menu className="bg-dark text-center text-light">
               Scootit karttaan <MdElectricScooter color="#1ef778" />
               <Form.Check
                 type="switch"
                 onChange={handleChange}
                 value={onOffMarkers}
                 id=""
+                defaultChecked={true}
               />
-              <Dropdown.Divider className="text-info" />
-              Hidasajo <GiSnail color="#1ef778" />
-              <Form.Check type="switch" onChange={setSlowMode} checked={slow} />
             </Dropdown.Menu>
           </Dropdown>
-          {onOffMarkers === false ? <div></div> : <TierMarkers />}
+          {onOffMarkers === true ? <div></div> : <TierMarkers />}
         </div>
         <Marker position={center} icon={icon} />
         {directionResponse && (

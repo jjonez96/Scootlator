@@ -1,8 +1,12 @@
 import React from "react";
 import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
+import { GiSnail } from "react-icons/gi";
+import { Form } from "react-bootstrap";
 
 const CalculationResults = (props) => {
   const price = props.price;
+  const setSlowMode = props.setSlowMode;
+  const slow = props.slow;
 
   const float = parseFloat(price);
   const toFixedPrice = float.toFixed(2);
@@ -13,7 +17,7 @@ const CalculationResults = (props) => {
         <></>
       ) : (
         <div className="resultsBg fw-bold bg-dark text-info container fixed-bottom d-flex justify-content-around shadow mt-1">
-          <div className="m-1">
+          <div className="m-1 ">
             Pituus <RiPinDistanceFill color="#1ef778" />
             <br />
             {props.distance}
@@ -30,6 +34,15 @@ const CalculationResults = (props) => {
               <br />~{toFixedPrice} €
             </div>
           )}
+          <div className="m-1">
+            Hidasajo <GiSnail color="#1ef778" />
+            <Form.Check
+              type="switch"
+              onChange={setSlowMode}
+              checked={slow}
+              className="mx-4"
+            />
+          </div>
         </div>
       )}
     </>

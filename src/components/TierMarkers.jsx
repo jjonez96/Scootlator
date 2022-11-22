@@ -11,7 +11,7 @@ const TierMarkers = () => {
   /*Tier scooter locations from node server*/
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://tierlocations.cyclic.app/")
+    fetch("https://tierlocations.cyclic.app/api")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
@@ -27,10 +27,12 @@ const TierMarkers = () => {
       });
   }, []);
 
+  /*Tier scooter locations update date format*/
   const newTime = new Date(selectedMarker.lastLocationUpdate);
   const minutes = String(newTime.getMinutes()).padStart(2, "0");
   const hours = String(newTime.getHours()).padStart(2, "0");
   const time = hours + ":" + minutes;
+
   const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   return (
@@ -38,13 +40,13 @@ const TierMarkers = () => {
       {isLoading && (
         <Spinner animation="border" variant="info" size="sm" className="p-1" />
       )}
-      {markers.map(({ id, attributes }) => (
+      {markers.map((marker, id) => (
         <Marker
           icon={icon}
           key={id}
           title={"Tier"}
-          position={attributes}
-          onClick={() => setSelectedMarker(attributes)}
+          position={marker}
+          onClick={() => setSelectedMarker(marker)}
         />
       ))}
       {selectedMarker && (
@@ -52,9 +54,9 @@ const TierMarkers = () => {
           position={selectedMarker}
           onCloseClick={() => setSelectedMarker("")}
         >
-          <div>
+          <>
             <h6>Tier e-scoot</h6>
-            <div>
+            <>
               Päivitetty: <b>{time}</b>
               {selectedMarker.batteryLevel > 50 ? (
                 <div>
@@ -78,7 +80,7 @@ const TierMarkers = () => {
                   </b>
                 </div>
               )}
-            </div>
+            </>
             Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
             <br />
             <a
@@ -87,7 +89,7 @@ const TierMarkers = () => {
             >
               Vuokraa
             </a>
-          </div>
+          </>
         </InfoWindow>
       )}
     </>
