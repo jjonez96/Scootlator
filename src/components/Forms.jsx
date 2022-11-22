@@ -67,12 +67,12 @@ const Forms = (props) => {
       <div className="hstack gap-1 row ">
         <form onSubmit={handleSubmit} className="form-floating was-validated">
           <input
-            className="form-control input-height bg-dark text-info"
+            className="form-control input-height bg-dark text-light"
             type="text"
             ref={originRef}
             required
           />
-          <label htmlFor="form-floating" className="text-info">
+          <label htmlFor="form-floating" className="text-light">
             Lähtö
           </label>
           <MdMyLocation
@@ -86,12 +86,12 @@ const Forms = (props) => {
         </form>
         <form onSubmit={handleSubmit} className="was-validated form-floating">
           <input
-            className="form-control input-height bg-dark text-info"
+            className="form-control input-height bg-dark text-light"
             type="text"
             ref={destinationRef}
             required
           />
-          <label htmlFor="form-floating" className="text-info">
+          <label htmlFor="form-floating" className="text-light">
             Määränpää
           </label>
           <MdClose
@@ -107,7 +107,7 @@ const Forms = (props) => {
             onChange={(e) => props.setSelected(e.target.value)}
           />
           <Form.Select
-            className="form-control text-info bg-dark"
+            className="form-control text-light bg-dark"
             ref={props.selectInputRef}
             onChange={(e) => props.setSelected(e.target.value)}
             required

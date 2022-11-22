@@ -4,7 +4,7 @@ const usePrices = () => {
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierpriceapi.onrender.com/")
+    fetch("https://tierprice.cyclic.app/api")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);

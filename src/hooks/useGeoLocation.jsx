@@ -33,7 +33,7 @@ const useGeoLocation = () => {
       maximumAge: 0,
     };
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+      navigator.geolocation.watchPosition(onSuccess, onError, options);
     }
   }, []);
 

@@ -129,13 +129,13 @@ const App = () => {
         map={map}
         directionResponse={directionResponse}
         center={center}
-        setSlowMode={setSlowMode}
-        slow={slow}
       />
       <CalculationResults
         duration={duration}
         price={price}
         distance={distance}
+        setSlowMode={setSlowMode}
+        slow={slow}
       />
     </>
   );
