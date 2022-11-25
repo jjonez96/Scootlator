@@ -32,7 +32,7 @@ const TierMarkers = () => {
   const minutes = String(newTime.getMinutes()).padStart(2, "0");
   const hours = String(newTime.getHours()).padStart(2, "0");
   const time = hours + ":" + minutes;
-
+  console.log(markers);
   const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   return (

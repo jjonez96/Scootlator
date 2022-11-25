@@ -28,8 +28,8 @@ a {
 .customBg {
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5.4px);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(7.4px);
   -webkit-backdrop-filter: blur(3.4px);
   width: 45% !important;
 }
@@ -87,10 +87,10 @@ a {
   background-color: #101214;
 }
 .pac-matched {
-  color: #0dcaf0;
+  color: #e1e3e4;
 }
 .pac-item-query {
-  color: #0dcaf0;
+  color: #e1e3e4;
 }
 .pac-placeholder {
   color: rgb(255, 0, 0);

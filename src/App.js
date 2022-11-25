@@ -1,5 +1,6 @@
 import { useJsApiLoader } from "@react-google-maps/api";
 import React, { useRef, useState } from "react";
+import { Alert } from "react-bootstrap";
 import "./App.css";
 import CalculationResults from "./components/CalculationResults";
 import Forms from "./components/Forms";
@@ -53,7 +54,6 @@ const App = () => {
     setPrice(
       1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
     );
-    setSlow(false);
   };
 
   const setSlowMode = async () => {

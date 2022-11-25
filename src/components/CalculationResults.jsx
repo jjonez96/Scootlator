@@ -16,8 +16,8 @@ const CalculationResults = (props) => {
       {toFixedPrice === "NaN" ? (
         <></>
       ) : (
-        <div className="resultsBg fw-bold bg-dark text-info container fixed-bottom d-flex justify-content-around shadow mt-1">
-          <div className="m-1 ">
+        <div className="resultsBg bg-dark text-info container fixed-bottom d-flex justify-content-around shadow hstack gap-5">
+          <div className="m-1">
             Pituus <RiPinDistanceFill color="#1ef778" />
             <br />
             {props.distance}
