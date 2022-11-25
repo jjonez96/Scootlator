@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 const usePrices = () => {
-  const [tier, setTier] = useState(0.25);
+  const [tier, setTier] = useState(0);
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierprice.cyclic.app/api")
+    fetch("https://tierlocations.cyclic.app/api2")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
           return;
         }
         response.json().then((tier) => {
-          setTier(tier);
+          setTier(tier.rentalRunningPricePerMinute);
         });
       })
       .catch((err) => {
