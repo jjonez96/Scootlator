@@ -11,7 +11,7 @@ const TierMarkers = () => {
   /*Tier scooter locations from node server*/
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://tierlocations.cyclic.app/api")
+    fetch("https://tierdata.cyclic.app/locations")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
