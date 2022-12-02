@@ -1,24 +1,20 @@
 import React from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import Spinner from "react-bootstrap/Spinner";
 
-const TierMarkers = () => {
+const TierMarkersSjoki = () => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   /*Tier scooter locations from node server*/
   useEffect(() => {
-    setIsLoading(true);
-    fetch("https://tierdata.cyclic.app/locations")
+    fetch("https://tierdata.cyclic.app/locationssjoki")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
           return;
         }
         response.json().then((markers) => {
-          setIsLoading(false);
           setMarkers(markers);
         });
       })
@@ -36,9 +32,6 @@ const TierMarkers = () => {
 
   return (
     <>
-      {isLoading && (
-        <Spinner animation="border" variant="info" size="sm" className="p-1" />
-      )}
       {markers.map((marker, id) => (
         <Marker
           icon={icon}
@@ -95,4 +88,4 @@ const TierMarkers = () => {
   );
 };
 
-export default TierMarkers;
+export default TierMarkersSjoki;

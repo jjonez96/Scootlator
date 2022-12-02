@@ -16,12 +16,7 @@ a {
 * {
   box-sizing: border-box;
 }
-.d {
-  width: 20px;
-  height: 20px;
-  position: relative;
-  bottom: 40px;
-}
+
 .btn-outline-primary {
   color: #000;
 }
@@ -31,16 +26,24 @@ a {
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(7.4px);
   -webkit-backdrop-filter: blur(3.4px);
-  width: 45% !important;
+  width: 50% !important;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1300px) {
   .customBg {
     width: 100% !important;
   }
 }
+.loading {
+  position: fixed;
+  top: 6px;
+  left: 15px;
+}
+.hideload {
+  display: none;
+}
 .resultsBg {
-  width: 45% !important;
+  width: 50% !important;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   -ms-overflow-style: -ms-autohiding-scrollbar;
@@ -53,14 +56,22 @@ a {
 .input-height {
   height: 40px !important;
   padding-top: 20px !important;
+  position: relative;
+  left: 1px !important;
+}
+@media only screen and (max-width: 1200px) {
+  .input-height {
+    position: relative;
+    left: 0px !important;
+  }
 }
 
 .pac-container {
   background-color: #212529;
-
   box-shadow: none;
   z-index: 1051 !important;
 }
+
 .pac-matched {
   color: red;
 }
@@ -98,7 +109,7 @@ a {
 
 label {
   position: relative;
-  top: -8px !important;
+  top: -9px !important;
   left: 10px !important;
 }
 .map-container {
@@ -133,15 +144,22 @@ label {
   height: 20px;
   transform: translateY(-50%);
   cursor: pointer;
+  background: #fff !important;
 }
 .iconn {
   height: 1.5rem;
   width: 1.5rem;
-  position: absolute;
-  top: 70%;
-  right: 63px;
+  position: fixed;
+  top: 60%;
+  right: 14%;
   height: 20px;
   transform: translateY(-50%);
+}
+@media only screen and (max-width: 600px) {
+  .iconn {
+    top: 70%;
+    right: 14.3%;
+  }
 }
 .icon:hover,
 :focus {
@@ -180,7 +198,7 @@ button.gm-ui-hover-effect > span {
   }
 }
 .checkscoot {
-  width: 45% !important;
+  width: 50% !important;
   position: fixed;
   top: -2px !important;
   right: 20px !important;
@@ -193,14 +211,19 @@ button.gm-ui-hover-effect > span {
 
 .dropdown-toggle::after {
   content: none !important;
-  border: none !important;
 }
 
 .dropdown-toggle:focus {
-  box-shadow: none !important;
+  box-shadow: #950df0 !important;
 }
 
 .dropdown-toggle {
-  background: transparent !important;
-  border: none !important;
+}
+.formWidth {
+  width: 49.6% !important;
+}
+@media only screen and (max-width: 600px) {
+  .formWidth {
+    width: 100% !important;
+  }
 }

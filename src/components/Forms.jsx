@@ -1,8 +1,14 @@
 import { useEffect, useRef } from "react";
-import { Button, Form } from "react-bootstrap";
-import { FaTimes } from "react-icons/fa";
+import { Button, Form, Dropdown } from "react-bootstrap";
 import { MdClose, MdMyLocation } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
+import TierMarkersSjoki from "./TierMarkersSjoki";
+import TierMarkers from "./TierMarkersVaasa";
+import { GoSettings } from "react-icons/go";
+import { FaTimes } from "react-icons/fa";
+
+import { MdElectricScooter } from "react-icons/md";
+
 const Forms = (props) => {
   const autocomplete = window.google.maps;
   const autocompleteRef = useRef();
@@ -11,6 +17,8 @@ const Forms = (props) => {
   const center = props.center;
   const calculateRoute = props.calculateRoute;
   const services = props.services;
+  const onOffMarkers = props.onOffMarkers;
+  const handleMarkers = props.handleMarkers;
 
   const defaultBounds = {
     north: center.lat + 0.1,
@@ -62,12 +70,15 @@ const Forms = (props) => {
   };
 
   return (
-    <>
+    <div className="customBg fixed-top shadow p-1 container ">
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
-      <div className="hstack gap-1 row ">
-        <form onSubmit={handleSubmit} className="form-floating was-validated">
+      <div className="hstack gap-1 row">
+        <form
+          onSubmit={handleSubmit}
+          className="form-floating was-validated col-auto formWidth"
+        >
           <input
-            className="form-control input-height bg-dark text-light"
+            className="form-control input-height bg-dark text-light "
             type="text"
             ref={originRef}
             required
@@ -84,7 +95,10 @@ const Forms = (props) => {
             }}
           />
         </form>
-        <form onSubmit={handleSubmit} className="was-validated form-floating">
+        <form
+          onSubmit={handleSubmit}
+          className="was-validated form-floating col-auto container formWidth"
+        >
           <input
             className="form-control input-height bg-dark text-light"
             type="text"
@@ -102,12 +116,33 @@ const Forms = (props) => {
           />
         </form>
         <div className="d-flex justify-content-center was-validated">
-          <IoIosArrowDown
-            className="iconn text-info bg-dark"
-            onChange={(e) => props.setSelected(e.target.value)}
-          />
+          <Dropdown>
+            <Dropdown.Toggle className="mx-2 btn btn-info ">
+              <GoSettings className="text-dark" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="bg-dark text-center text-light">
+              Scootit karttaan <MdElectricScooter color="#1ef778" />
+              <Form.Check
+                type="switch"
+                onChange={handleMarkers}
+                value={onOffMarkers}
+                id=""
+                defaultChecked={true}
+              />
+            </Dropdown.Menu>
+
+            {onOffMarkers === true ? (
+              <div></div>
+            ) : (
+              <div>
+                <TierMarkers />
+                <TierMarkersSjoki />
+              </div>
+            )}
+          </Dropdown>
+
           <Form.Select
-            className="form-control text-light bg-dark"
+            className="form-control text-light bg-dark w-75 "
             ref={props.selectInputRef}
             onChange={(e) => props.setSelected(e.target.value)}
             required
@@ -120,14 +155,17 @@ const Forms = (props) => {
               <option
                 key={`${service.pricePerMin},${service.name}`}
                 value={service.pricePerMin}
-                className="dd"
               >
                 {service.name} {service.pricePerMin}€/min + 1€ aloitusmaksu
               </option>
             ))}
           </Form.Select>
+          <IoIosArrowDown
+            className="iconn text-info bg-dark"
+            onChange={(e) => props.setSelected(e.target.value)}
+          />
           <Button
-            className="mx-1 text-dark"
+            className="mx-2 fw-bold text-dark"
             variant="danger"
             onClick={props.clearRoute}
           >
@@ -143,7 +181,7 @@ const Forms = (props) => {
           Laske
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 export default Forms;
