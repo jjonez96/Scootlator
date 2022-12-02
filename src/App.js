@@ -1,12 +1,15 @@
-import { useJsApiLoader } from "@react-google-maps/api";
 import React, { useRef, useState } from "react";
 import "./App.css";
 import CalculationResults from "./components/CalculationResults";
 import Forms from "./components/Forms";
 import LoadingScreen from "./components/LoadingScreen";
-import Map from "./components/Map";
 import useGeoLocation from "./hooks/useGeoLocation";
 import useServices from "./hooks/useServices";
+import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
+import mapstyle from "./mapstyle";
+import TierMarkersVaasa from "./components/TierMarkersVaasa";
+import TierMarkersSjoki from "./components/TierMarkersSjoki";
 
 const App = () => {
   /** States */
@@ -35,6 +38,33 @@ const App = () => {
   services.map((e) => {
     return servicePrices.push(e.pricePerMin);
   });
+
+  const mapRef = useRef();
+
+  /**Click handler for changing coordinates to address on map*/
+  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
+  const handleDestinationMapClick = (ev) => {
+    const url = `${geocodeJson}?key=${
+      process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    }&latlng=${ev.latLng.lat()}, ${ev.latLng.lng()}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((location) => {
+        const place = location.results[0];
+        destinationRef.current.value = `${place.formatted_address}`;
+      });
+  };
+
+  const icon = {
+    url: "../location.png",
+    scaledSize: { width: 28, height: 28 },
+  };
+
+  const [onOffMarkers, setOnOffMarkers] = useState(false);
+
+  const handleMarkers = (event) => {
+    setOnOffMarkers((current) => !current);
+  };
 
   const [selected, setSelected] = useState(...services);
 
@@ -108,27 +138,21 @@ const App = () => {
 
   return (
     <>
-      <div className="customBg fixed-top container shadow p-1">
-        <Forms
-          setSelected={setSelected}
-          services={services}
-          originRef={originRef}
-          destinationRef={destinationRef}
-          map={map}
-          clearRoute={clearRoute}
-          center={center}
-          setSlow={setSlow}
-          selectInputRef={selectInputRef}
-          calculateRoute={calculateRoute}
-        />
-      </div>
-      <Map
+      <Forms
+        setSelected={setSelected}
+        services={services}
+        originRef={originRef}
         destinationRef={destinationRef}
-        setMap={setMap}
         map={map}
-        directionResponse={directionResponse}
+        clearRoute={clearRoute}
         center={center}
+        setSlow={setSlow}
+        selectInputRef={selectInputRef}
+        calculateRoute={calculateRoute}
+        handleMarkers={handleMarkers}
+        onOffMarkers={onOffMarkers}
       />
+
       <CalculationResults
         duration={duration}
         price={price}
@@ -136,6 +160,38 @@ const App = () => {
         setSlowMode={setSlowMode}
         slow={slow}
       />
+      <GoogleMap
+        center={center}
+        zoom={12}
+        ref={mapRef}
+        onClick={(ev) => {
+          handleDestinationMapClick(ev);
+        }}
+        mapContainerClassName="map-container"
+        options={{
+          zoomControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          rotateControlOptions: true,
+          rotateControl: true,
+          styles: mapstyle,
+          clickableIcons: false,
+          fullscreenControl: false,
+          disableDefaultUI: true,
+        }}
+        onLoad={(map) => setMap(map)}
+      >
+        {onOffMarkers === true ? null : (
+          <div className="hideload">
+            <TierMarkersVaasa />
+            <TierMarkersSjoki />
+          </div>
+        )}
+        <Marker position={center} icon={icon} />
+        {directionResponse && (
+          <DirectionsRenderer directions={directionResponse} />
+        )}
+      </GoogleMap>
     </>
   );
 };
