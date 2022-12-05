@@ -1,6 +1,7 @@
 import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
 import { GiSnail } from "react-icons/gi";
 import { Form } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
 
 const CalculationResults = ({
   price,
@@ -15,12 +16,12 @@ const CalculationResults = ({
 
   if (int >= 25) {
     return (
-      <div
-        className="alert alert-danger resultsBg container fixed-bottom d-flex justify-content-around"
-        role="alert"
+      <Alert
+        className="resultsBg container fixed-bottom d-flex justify-content-center"
+        variant="danger"
       >
         Matkasi on liian pitkä.
-      </div>
+      </Alert>
     );
   }
 
@@ -38,9 +39,9 @@ const CalculationResults = ({
             <br />~{duration}
           </div>
           {price === "1 €" || price === "1.44 €" || price === "NaN €" ? (
-            <div className="alert alertt alert-danger p-1 mt-2" role="alert">
+            <Alert className="alertt p-1 mt-2" variant="danger">
               Palvelua ei valittu
-            </div>
+            </Alert>
           ) : (
             <div className="m-1 d-flex justify-content-around ">
               <div>
