@@ -174,6 +174,10 @@ button.gm-ui-hover-effect > span {
 .markBtns {
   padding-left: 4px;
 }
+.alertt {
+  position: relative;
+  top: 3px;
+}
 .custombtn {
   border-bottom-left-radius: 25px !important;
   border-bottom-right-radius: 25px !important;

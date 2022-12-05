@@ -10,7 +10,19 @@ const CalculationResults = ({
   slow,
 }) => {
   const float = parseFloat(price);
+  const int = parseInt(distance);
   const toFixedPrice = float.toFixed(2);
+
+  if (int >= 25) {
+    return (
+      <div
+        className="alert alert-danger resultsBg container fixed-bottom d-flex justify-content-around"
+        role="alert"
+      >
+        Matkasi on liian pitkä.
+      </div>
+    );
+  }
 
   return (
     <>
@@ -25,10 +37,12 @@ const CalculationResults = ({
             Kesto <RiTimeFill color="#0dcaf0" />
             <br />~{duration}
           </div>
-          {price === "1 €" || price === "1.44 €" ? (
-            <p className="text-danger mt-3">Palvelua ei valittu</p>
+          {price === "1 €" || price === "1.44 €" || price === "NaN €" ? (
+            <div className="alert alertt alert-danger p-1 mt-2" role="alert">
+              Palvelua ei valittu
+            </div>
           ) : (
-            <div className="m-1 d-flex justify-content-around  ">
+            <div className="m-1 d-flex justify-content-around ">
               <div>
                 Hinta <RiPriceTag3Fill color="#0dcaf0" />
                 <br />~{toFixedPrice} €
