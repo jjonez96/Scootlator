@@ -1,4 +1,3 @@
-import React from "react";
 import { MdElectricScooter } from "react-icons/md";
 
 const LoadingScreen = () => {

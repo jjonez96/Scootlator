@@ -146,21 +146,7 @@ label {
   cursor: pointer;
   background: #fff !important;
 }
-.iconn {
-  height: 1.5rem;
-  width: 1.5rem;
-  position: fixed;
-  top: 60%;
-  right: 14%;
-  height: 20px;
-  transform: translateY(-50%);
-}
-@media only screen and (max-width: 600px) {
-  .iconn {
-    top: 70%;
-    right: 14.3%;
-  }
-}
+
 .icon:hover,
 :focus {
   color: green;
@@ -179,10 +165,14 @@ button.gm-ui-hover-effect > span {
   background-color: #04e3a6 !important;
 }
 .vuokraa {
-  align-items: center;
-  justify-content: center;
-  margin-left: 33%;
-  color: #fff;
+  text-decoration: none;
+  color: #000;
+}
+.vuokraa:hover {
+  color: #000;
+}
+.markBtns {
+  padding-left: 4px;
 }
 .custombtn {
   border-bottom-left-radius: 25px !important;
@@ -197,28 +187,11 @@ button.gm-ui-hover-effect > span {
     width: 95% !important;
   }
 }
-.checkscoot {
-  width: 50% !important;
-  position: fixed;
-  top: -2px !important;
-  right: 20px !important;
-}
-@media only screen and (max-width: 1200px) {
-  .checkscoot {
-    width: 100% !important;
-  }
-}
 
 .dropdown-toggle::after {
   content: none !important;
 }
 
-.dropdown-toggle:focus {
-  box-shadow: #950df0 !important;
-}
-
-.dropdown-toggle {
-}
 .formWidth {
   width: 49.6% !important;
 }
@@ -226,4 +199,12 @@ button.gm-ui-hover-effect > span {
   .formWidth {
     width: 100% !important;
   }
+}
+
+.form-switch .form-check-input {
+  background-color: #fff !important;
+  box-shadow: none !important;
+}
+.form-switch .form-check-input:checked {
+  background-color: #0dcafe !important;
 }
