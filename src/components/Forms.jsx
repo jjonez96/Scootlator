@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Button, Form, Dropdown } from "react-bootstrap";
-import { MdClose, MdMyLocation } from "react-icons/md";
+import { MdClose, MdMyLocation, MdElectricScooter } from "react-icons/md";
 import TierMarkersSjoki from "./TierMarkersSjoki";
 import TierMarkers from "./TierMarkersVaasa";
 import { FaTimes } from "react-icons/fa";
-import { MdElectricScooter } from "react-icons/md";
 
 const Forms = ({
   originRef,
@@ -74,20 +73,15 @@ const Forms = ({
   return (
     <div className="customBg fixed-top shadow p-1 container ">
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
-      <div className="hstack gap-1 row">
-        <form
-          onSubmit={handleSubmit}
-          className="form-floating was-validated col-auto formWidth"
-        >
-          <input
-            className="form-control input-height bg-dark text-light "
+      <Form className="hstack gap-1 row" onSubmit={handleSubmit}>
+        <Form.Group className="form-floating was-validated col-auto formWidth position-relative">
+          <Form.Control
+            className="input-height bg-dark text-light"
             type="text"
             ref={originRef}
             required
           />
-          <label htmlFor="form-floating" className="text-light">
-            Valitse aloituspaikka
-          </label>
+          <Form.Label className="text-light">Valitse aloituspaikka</Form.Label>
           <MdMyLocation
             className="icon text-info bg-dark"
             onClick={(e) => {
@@ -96,28 +90,23 @@ const Forms = ({
               handleOriginClick(e);
             }}
           />
-        </form>
-        <form
-          onSubmit={handleSubmit}
-          className="was-validated form-floating col-auto container formWidth"
-        >
-          <input
-            className="form-control input-height bg-dark text-light"
+        </Form.Group>
+        <Form.Group className="was-validated form-floating col-auto container formWidth position-relative">
+          <Form.Control
+            className="input-height bg-dark text-light"
             type="text"
             ref={destinationRef}
             required
           />
-          <label htmlFor="form-floating" className="text-light">
-            Valitse määränpää
-          </label>
+          <Form.Label className="text-light">Valitse määränpää</Form.Label>
           <MdClose
             className="icon text-info bg-dark"
             onClick={(e) => {
               clearDestination(e);
             }}
           />
-        </form>
-        <div className="d-flex justify-content-center was-validated ">
+        </Form.Group>
+        <Form.Group className="d-flex justify-content-center was-validated ">
           <Dropdown>
             <Dropdown.Toggle className="mx-2 btn btn-info ">
               <MdElectricScooter className="text-dark" />
@@ -157,6 +146,7 @@ const Forms = ({
               </option>
             ))}
           </Form.Select>
+
           <Button
             className="mx-2 fw-bold text-dark"
             variant="danger"
@@ -164,7 +154,7 @@ const Forms = ({
           >
             <FaTimes />
           </Button>
-        </div>
+        </Form.Group>
         <Button
           variant="info"
           type="submit"
@@ -173,7 +163,7 @@ const Forms = ({
         >
           Laske
         </Button>
-      </div>
+      </Form>
     </div>
   );
 };
