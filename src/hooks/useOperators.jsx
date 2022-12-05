@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-const usePrices = () => {
+const useOperators = () => {
   const [tier, setTier] = useState(0.25);
 
   /*Tier pricePerMin api from node server*/
@@ -21,16 +21,17 @@ const usePrices = () => {
 
   let services = [
     {
-      name: "Tier",
-      pricePerMin: tier,
-    },
-    {
       name: "Voi",
       pricePerMin: 0.22,
     },
   ];
 
+  services.unshift({
+    name: "Tier",
+    pricePerMin: tier,
+  });
+
   return services;
 };
 
-export default usePrices;
+export default useOperators;

@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import CalculationResults from "./components/CalculationResults";
 import Forms from "./components/Forms";
 import LoadingScreen from "./components/LoadingScreen";
 import useGeoLocation from "./hooks/useGeoLocation";
-import useServices from "./hooks/useServices";
+import useOperators from "./hooks/useOperators";
 import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
 import mapstyle from "./mapstyle";
@@ -16,6 +16,7 @@ const App = () => {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionResponse, setDirectionResponse] = useState();
   const [distance, setDistance] = useState("");
+  const [onOffMarkers, setOnOffMarkers] = useState(false);
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [libraries] = useState(["places"]);
@@ -27,46 +28,17 @@ const App = () => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   const destinationRef = useRef();
   const selectInputRef = useRef();
+  const mapRef = useRef();
 
   /** User gps coordinates */
   const location = useGeoLocation();
   const center = location.coordinates;
 
-  /** Service selector */
-  const services = useServices();
-  const servicePrices = [];
-  services.map((e) => {
-    return servicePrices.push(e.pricePerMin);
-  });
-
-  const mapRef = useRef();
-
-  /**Click handler for changing coordinates to address on map*/
-  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-  const handleDestinationMapClick = (ev) => {
-    const url = `${geocodeJson}?key=${
-      process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-    }&latlng=${ev.latLng.lat()}, ${ev.latLng.lng()}`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((location) => {
-        const place = location.results[0];
-        destinationRef.current.value = `${place.formatted_address}`;
-      });
-  };
-
-  const icon = {
-    url: "../location.png",
-    scaledSize: { width: 28, height: 28 },
-  };
-
-  const [onOffMarkers, setOnOffMarkers] = useState(false);
-
-  const handleMarkers = (event) => {
-    setOnOffMarkers((current) => !current);
-  };
-
-  const [selected, setSelected] = useState(...services);
+  /** Operator selector */
+  const operator = useOperators();
+  const operatorPrices = [];
+  operator.map((e) => operatorPrices.push(e.pricePerMin));
+  const [selected, setSelected] = useState(operator);
 
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
@@ -83,6 +55,7 @@ const App = () => {
     setPrice(
       1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
     );
+    console.log(distance);
   };
 
   const setSlowMode = async () => {
@@ -115,6 +88,20 @@ const App = () => {
         );
   };
 
+  /**Click handler for changing coordinates to address on map*/
+  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
+  const handleDestinationMapClick = (ev) => {
+    const url = `${geocodeJson}?key=${
+      process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    }&latlng=${ev.latLng.lat()}, ${ev.latLng.lng()}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((location) => {
+        const place = location.results[0];
+        destinationRef.current.value = `${place.formatted_address}`;
+      });
+  };
+
   const clearRoute = () => {
     setDirectionResponse(null);
     setDistance("");
@@ -132,6 +119,17 @@ const App = () => {
     libraries,
   });
 
+  /** User location icon */
+  const icon = {
+    url: "../location.png",
+    scaledSize: { width: 28, height: 28 },
+  };
+
+  /** Scoot markers on/off switch */
+  const handleMarkers = (event) => {
+    setOnOffMarkers((current) => !current);
+  };
+
   if (!isLoaded) {
     return <LoadingScreen />;
   }
@@ -140,7 +138,7 @@ const App = () => {
     <>
       <Forms
         setSelected={setSelected}
-        services={services}
+        operator={operator}
         originRef={originRef}
         destinationRef={destinationRef}
         map={map}
@@ -164,7 +162,7 @@ const App = () => {
         center={center}
         zoom={12}
         ref={mapRef}
-        onClick={(ev) => {
+        onClick={(ev, e) => {
           handleDestinationMapClick(ev);
         }}
         mapContainerClassName="map-container"
@@ -183,8 +181,8 @@ const App = () => {
       >
         {onOffMarkers === true ? null : (
           <div className="hideload">
-            <TierMarkersVaasa />
-            <TierMarkersSjoki />
+            <TierMarkersVaasa originRef={originRef} />
+            <TierMarkersSjoki originRef={originRef} />
           </div>
         )}
         <Marker position={center} icon={icon} />

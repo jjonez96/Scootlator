@@ -1,8 +1,9 @@
-import React from "react";
 import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
+import { MdMyLocation } from "react-icons/md";
 
-const TierMarkersSjoki = () => {
+const TierMarkersSjoki = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
 
@@ -23,11 +24,25 @@ const TierMarkersSjoki = () => {
       });
   }, []);
 
+  /**Click handler for changing coordinates to address*/
+  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
+  const handleOriginClick = () => {
+    const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${selectedMarker.lat},${selectedMarker.lng}`;
+    fetch(url)
+      .then((response) => response.json())
+      .then((location) => {
+        const place = location.results[0];
+        originRef.current.value = `${place.formatted_address}`;
+      });
+  };
+
   /*Tier scooter locations update date format*/
   const newTime = new Date(selectedMarker.lastLocationUpdate);
   const minutes = String(newTime.getMinutes()).padStart(2, "0");
   const hours = String(newTime.getHours()).padStart(2, "0");
   const time = hours + ":" + minutes;
+
+  /*Tier scooter marker icons*/
   const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   return (
@@ -75,12 +90,25 @@ const TierMarkersSjoki = () => {
             </>
             Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
             <br />
-            <a
-              className="vuokraa"
-              href="https://play.google.com/store/search?q=tier+scooter+app&c=apps&hl=fi"
-            >
-              Vuokraa
-            </a>
+            <div className="markBtns">
+              <Button
+                onClick={(e) => {
+                  handleOriginClick(e);
+                }}
+                className="btn btn-info"
+                size="sm"
+              >
+                Sijainti <MdMyLocation />
+              </Button>
+              <Button className="btn btn-info m-2" size="sm">
+                <a
+                  className="vuokraa"
+                  href="https://play.google.com/store/search?q=tier+scooter+app&c=apps&hl=fi"
+                >
+                  Vuokraa
+                </a>
+              </Button>
+            </div>
           </>
         </InfoWindow>
       )}
