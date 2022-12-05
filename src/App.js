@@ -55,7 +55,6 @@ const App = () => {
     setPrice(
       1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
     );
-    console.log(distance);
   };
 
   const setSlowMode = async () => {

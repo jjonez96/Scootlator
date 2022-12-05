@@ -50,6 +50,11 @@ const Forms = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    return false;
+  };
+
   const clearDestination = () => {
     destinationRef.current.value = "";
   };
@@ -70,7 +75,10 @@ const Forms = ({
     <div className="customBg fixed-top shadow p-1 container ">
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
       <div className="hstack gap-1 row">
-        <form className="form-floating was-validated col-auto formWidth">
+        <form
+          onSubmit={handleSubmit}
+          className="form-floating was-validated col-auto formWidth"
+        >
           <input
             className="form-control input-height bg-dark text-light "
             type="text"
@@ -89,7 +97,10 @@ const Forms = ({
             }}
           />
         </form>
-        <form className="was-validated form-floating col-auto container formWidth">
+        <form
+          onSubmit={handleSubmit}
+          className="was-validated form-floating col-auto container formWidth"
+        >
           <input
             className="form-control input-height bg-dark text-light"
             type="text"
@@ -129,7 +140,7 @@ const Forms = ({
             )}
           </Dropdown>
           <Form.Select
-            className="form-control text-light bg-dark w-75  "
+            className="form-control text-light bg-dark w-75"
             ref={selectInputRef}
             onChange={(e) => setSelected(e.target.value)}
             required
