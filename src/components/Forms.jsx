@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Button, Form, Dropdown } from "react-bootstrap";
 import { MdClose, MdMyLocation, MdElectricScooter } from "react-icons/md";
-import TierMarkersSjoki from "./TierMarkersSjoki";
-import TierMarkers from "./TierMarkersVaasa";
+import TierMarkers from "./TierMarkers";
 import { FaTimes } from "react-icons/fa";
 
 const Forms = ({
@@ -74,7 +73,7 @@ const Forms = ({
     <div className="customBg fixed-top shadow p-1 container ">
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
       <Form className="hstack gap-1 row" onSubmit={handleSubmit}>
-        <Form.Group className="form-floating was-validated col-auto formWidth position-relative">
+        <Form.Group className="form-floating was-validated col-auto formWidth">
           <Form.Control
             className="input-height bg-dark text-light"
             type="text"
@@ -91,7 +90,7 @@ const Forms = ({
             }}
           />
         </Form.Group>
-        <Form.Group className="was-validated form-floating col-auto container formWidth position-relative">
+        <Form.Group className="was-validated form-floating col-auto container formWidth">
           <Form.Control
             className="input-height bg-dark text-light"
             type="text"
@@ -121,12 +120,7 @@ const Forms = ({
                 defaultChecked={true}
               />
             </Dropdown.Menu>
-            {onOffMarkers === true ? null : (
-              <div>
-                <TierMarkers />
-                <TierMarkersSjoki />
-              </div>
-            )}
+            {onOffMarkers === true ? null : <TierMarkers />}
           </Dropdown>
           <Form.Select
             className="form-control text-light bg-dark w-75"

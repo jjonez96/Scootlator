@@ -5,11 +5,10 @@ import Forms from "./components/Forms";
 import LoadingScreen from "./components/LoadingScreen";
 import useGeoLocation from "./hooks/useGeoLocation";
 import useOperators from "./hooks/useOperators";
-import { DirectionsRenderer, GoogleMap, Marker } from "@react-google-maps/api";
+import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
 import mapstyle from "./mapstyle";
-import TierMarkersVaasa from "./components/TierMarkersVaasa";
-import TierMarkersSjoki from "./components/TierMarkersSjoki";
+import TierMarkers from "./components/TierMarkers";
 
 const App = () => {
   /** States */
@@ -180,11 +179,10 @@ const App = () => {
       >
         {onOffMarkers === true ? null : (
           <div className="hideload">
-            <TierMarkersVaasa originRef={originRef} />
-            <TierMarkersSjoki originRef={originRef} />
+            <TierMarkers originRef={originRef} />
           </div>
         )}
-        <Marker position={center} icon={icon} />
+        <MarkerF position={center} icon={icon} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
         )}

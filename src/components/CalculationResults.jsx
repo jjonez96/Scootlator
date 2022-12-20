@@ -14,7 +14,7 @@ const CalculationResults = ({
   const int = parseInt(distance);
   const toFixedPrice = float.toFixed(2);
 
-  if (int >= 25) {
+  if (int > 20) {
     return (
       <Alert
         className="resultsBg container fixed-bottom d-flex justify-content-center"
