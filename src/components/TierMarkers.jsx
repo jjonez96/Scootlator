@@ -1,21 +1,26 @@
-import { Marker, InfoWindow } from "@react-google-maps/api";
+import { MarkerF, InfoWindowF } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
+import Spinner from "react-bootstrap/Spinner";
 import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 
-const TierMarkersSjoki = ({ originRef }) => {
+const TierMarkersVaasa = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   /*Tier scooter locations from node server*/
   useEffect(() => {
-    fetch("https://tierdata.cyclic.app/locationssjoki")
+    setIsLoading(true);
+    fetch("https://tierdata.cyclic.app/api/locations")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
           return;
         }
         response.json().then((markers) => {
+          setIsLoading(false);
           setMarkers(markers);
         });
       })
@@ -23,6 +28,15 @@ const TierMarkersSjoki = ({ originRef }) => {
         console.log(err);
       });
   }, []);
+
+  /*Tier scooter locations update date format*/
+  const newTime = new Date(selectedMarker.lastLocationUpdate);
+  const minutes = String(newTime.getMinutes()).padStart(2, "0");
+  const hours = String(newTime.getHours()).padStart(2, "0");
+  const time = hours + ":" + minutes;
+
+  /*Tier scooter marker icons*/
+  const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
 
   /**Click handler for changing coordinates to address*/
   const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
@@ -36,19 +50,18 @@ const TierMarkersSjoki = ({ originRef }) => {
       });
   };
 
-  /*Tier scooter locations update date format*/
-  const newTime = new Date(selectedMarker.lastLocationUpdate);
-  const minutes = String(newTime.getMinutes()).padStart(2, "0");
-  const hours = String(newTime.getHours()).padStart(2, "0");
-  const time = hours + ":" + minutes;
-
-  /*Tier scooter marker icons*/
-  const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
-
   return (
     <>
+      {isLoading && (
+        <Spinner
+          animation="border"
+          variant="info"
+          size="sm"
+          className="loading"
+        />
+      )}
       {markers.map((marker, id) => (
-        <Marker
+        <MarkerF
           icon={icon}
           key={id}
           title={"Tier"}
@@ -57,7 +70,7 @@ const TierMarkersSjoki = ({ originRef }) => {
         />
       ))}
       {selectedMarker && (
-        <InfoWindow
+        <InfoWindowF
           position={selectedMarker}
           onCloseClick={() => setSelectedMarker("")}
         >
@@ -110,10 +123,10 @@ const TierMarkersSjoki = ({ originRef }) => {
               </Button>
             </div>
           </>
-        </InfoWindow>
+        </InfoWindowF>
       )}
     </>
   );
 };
 
-export default TierMarkersSjoki;
+export default TierMarkersVaasa;
