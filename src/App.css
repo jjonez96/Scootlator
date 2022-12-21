@@ -26,10 +26,10 @@ a {
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(7.4px);
   -webkit-backdrop-filter: blur(3.4px);
-  width: 50% !important;
+  width: 55% !important;
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1200px) {
   .customBg {
     width: 100% !important;
   }
@@ -43,12 +43,12 @@ a {
   display: none;
 }
 .resultsBg {
-  width: 50% !important;
+  width: 45% !important;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 900px) {
   .resultsBg {
     width: 100% !important;
   }
@@ -199,7 +199,7 @@ button.gm-ui-hover-effect > span {
 .formWidth {
   width: 49.6% !important;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .formWidth {
     width: 100% !important;
   }

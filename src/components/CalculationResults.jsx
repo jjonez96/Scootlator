@@ -28,7 +28,7 @@ const CalculationResults = ({
   return (
     <>
       {price === "" ? null : (
-        <div className="resultsBg bg-dark text-light container fixed-bottom d-flex justify-content-around shadow ">
+        <div className="resultsBg bg-dark text-light container-fluid fixed-bottom d-flex justify-content-around shadow ">
           <div className="m-1">
             Pituus <RiPinDistanceFill color="#0dcaf0" />
             <br />

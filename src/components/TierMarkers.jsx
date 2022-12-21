@@ -1,4 +1,4 @@
-import { MarkerF, InfoWindowF } from "@react-google-maps/api";
+import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { Button } from "react-bootstrap";
@@ -61,7 +61,7 @@ const TierMarkersVaasa = ({ originRef }) => {
         />
       )}
       {markers.map((marker, id) => (
-        <MarkerF
+        <Marker
           icon={icon}
           key={id}
           title={"Tier"}
@@ -70,7 +70,7 @@ const TierMarkersVaasa = ({ originRef }) => {
         />
       ))}
       {selectedMarker && (
-        <InfoWindowF
+        <InfoWindow
           position={selectedMarker}
           onCloseClick={() => setSelectedMarker("")}
         >
@@ -103,19 +103,22 @@ const TierMarkersVaasa = ({ originRef }) => {
             </>
             Maksiminopeus: <b>{selectedMarker.maxSpeed}km/h</b>
             <br />
-            <div className="markBtns">
+            <div className="markBtns ">
               <Button
                 onClick={(e) => {
                   handleOriginClick(e);
                 }}
-                className="btn btn-info"
+                className="btn btn-outline-info bg-transparent text-info"
                 size="sm"
               >
                 Sijainti <MdMyLocation />
               </Button>
-              <Button className="btn btn-info m-2" size="sm">
+              <Button
+                className="btn btn-outline-info bg-transparent text-info m-1"
+                size="sm"
+              >
                 <a
-                  className="vuokraa"
+                  className="vuokraa text-info"
                   href="https://play.google.com/store/search?q=tier+scooter+app&c=apps&hl=fi"
                 >
                   Vuokraa
@@ -123,7 +126,7 @@ const TierMarkersVaasa = ({ originRef }) => {
               </Button>
             </div>
           </>
-        </InfoWindowF>
+        </InfoWindow>
       )}
     </>
   );
