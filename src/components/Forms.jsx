@@ -70,7 +70,7 @@ const Forms = ({
   };
 
   return (
-    <div className="customBg fixed-top shadow p-1 container ">
+    <div className="customBg fixed-top shadow p-1 container-fluid ">
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
       <Form className="hstack gap-1 row" onSubmit={handleSubmit}>
         <Form.Group className="form-floating was-validated col-auto formWidth">
@@ -97,7 +97,9 @@ const Forms = ({
             ref={destinationRef}
             required
           />
-          <Form.Label className="text-light">Valitse määränpää</Form.Label>
+          <Form.Label className="text-light ">
+            Valitse määränpää tai klikkaa karttaa
+          </Form.Label>
           <MdClose
             className="icon text-info bg-dark"
             onClick={(e) => {
