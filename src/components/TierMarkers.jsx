@@ -12,7 +12,7 @@ const TierMarkersVaasa = ({ originRef }) => {
   /*Tier scooter locations from node server*/
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://tierdata.cyclic.app/api/locations")
+    fetch("https://tierapidata.cyclic.app/api/locations")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
