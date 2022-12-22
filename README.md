@@ -64,13 +64,38 @@ https://github.com/jjonez96/tierapi
 There are alot of problems what im trying to solve yet for example scoot locations. Other issues are listed in Github issues section. Feel free to contribute if you are interested in this project!
 
 ## What i´ve learned so far?
-- Basic concepts how Node.js works.
-- Basic concepts how Postman works.
+- Making rest api´s with Node.js
 - Creating http reqests in Node.
-- Using Proxy in React.
-- CORS error handling.
-- Using basic Git commands (commit, push and pull).
-- Using npm commands (Adding dependencies, npm start and npm run build).
-- And much more
+- Cleaning the useless data from api in Node.
+- Hosting Node.js application
+- CORS error handling
+- UI/UX work(Making the app userfriendly as possible and responsive)
+- Making UI with React Bootstrap.
+- Overwriting Bootstrap styles.
+- Customise the Googlemap colorscheme
+- onClick events & onChange events.
+- Scoot operator selector(using onChange)
+- Making loading screen.
+- Setting up Googlemaps API to the React project.
+- Setting up Googlemaps AutoComplete and Places.
+- How to find user location.
+- Render coordinates to input field.
+- Fetching the data from backend to frontend
+- How to map array of markers to Googlemaps
+- Changing coordinates to address.
+- Coordinates from map click.
+- Render section when button is clicked(calculationResults component)
+- Using ternary operators instead of if else.
+- Price state change(SlowRide function)
+- Input validation and error handling.
+- Resetting the app without refreshing the page.
+- On/off switch for scoots in map.
+- How to use UseRef, UseState, UseEffect hooks.
+- Passing props between components.
+- Making own customhooks.
+- Algorithm for the scoot price.
+- Git commands (commit, push and pull).
+- npm commands (Adding dependencies, npm start and npm run build).
+
 
 
