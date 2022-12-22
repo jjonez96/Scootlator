@@ -12,12 +12,12 @@ https://scootlator.netlify.app <br>  <br>
 
 
 
-## API's: 
+## API's
 - Google maps API (map, places and autocomplete)
 - Tier API (Tier pricing and locations)
 - Voi API (Coming soon..)
 
-## How it works?:
+## How it works?
 In Scootlator you choose your origin and destination where you want to go from point A to point B.
 
 There is different ways to get origin and destination. Mostly used method is to just write them and Google Autocomplete gives you suggestions based on where you are located. You can choose the destination by clicking the map or just write it. <br> When origin and destination are selected then you choose your operator which shows their prices and then you are ready to calculate the price.
