@@ -3,12 +3,12 @@ import "./App.css";
 import CalculationResults from "./components/CalculationResults";
 import Forms from "./components/Forms";
 import LoadingScreen from "./components/LoadingScreen";
+import TierMarkers from "./components/TierMarkers";
 import useGeoLocation from "./hooks/useGeoLocation";
 import useOperators from "./hooks/useOperators";
 import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
 import mapstyle from "./mapstyle";
-import TierMarkers from "./components/TierMarkers";
 
 const App = () => {
   /** States */
@@ -56,6 +56,7 @@ const App = () => {
     );
   };
 
+  /** Function for Slow ride switch */
   const setSlowMode = async () => {
     // eslint-disable-next-line no-undef
     const directionService = new google.maps.DirectionsService();

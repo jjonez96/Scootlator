@@ -208,6 +208,7 @@ button.gm-ui-hover-effect > span {
 .form-switch .form-check-input {
   background-color: #fff !important;
   box-shadow: none !important;
+  border: transparent;
 }
 .form-switch .form-check-input:checked {
   background-color: #0dcafe !important;

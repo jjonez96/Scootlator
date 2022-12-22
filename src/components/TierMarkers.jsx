@@ -7,7 +7,6 @@ import { MdMyLocation } from "react-icons/md";
 const TierMarkersVaasa = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
 
   /*Tier scooter locations from node server*/
@@ -108,13 +107,13 @@ const TierMarkersVaasa = ({ originRef }) => {
                 onClick={(e) => {
                   handleOriginClick(e);
                 }}
-                className="btn btn-outline-info bg-transparent text-info"
+                className="btn btn-outline-info bg-transparent text-info border-info"
                 size="sm"
               >
                 Sijainti <MdMyLocation />
               </Button>
               <Button
-                className="btn btn-outline-info bg-transparent text-info m-1"
+                className="btn btn-outline-info bg-transparent text-info m-1 border-info"
                 size="sm"
               >
                 <a
