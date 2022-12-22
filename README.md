@@ -33,7 +33,7 @@ There is different ways to get origin and destination. Mostly used method is to 
 ![image](https://user-images.githubusercontent.com/90967564/209178754-7fce180c-0c84-4db1-a89d-f604036be7bd.png)
 <br>
 <b>When you click scoot icon in the map you see information of that scoot:</b> <br>
-<b>You can find scoots in Stockholm Sweden at the moment.</b>
+<b>You can find scoots in Stockholm Sweden only at the moment.</b>
 - "Päivitetty" means updated so it shows when the scoot data is updated.
 - "Akkua jäljellä" means Battery left.
 - "Maksiminopeus" means Maxspeed how fast it goes.
