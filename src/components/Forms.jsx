@@ -20,6 +20,7 @@ const Forms = ({
   const autocomplete = window.google.maps;
   const autocompleteRef = useRef();
 
+  /**Bounds for Googlemaps AutoComplete*/
   const defaultBounds = {
     north: center.lat + 0.1,
     south: center.lat - 0.1,
@@ -27,6 +28,7 @@ const Forms = ({
     west: center.lng - 0.1,
   };
 
+  /**Settings for Googlemaps AutoComplete*/
   const settings = {
     componentRestrictions: { country: "fi" },
     fields: ["place_id", "geometry", "formatted_address", "name"],
@@ -48,7 +50,7 @@ const Forms = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings]);
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     return false;
   };
@@ -72,7 +74,7 @@ const Forms = ({
   return (
     <div className="customBg fixed-top shadow p-1 container-fluid ">
       <h6 className="text-center text-info">Laske e-scoot matka</h6>
-      <Form className="hstack gap-1 row" onSubmit={handleSubmit}>
+      <Form className="hstack gap-1 row" onSubmit={handleFormSubmit}>
         <Form.Group className="form-floating was-validated col-auto formWidth">
           <Form.Control
             className="input-height bg-dark text-light"
@@ -101,19 +103,19 @@ const Forms = ({
             Valitse määränpää tai klikkaa karttaa
           </Form.Label>
           <MdClose
-            className="icon text-info bg-dark"
+            className="icon text-info bg-dark icon"
             onClick={(e) => {
               clearDestination(e);
             }}
           />
         </Form.Group>
-        <Form.Group className="d-flex justify-content-center was-validated ">
+        <Form.Group className="d-flex justify-content-center was-validated">
           <Dropdown>
             <Dropdown.Toggle className="mx-2 btn btn-info ">
               <MdElectricScooter className="text-dark" />
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-dark text-center text-light">
-              Scootit karttaan <MdElectricScooter color="#0dcaf0" />
+              Scootit on/off <MdElectricScooter color="#0dcaf0" />
               <Form.Check
                 type="switch"
                 onChange={handleMarkers}
