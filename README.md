@@ -45,7 +45,7 @@ There is different ways to get origin and destination. Mostly used method is to 
 
 Blue scoot button in the left disables all scoots in the map and right side that red button will reset the whole app.
 
-![image](https://user-images.githubusercontent.com/90967564/209189273-dc96c228-15dc-481f-a2f0-1208ee2c4374.png)
+![image](https://user-images.githubusercontent.com/90967564/209229803-c6e2eef2-17b0-47cb-a41f-50e4e39fd3ff.png)
 <br> <br>
 
 When the trip is calculated the app will return you the results like distance, duration and the price of that trip. <br>
