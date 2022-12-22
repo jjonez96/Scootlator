@@ -43,7 +43,7 @@ There is different ways to get origin and destination. Mostly used method is to 
 <br> <br>
 
 
-Blue scoot button in the left will disables all scoots in the map and right side that red button will reset the whole app.
+Blue scoot button in the left disables all scoots in the map and right side that red button will reset the whole app.
 
 ![image](https://user-images.githubusercontent.com/90967564/209189273-dc96c228-15dc-481f-a2f0-1208ee2c4374.png)
 <br> <br>
@@ -61,7 +61,9 @@ Scootdata comes from my Node.js backend. It is server to server solution where i
 https://github.com/jjonez96/tierapi
 
 ## Issues
-There are alot of problems what im trying to solve yet for example scoot locations. Other issues are listed in Github issues section. Feel free to contribute if you are interested in this project!
+There are alot of problems what im trying to solve yet for example scoot locations. Other issues are listed in Github issues section.
+ 
+ Feel free to contribute if this project spiked you interested!
 
 ## What i´ve learned so far?
 - Making rest api´s with Node.js
