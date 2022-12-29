@@ -9,6 +9,7 @@ import useOperators from "./hooks/useOperators";
 import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
 import mapstyle from "./mapstyle";
+import VoiMarkers from "./components/VoiMarkers";
 
 const App = () => {
   /** States */
@@ -159,7 +160,7 @@ const App = () => {
       />
       <GoogleMap
         center={center}
-        zoom={12}
+        zoom={4}
         ref={mapRef}
         onClick={(ev, e) => {
           handleDestinationMapClick(ev);
@@ -180,6 +181,7 @@ const App = () => {
       >
         {onOffMarkers === true ? null : (
           <div className="hideload">
+            <VoiMarkers originRef={originRef} />
             <TierMarkers originRef={originRef} />
           </div>
         )}

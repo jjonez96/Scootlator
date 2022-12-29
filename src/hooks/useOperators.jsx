@@ -4,7 +4,7 @@ const useOperators = () => {
 
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
-    fetch("https://tierapidata.cyclic.app/api/price")
+    fetch("https://scootdata.cyclic.app/api/tier/pricing")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);

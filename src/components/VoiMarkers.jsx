@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
 
-const TierMarkers = ({ originRef }) => {
+const VoiMarkers = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   const [markers, setMarkers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +13,7 @@ const TierMarkers = ({ originRef }) => {
   /*Tier scooter locations from node server*/
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://scootdata.cyclic.app/api/tier")
+    fetch("https://scootdata.cyclic.app/api/voi")
       .then((response) => {
         if (response.status !== 200) {
           console.log("error", response.status);
@@ -28,9 +28,8 @@ const TierMarkers = ({ originRef }) => {
         console.log(err);
       });
   }, []);
-
   /*Tier scooter marker icons*/
-  const icon = { url: "../scooter.png", scaledSize: { width: 28, height: 28 } };
+  const icon = { url: "../voi.png", scaledSize: { width: 28, height: 28 } };
 
   /**Click handler for changing coordinates to address*/
   const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
@@ -43,7 +42,6 @@ const TierMarkers = ({ originRef }) => {
         originRef.current.value = `${place.formatted_address}`;
       });
   };
-
   return (
     <>
       {isLoading && (
@@ -58,7 +56,7 @@ const TierMarkers = ({ originRef }) => {
         <Marker
           icon={icon}
           key={id}
-          title={"Tier"}
+          title={"Voi"}
           position={marker}
           onClick={() => setSelectedMarker(marker)}
         />
@@ -69,27 +67,29 @@ const TierMarkers = ({ originRef }) => {
           onCloseClick={() => setSelectedMarker("")}
         >
           <div className="text-center">
-            <b className="tierheading">Tier</b>
+            <b className="voiheading">Voi</b>
             <div>
-              <b> {selectedMarker.vehicleType}</b>{" "}
-              {selectedMarker.batteryLevel > 50 ? (
+              <b>{selectedMarker.category}</b> {""}
+              {selectedMarker.battery > 50 ? (
                 <b style={{ color: "#00ff00" }}>
+                  {""}
                   <IoBatteryCharging size={20} />
-                  <b className="battery"> {selectedMarker.batteryLevel}% </b>
+                  <b className="battery"> {selectedMarker.battery}% </b>
                 </b>
-              ) : selectedMarker.batteryLevel > 25 ? (
+              ) : selectedMarker.battery > 25 ? (
                 <b style={{ color: "#ffee00" }}>
-                  <IoBatteryCharging size={20} className="" />
-                  <b className="battery"> {selectedMarker.batteryLevel}% </b>
+                  <IoBatteryCharging size={20} className="" /> {""}
+                  <b className="battery"> {selectedMarker.battery}% </b>
                 </b>
               ) : (
                 <b style={{ color: "#ff0000" }}>
-                  <IoBatteryCharging size={20} />
-                  <b className="battery"> {selectedMarker.batteryLevel}% </b>
+                  <IoBatteryCharging size={20} /> {""}
+                  <b className="battery"> {selectedMarker.battery}% </b>
                 </b>
               )}
             </div>
-            <div className="markBtns mt-1 ">
+
+            <div className="markBtns mt-1">
               <Button
                 onClick={(e) => {
                   handleOriginClick(e);
@@ -105,7 +105,7 @@ const TierMarkers = ({ originRef }) => {
               >
                 <a
                   className="vuokraa text-info"
-                  href="https://qr.tier-services.io/AB123456"
+                  href="https://lqfa.adj.st/voiapp/open?adj_t=3swpnku&adj_campaign=campaign2&adj_adgroup=adgroup2&adj_creative=creative2&adj_deeplink=voiapp%3A%2F%2Fhome"
                 >
                   Vuokraa
                 </a>
@@ -118,4 +118,4 @@ const TierMarkers = ({ originRef }) => {
   );
 };
 
-export default TierMarkers;
+export default VoiMarkers;

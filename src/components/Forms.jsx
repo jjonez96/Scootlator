@@ -3,6 +3,7 @@ import { Button, Form, Dropdown } from "react-bootstrap";
 import { MdClose, MdMyLocation, MdElectricScooter } from "react-icons/md";
 import TierMarkers from "./TierMarkers";
 import { FaTimes } from "react-icons/fa";
+import VoiMarkers from "./VoiMarkers";
 
 const Forms = ({
   originRef,
@@ -124,7 +125,12 @@ const Forms = ({
                 defaultChecked={true}
               />
             </Dropdown.Menu>
-            {onOffMarkers === true ? null : <TierMarkers />}
+            {onOffMarkers === true ? null : (
+              <div>
+                <VoiMarkers />
+                <TierMarkers />
+              </div>
+            )}
           </Dropdown>
           <Form.Select
             className="form-control text-light bg-dark w-75"

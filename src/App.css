@@ -156,13 +156,21 @@ label {
 .gm-style .gm-style-iw-c,
 .gm-style .gm-style-iw-t::after {
   background: #212529;
-  color: #04e3a6;
+  color: #0dcaf0;
 }
 .gm-style .gm-style-iw-tc::after {
   background: #212529;
 }
 button.gm-ui-hover-effect > span {
-  background-color: #04e3a6 !important;
+  background-color: #0dcaf0 !important;
+}
+.voiheading {
+  color: #f46c63;
+  font-size: 18px;
+}
+.tierheading {
+  color: #00ffe5;
+  font-size: 18px;
 }
 .vuokraa {
   text-decoration: none;
@@ -172,7 +180,13 @@ button.gm-ui-hover-effect > span {
   color: #000;
 }
 .markBtns {
-  padding-left: 4px;
+  position: relative;
+  left: 4px;
+}
+.battery {
+  position: relative;
+  top: 1px;
+  font-weight: 400;
 }
 .alertt {
   position: relative;
