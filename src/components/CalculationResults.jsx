@@ -1,15 +1,7 @@
 import { RiPinDistanceFill, RiPriceTag3Fill, RiTimeFill } from "react-icons/ri";
-import { GiSnail } from "react-icons/gi";
-import { Form } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 
-const CalculationResults = ({
-  price,
-  distance,
-  duration,
-  setSlowMode,
-  slow,
-}) => {
+const CalculationResults = ({ price, distance, duration }) => {
   const float = parseFloat(price);
   const int = parseInt(distance);
   const toFixedPrice = float.toFixed(2);
@@ -47,17 +39,6 @@ const CalculationResults = ({
               <div>
                 Hinta <RiPriceTag3Fill color="#0dcaf0" />
                 <br />~{toFixedPrice} €
-              </div>
-              <div className="vr m-2 text-info" />
-              <div>
-                Hidasajo <GiSnail color="#0dcaf0" />
-                <Form.Check
-                  type="switch"
-                  onChange={setSlowMode}
-                  checked={slow}
-                  style={{ cursor: "pointer" }}
-                  className="mx-4"
-                />
               </div>
             </div>
           )}
