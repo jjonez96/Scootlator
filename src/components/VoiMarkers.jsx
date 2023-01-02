@@ -9,8 +9,7 @@ import { MdElectricScooter } from "react-icons/md";
 const VoiMarkers = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
-  const isLoading = apis[3];
-  const markers = apis[1];
+  const markers = apis.voiMarkers;
 
   /*Voi scooter marker icons*/
   const icon = { url: "../voi.png", scaledSize: { width: 23, height: 23 } };
@@ -29,10 +28,10 @@ const VoiMarkers = ({ originRef }) => {
 
   return (
     <>
-      {!isLoading && (
+      {!apis.isLoading && (
         <p className="loadingText">
           <MdElectricScooter />
-          {apis[0]}
+          {apis.totalMarks}
         </p>
       )}
       {markers.map((marker, id) => (
