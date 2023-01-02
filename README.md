@@ -28,14 +28,16 @@ There is different ways to get origin and destination. Mostly used method is to 
 
 ![Näyttökuva 2022-12-22 181459](https://user-images.githubusercontent.com/90967564/209176819-19fb4a83-9402-438d-8359-3815dbcfcf1c.png)
 
-2. Pick scoot from the map and click the "Sijainti" location button.
+2. Pick scoot from the map and click the location button.
 
 ![image](https://user-images.githubusercontent.com/90967564/210266502-39440ba6-5d85-405e-9fed-51ecb21ad737.png)
 <br>
-<b>When you click scoot icon in the map you see information of that scoot:</b> <br>
-<b>You can find scoots in Stockholm Sweden only at the moment.</b>
+<b>You can find scoots in Stockholm Sweden only at the moment.</b> <br>
+<b>When you click scoot icon in the map you see information of that scoot:</b> 
+
 - What type of vehicle.
 - Battery left.
+- Location button. This gives you that selected scoot address to origin input.
 - "Vuokraa" means Rent and that button takes you to the Tier or Voi app where you can make the payment. 
 
 <br> <br>
@@ -50,8 +52,8 @@ When the trip is calculated the app will return you the results like distance, d
 Here in Finland all scoot operators will slow down scoots at night times and the trip price will obviously increase. Price is increased at 10PM - 6AM
 ![image](https://user-images.githubusercontent.com/90967564/210266547-487ead7b-db42-4cf8-b76b-11d88939dc41.png)
 
-
-Scootdata comes from my Node.js backend. It is server to server solution where i do http requests from tierapi and the Node application is hosted to Cyclic.sh.
+ 
+Scootdata comes from my Node.js backend. It is server to server solution where i do http requests from tier and voiapi. The Node application is hosted to Cyclic.sh.
 
 
 <b>Here is the backend repo:<b> <br>
@@ -96,5 +98,7 @@ There are alot of problems what im trying to solve yet for example scoot locatio
 - Git commands (commit, push and pull).
 - npm commands (Adding dependencies, npm start and npm run build).
 
+## Next goals for this project
+I'm going to look forward on adding Typescript to this project later.
 
 
