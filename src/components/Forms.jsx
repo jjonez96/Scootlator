@@ -55,7 +55,6 @@ const Forms = ({
     e.preventDefault();
     return false;
   };
-
   const clearDestination = () => {
     destinationRef.current.value = "";
   };
@@ -83,7 +82,9 @@ const Forms = ({
             ref={originRef}
             required
           />
-          <Form.Label className="text-light">Valitse aloituspaikka</Form.Label>
+          <Form.Label className="text-light">
+            Valitse aloituspaikka tai scootti
+          </Form.Label>
           <MdMyLocation
             className="icon text-info bg-dark"
             onClick={(e) => {
@@ -116,7 +117,8 @@ const Forms = ({
               <MdElectricScooter className="text-dark" />
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-dark text-center text-light">
-              Scootit on/off <MdElectricScooter color="#0dcaf0" />
+              Scootit kartassa
+              <MdElectricScooter color="#0dcaf0" />
               <Form.Check
                 type="switch"
                 onChange={handleMarkers}
@@ -150,7 +152,6 @@ const Forms = ({
               </option>
             ))}
           </Form.Select>
-
           <Button
             className="mx-2 fw-bold text-dark"
             variant="danger"

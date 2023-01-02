@@ -52,7 +52,7 @@ const App = () => {
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
 
-    /** If its night then pricing will increase */
+    /** If its night then pricing will be increased */
     const hours = new Date().getHours();
     const isDayTime = hours >= 6 && hours < 22;
     if (isDayTime === true) {
