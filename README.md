@@ -3,7 +3,7 @@ Scootlator is really handy and fast single page application(SPA) to calculate e-
  <br>
 <b>Preview:</b> <br>
 https://scootlator.netlify.app <br>  <br>
-![Näyttökuva 2022-12-22 174728](https://user-images.githubusercontent.com/90967564/209171845-532d7710-12dc-4c6e-b0b4-44b0186d2a5c.png)
+![image](https://user-images.githubusercontent.com/90967564/210266025-5084e46f-39ae-4b86-b3f6-9e6b233f0d30.png)
 ## Tech Stack: 
 ![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) <br>
 ![](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) <br>
@@ -14,8 +14,8 @@ https://scootlator.netlify.app <br>  <br>
 
 ## API's
 - Google maps API (map, places and autocomplete)
-- Tier API (Tier pricing and locations)
-- Voi API (Coming soon..)
+- Tier API 
+- Voi API 
 
 ## How it works?
 In Scootlator you choose your origin and destination where you want to go from point A to point B.
@@ -30,15 +30,13 @@ There is different ways to get origin and destination. Mostly used method is to 
 
 2. Pick scoot from the map and click the "Sijainti" location button.
 
-![image](https://user-images.githubusercontent.com/90967564/209178754-7fce180c-0c84-4db1-a89d-f604036be7bd.png)
+![image](https://user-images.githubusercontent.com/90967564/210266502-39440ba6-5d85-405e-9fed-51ecb21ad737.png)
 <br>
 <b>When you click scoot icon in the map you see information of that scoot:</b> <br>
 <b>You can find scoots in Stockholm Sweden only at the moment.</b>
-- "Päivitetty" means updated so it shows when the scoot data is updated.
-- "Akkua jäljellä" means Battery left.
-- "Maksiminopeus" means Maxspeed how fast it goes.
-- "Sijainti" means location.
-- "Vuokraa" means Rent and that button takes you to the Tier app where you can make the payment. 
+- What type of vehicle.
+- Battery left.
+- "Vuokraa" means Rent and that button takes you to the Tier or Voi app where you can make the payment. 
 
 <br> <br>
 
@@ -49,9 +47,8 @@ Blue scoot button in the left disables all scoots in the map and right side that
 <br> <br>
 
 When the trip is calculated the app will return you the results like distance, duration and the price of that trip. <br>
-"Hidasajo" means slow ride. Here in Finland all scoot operators will slow down scoots at night times and the trip price will obviously increase. When you activate it the app will recalculate the price for you.
-
-![image](https://user-images.githubusercontent.com/90967564/209192322-2ac626b4-b362-4dbc-9000-9eba88618a8c.png)
+Here in Finland all scoot operators will slow down scoots at night times and the trip price will obviously increase. Price is increased at 10PM - 6AM
+![image](https://user-images.githubusercontent.com/90967564/210266547-487ead7b-db42-4cf8-b76b-11d88939dc41.png)
 
 
 Scootdata comes from my Node.js backend. It is server to server solution where i do http requests from tierapi and the Node application is hosted to Cyclic.sh.
