@@ -20,7 +20,7 @@ const App = () => {
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [libraries] = useState(["places"]);
-  const [slow, setSlow] = useState(false);
+  const [selected, setSelected] = useState();
 
   /** Refs */
   /** @type React.MutableRefObject<HTMLInputElement> */
@@ -36,9 +36,8 @@ const App = () => {
 
   /** Operator selector */
   const operator = useOperators();
-  const operatorPrices = [];
-  operator.map((e) => operatorPrices.push(e.pricePerMin));
-  const [selected, setSelected] = useState(operator);
+  const rentalStartPrice = operator.map((e) => e.startPrice);
+  const startPrice = parseInt(rentalStartPrice);
 
   const calculateRoute = async () => {
     // eslint-disable-next-line no-undef
@@ -52,40 +51,27 @@ const App = () => {
     setDirectionResponse(results);
     setDistance(results.routes[0].legs[0].distance.text);
     setDuration(results.routes[0].legs[0].duration.text);
-    setPrice(
-      1 + parseInt(results.routes[0].legs[0].duration.text) * selected + " €"
-    );
-  };
 
-  /** Function for Slow ride switch */
-  const setSlowMode = async () => {
-    // eslint-disable-next-line no-undef
-    const directionService = new google.maps.DirectionsService();
-    const results = await directionService.route({
-      origin: originRef.current.value,
-      destination: destinationRef.current.value,
-      // eslint-disable-next-line no-undef
-      travelMode: google.maps.TravelMode.BICYCLING,
-    });
-    setDirectionResponse(results);
-    setDistance(results.routes[0].legs[0].distance.text);
-    setDuration(results.routes[0].legs[0].duration.text);
-    slow
-      ? setPrice(
-          1 +
-            parseInt(results.routes[0].legs[0].duration.text) * selected +
-            " €",
-          setSlow(false)
+    /** If its night then pricing will increase */
+    const hours = new Date().getHours();
+    const isDayTime = hours >= 6 && hours < 22;
+    if (isDayTime === true) {
+      setPrice(
+        startPrice +
+          parseInt(results.routes[0].legs[0].duration.text) * selected +
+          " €"
+      );
+    } else {
+      setPrice(
+        startPrice +
+          0.44 +
+          parseInt(results.routes[0].legs[0].duration.text) * selected +
+          " €",
+        setDuration(
+          2 + parseInt(results.routes[0].legs[0].duration.text) + " min"
         )
-      : setPrice(
-          1.44 +
-            parseInt(results.routes[0].legs[0].duration.text) * selected +
-            " €",
-          setDuration(
-            2 + parseInt(results.routes[0].legs[0].duration.text) + " min"
-          ),
-          setSlow(true)
-        );
+      );
+    }
   };
 
   /**Click handler for changing coordinates to address on map*/
@@ -107,7 +93,6 @@ const App = () => {
     setDistance("");
     setDuration("");
     setPrice("");
-    setSlow(false);
     setSelected(0);
     selectInputRef.current.value = "";
     destinationRef.current.value = "";
@@ -144,7 +129,6 @@ const App = () => {
         map={map}
         clearRoute={clearRoute}
         center={center}
-        setSlow={setSlow}
         selectInputRef={selectInputRef}
         calculateRoute={calculateRoute}
         handleMarkers={handleMarkers}
@@ -155,8 +139,6 @@ const App = () => {
         duration={duration}
         price={price}
         distance={distance}
-        setSlowMode={setSlowMode}
-        slow={slow}
       />
       <GoogleMap
         center={center}

@@ -34,10 +34,13 @@ a {
     width: 100% !important;
   }
 }
-.loading {
+
+.loadingText {
   position: fixed;
-  top: 6px;
-  left: 15px;
+  top: 4px;
+  left: 5px;
+  color: #0dcaf0;
+  font-size: 13px;
 }
 .hideload {
   display: none;
@@ -179,6 +182,7 @@ button.gm-ui-hover-effect > span {
 .vuokraa:hover {
   color: #000;
 }
+
 .markBtns {
   position: relative;
   left: 4px;

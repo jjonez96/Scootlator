@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 const useOperators = () => {
-  const [tier, setTier] = useState(0.25);
-
+  const [tierPrice, setTierPrice] = useState([]);
+  const pricePerMinute = tierPrice.map((e) => e.rentalRunningPricePerMinute);
   /*Tier pricePerMin api from node server*/
   useEffect(() => {
     fetch("https://scootdata.cyclic.app/api/tier/pricing")
@@ -10,8 +10,8 @@ const useOperators = () => {
           console.log("error", response.status);
           return;
         }
-        response.json().then((tier) => {
-          setTier(tier.rentalRunningPricePerMinute);
+        response.json().then((tierPrice) => {
+          setTierPrice(tierPrice);
         });
       })
       .catch((err) => {
@@ -19,18 +19,19 @@ const useOperators = () => {
       });
   }, []);
 
-  let services = [
+  const services = [
     {
       name: "Voi",
       pricePerMin: 0.22,
+      startPrice: 1,
     },
   ];
 
   services.unshift({
     name: "Tier",
-    pricePerMin: tier,
+    pricePerMin: pricePerMinute,
+    startPrice: 1,
   });
-
   return services;
 };
 

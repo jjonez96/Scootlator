@@ -1,6 +1,5 @@
 import { Marker, InfoWindow } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import Spinner from "react-bootstrap/Spinner";
 import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
@@ -29,7 +28,7 @@ const VoiMarkers = ({ originRef }) => {
       });
   }, []);
   /*Tier scooter marker icons*/
-  const icon = { url: "../voi.png", scaledSize: { width: 28, height: 28 } };
+  const icon = { url: "../voi.png", scaledSize: { width: 23, height: 23 } };
 
   /**Click handler for changing coordinates to address*/
   const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
@@ -42,16 +41,10 @@ const VoiMarkers = ({ originRef }) => {
         originRef.current.value = `${place.formatted_address}`;
       });
   };
+
   return (
     <>
-      {isLoading && (
-        <Spinner
-          animation="border"
-          variant="info"
-          size="sm"
-          className="loading"
-        />
-      )}
+      {isLoading && <p className="loadingText">Ladataan scootteja..</p>}
       {markers.map((marker, id) => (
         <Marker
           icon={icon}
