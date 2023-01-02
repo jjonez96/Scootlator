@@ -55,7 +55,7 @@ Scootdata comes from my Node.js backend. It is server to server solution where i
 
 
 <b>Here is the backend repo:<b> <br>
-https://github.com/jjonez96/tierapi
+https://github.com/jjonez96/scootdata
 
 ## Issues
 There are alot of problems what im trying to solve yet for example scoot locations. Other issues are listed in Github issues section.
