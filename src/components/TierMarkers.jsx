@@ -9,9 +9,8 @@ import useScootApis from "../hooks/useScootApis";
 const TierMarkers = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
-  const isLoading = apis[3];
 
-  const markers = apis[2];
+  const markers = apis.tierMarkers;
 
   /*Tier scooter marker icons*/
   const icon = { url: "../tier.png", scaledSize: { width: 23, height: 23 } };
@@ -30,7 +29,7 @@ const TierMarkers = ({ originRef }) => {
 
   return (
     <>
-      {isLoading && (
+      {apis.isLoading && (
         <Spinner
           animation="border"
           variant="info"

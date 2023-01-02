@@ -37,7 +37,12 @@ const useScootApis = () => {
   }, []);
 
   const totalMarks = voiMarkers.length + tierMarkers.length;
-  const markerArray = [totalMarks, voiMarkers, tierMarkers, isLoading];
+  const markerArray = {
+    totalMarks: totalMarks,
+    tierMarkers: tierMarkers,
+    voiMarkers: voiMarkers,
+    isLoading: isLoading,
+  };
 
   return markerArray;
 };
