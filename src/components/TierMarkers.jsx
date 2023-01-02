@@ -1,32 +1,17 @@
 import { Marker, InfoWindow } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
+import Spinner from "react-bootstrap/Spinner";
+import useScootApis from "../hooks/useScootApis";
 
 const TierMarkers = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
-  const [markers, setMarkers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  let apis = useScootApis();
+  const isLoading = apis[3];
 
-  /*Tier scooter locations from node server*/
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("https://scootdata.cyclic.app/api/tier")
-      .then((response) => {
-        if (response.status !== 200) {
-          console.log("error", response.status);
-          return;
-        }
-        response.json().then((markers) => {
-          setIsLoading(false);
-          setMarkers(markers);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const markers = apis[2];
 
   /*Tier scooter marker icons*/
   const icon = { url: "../tier.png", scaledSize: { width: 23, height: 23 } };
@@ -45,7 +30,15 @@ const TierMarkers = ({ originRef }) => {
 
   return (
     <>
-      {isLoading && <p className="loadingText">Ladataan scootteja..</p>}
+      {isLoading && (
+        <Spinner
+          animation="border"
+          variant="info"
+          size="sm"
+          className="loading"
+        />
+      )}
+
       {markers.map((marker, id) => (
         <Marker
           icon={icon}

@@ -34,13 +34,17 @@ a {
     width: 100% !important;
   }
 }
-
+.loading {
+  position: fixed;
+  top: 6px;
+  left: 15px;
+}
 .loadingText {
   position: fixed;
   top: 4px;
   left: 5px;
   color: #0dcaf0;
-  font-size: 13px;
+  font-size: 15px;
 }
 .hideload {
   display: none;

@@ -1,33 +1,18 @@
 import { Marker, InfoWindow } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
+import useScootApis from "../hooks/useScootApis";
+import { MdElectricScooter } from "react-icons/md";
 
 const VoiMarkers = ({ originRef }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
-  const [markers, setMarkers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  let apis = useScootApis();
+  const isLoading = apis[3];
+  const markers = apis[1];
 
-  /*Tier scooter locations from node server*/
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("https://scootdata.cyclic.app/api/voi")
-      .then((response) => {
-        if (response.status !== 200) {
-          console.log("error", response.status);
-          return;
-        }
-        response.json().then((markers) => {
-          setIsLoading(false);
-          setMarkers(markers);
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-  /*Tier scooter marker icons*/
+  /*Voi scooter marker icons*/
   const icon = { url: "../voi.png", scaledSize: { width: 23, height: 23 } };
 
   /**Click handler for changing coordinates to address*/
@@ -44,7 +29,12 @@ const VoiMarkers = ({ originRef }) => {
 
   return (
     <>
-      {isLoading && <p className="loadingText">Ladataan scootteja..</p>}
+      {!isLoading && (
+        <p className="loadingText">
+          <MdElectricScooter />
+          {apis[0]}
+        </p>
+      )}
       {markers.map((marker, id) => (
         <Marker
           icon={icon}
