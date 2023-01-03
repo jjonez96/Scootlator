@@ -46,6 +46,13 @@ a {
   color: #0dcaf0;
   font-size: 15px;
 }
+@media only screen and (max-width: 600px) {
+  .loadingText {
+    font-size: 12px;
+    position: fixed;
+    top: 6px;
+  }
+}
 .hideload {
   display: none;
 }

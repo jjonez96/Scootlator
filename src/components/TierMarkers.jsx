@@ -5,19 +5,16 @@ import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
 import Spinner from "react-bootstrap/Spinner";
 import useScootApis from "../hooks/useScootApis";
+import markerIcons from "../markerIcons.json";
 
-const TierMarkers = ({ originRef }) => {
+const TierMarkers = ({ originRef, geocodeJson }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
 
   const markers = apis.tierMarkers;
 
-  /*Tier scooter marker icons*/
-  const icon = { url: "../tier.png", scaledSize: { width: 23, height: 23 } };
-
-  /**Click handler for changing coordinates to address*/
-  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-  const handleOriginClick = () => {
+  /**Click handler for changing coordinates to address(passing address to origin input)*/
+  const handleScootLocationClick = () => {
     const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${selectedMarker.lat},${selectedMarker.lng}`;
     fetch(url)
       .then((response) => response.json())
@@ -40,7 +37,7 @@ const TierMarkers = ({ originRef }) => {
 
       {markers.map((marker, id) => (
         <Marker
-          icon={icon}
+          icon={markerIcons[2]}
           key={id}
           title={"Tier"}
           position={marker}
@@ -76,7 +73,7 @@ const TierMarkers = ({ originRef }) => {
             <div className="markBtns mt-1 ">
               <Button
                 onClick={(e) => {
-                  handleOriginClick(e);
+                  handleScootLocationClick(e);
                 }}
                 className="btn btn-outline-info bg-transparent text-info border-info"
                 size="sm"

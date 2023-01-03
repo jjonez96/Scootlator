@@ -4,19 +4,15 @@ import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
 import useScootApis from "../hooks/useScootApis";
-import { MdElectricScooter } from "react-icons/md";
+import markerIcons from "../markerIcons.json";
 
-const VoiMarkers = ({ originRef }) => {
+const VoiMarkers = ({ originRef, geocodeJson }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
   const markers = apis.voiMarkers;
 
-  /*Voi scooter marker icons*/
-  const icon = { url: "../voi.png", scaledSize: { width: 23, height: 23 } };
-
-  /**Click handler for changing coordinates to address*/
-  const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
-  const handleOriginClick = () => {
+  /**Click handler for changing coordinates to address(passing address to origin input)*/
+  const handleScootLocationClick = () => {
     const url = `${geocodeJson}?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&latlng=${selectedMarker.lat},${selectedMarker.lng}`;
     fetch(url)
       .then((response) => response.json())
@@ -29,14 +25,11 @@ const VoiMarkers = ({ originRef }) => {
   return (
     <>
       {!apis.isLoading && (
-        <p className="loadingText">
-          <MdElectricScooter />
-          {apis.totalMarks}
-        </p>
+        <p className="loadingText">Scootteja löytyi: {apis.totalMarkers}</p>
       )}
       {markers.map((marker, id) => (
         <Marker
-          icon={icon}
+          icon={markerIcons[1]}
           key={id}
           title={"Voi"}
           position={marker}
@@ -74,7 +67,7 @@ const VoiMarkers = ({ originRef }) => {
             <div className="markBtns mt-1">
               <Button
                 onClick={(e) => {
-                  handleOriginClick(e);
+                  handleScootLocationClick(e);
                 }}
                 className="btn btn-outline-info bg-transparent text-info border-info"
                 size="sm"
