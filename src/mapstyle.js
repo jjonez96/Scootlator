@@ -64,13 +64,13 @@ const mapstyle = [
     elementType: "geometry.stroke",
     stylers: [
       {
-        color: "#000000",
+        color: "#aa450f",
       },
       {
-        lightness: 17,
+        lightness: 14,
       },
       {
-        weight: 1.2,
+        weight: 0.4,
       },
     ],
   },
@@ -214,7 +214,7 @@ const mapstyle = [
         color: "#2e2e2e",
       },
       {
-        lightness: 16,
+        lightness: 15,
       },
     ],
   },

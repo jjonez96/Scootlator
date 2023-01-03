@@ -21,6 +21,10 @@ const useScootApis = () => {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
     fetch("https://scootdata.cyclic.app/api/voi")
       .then((response) => {
         if (response.status !== 200) {
@@ -29,6 +33,7 @@ const useScootApis = () => {
         }
         response.json().then((voiMarkers) => {
           setVoiMarkers(voiMarkers);
+          setIsLoading(false);
         });
       })
       .catch((err) => {
@@ -36,15 +41,15 @@ const useScootApis = () => {
       });
   }, []);
 
-  const totalMarks = voiMarkers.length + tierMarkers.length;
-  const markerArray = {
-    totalMarks: totalMarks,
+  const totalMarkers = voiMarkers.length + tierMarkers.length;
+  const markerObject = {
+    totalMarkers: totalMarkers,
     tierMarkers: tierMarkers,
     voiMarkers: voiMarkers,
     isLoading: isLoading,
   };
 
-  return markerArray;
+  return markerObject;
 };
 
 export default useScootApis;

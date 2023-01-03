@@ -10,6 +10,7 @@ import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
 import mapstyle from "./mapstyle";
 import VoiMarkers from "./components/VoiMarkers";
+import markerIcons from "./markerIcons.json";
 
 const App = () => {
   /** States */
@@ -33,6 +34,11 @@ const App = () => {
   /** User gps coordinates */
   const location = useGeoLocation();
   const center = location.coordinates;
+
+  /** Removes unecessary elements from body */
+  document
+    .querySelectorAll(".pac-container")
+    .forEach((element) => element.remove());
 
   /** Operator selector */
   const operator = useOperators();
@@ -104,14 +110,8 @@ const App = () => {
     libraries,
   });
 
-  /** User location icon */
-  const icon = {
-    url: "../location.png",
-    scaledSize: { width: 28, height: 28 },
-  };
-
   /** Scoot markers on/off switch */
-  const handleMarkers = (event) => {
+  const handleScootMarkers = (event) => {
     setOnOffMarkers((current) => !current);
   };
 
@@ -131,10 +131,9 @@ const App = () => {
         center={center}
         selectInputRef={selectInputRef}
         calculateRoute={calculateRoute}
-        handleMarkers={handleMarkers}
+        handleScootMarkers={handleScootMarkers}
         onOffMarkers={onOffMarkers}
       />
-
       <CalculationResults
         duration={duration}
         price={price}
@@ -163,11 +162,11 @@ const App = () => {
       >
         {onOffMarkers === true ? null : (
           <div className="hideload">
-            <VoiMarkers originRef={originRef} />
-            <TierMarkers originRef={originRef} />
+            <VoiMarkers originRef={originRef} geocodeJson={geocodeJson} />
+            <TierMarkers originRef={originRef} geocodeJson={geocodeJson} />
           </div>
         )}
-        <MarkerF position={center} icon={icon} />
+        <MarkerF position={center} icon={markerIcons[0]} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
         )}

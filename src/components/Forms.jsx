@@ -12,7 +12,7 @@ const Forms = ({
   calculateRoute,
   operator,
   onOffMarkers,
-  handleMarkers,
+  handleScootMarkers,
   map,
   selectInputRef,
   setSelected,
@@ -55,6 +55,7 @@ const Forms = ({
     e.preventDefault();
     return false;
   };
+
   const clearDestination = () => {
     destinationRef.current.value = "";
   };
@@ -83,7 +84,7 @@ const Forms = ({
             required
           />
           <Form.Label className="text-light">
-            Valitse aloituspaikka tai scootti
+            Valitse lähtöpaikka tai scootti
           </Form.Label>
           <MdMyLocation
             className="icon text-info bg-dark"
@@ -121,7 +122,7 @@ const Forms = ({
               <MdElectricScooter color="#0dcaf0" />
               <Form.Check
                 type="switch"
-                onChange={handleMarkers}
+                onChange={handleScootMarkers}
                 value={onOffMarkers}
                 id=""
                 defaultChecked={true}
@@ -141,14 +142,15 @@ const Forms = ({
             required
           >
             <option disabled={false} value="">
-              Valitse palvelu
+              Valitse operaattori
             </option>
             {operator.map((service) => (
               <option
-                key={`${service.pricePerMin},${service.name}`}
+                key={`${service.pricePerMin},${service.name},${service.startPrice}`}
                 value={service.pricePerMin}
               >
-                {service.name} {service.pricePerMin}€/min + 1€ aloitusmaksu
+                {service.name} {service.pricePerMin}€/min + {service.startPrice}
+                € aloitusmaksu
               </option>
             ))}
           </Form.Select>
