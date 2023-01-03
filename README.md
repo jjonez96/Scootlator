@@ -32,7 +32,7 @@ There is different ways to get origin and destination. Mostly used method is to 
 
 ![image](https://user-images.githubusercontent.com/90967564/210266502-39440ba6-5d85-405e-9fed-51ecb21ad737.png)
 <br>
-<b>You can find scoots in Stockholm Sweden only at the moment.</b> <br>
+<b>You can find scoots in Örebro Sweden only at the moment.</b> <br>
 <b>When you click scoot icon in the map you see information of that scoot:</b> 
 
 - What type of vehicle.
@@ -66,7 +66,7 @@ There are alot of problems what im trying to solve yet for example scoot locatio
 
 ## What i´ve learned so far?
 - Making rest api´s with Node.js
-- Creating http reqests in Node.
+- Creating http and post reqests in Node.
 - Cleaning the useless data from api in Node.
 - Hosting Node.js application
 - CORS error handling
@@ -87,7 +87,6 @@ There are alot of problems what im trying to solve yet for example scoot locatio
 - Coordinates from map click.
 - Render section when button is clicked(calculationResults component)
 - Using ternary operators instead of if else.
-- Price state change(SlowRide function)
 - Input validation and error handling.
 - Resetting the app without refreshing the page.
 - On/off switch for scoots in map.
