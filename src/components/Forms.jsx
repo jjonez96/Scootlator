@@ -74,7 +74,7 @@ const Forms = ({
 
   return (
     <div className="customBg fixed-top shadow p-1 container-fluid ">
-      <h6 className="text-center text-info">Laske e-scoot matka</h6>
+      <h6 className="ss text-info">Laske e-scoot matka</h6>
       <Form className="hstack gap-1 row" onSubmit={handleFormSubmit}>
         <Form.Group className="form-floating was-validated col-auto formWidth">
           <Form.Control
