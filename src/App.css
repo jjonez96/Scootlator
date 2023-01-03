@@ -34,25 +34,27 @@ a {
     width: 100% !important;
   }
 }
+.ss {
+  text-align: center;
+}
+@media only screen and (max-width: 900px) {
+  .ss {
+    text-align: left;
+  }
+}
 .loading {
   position: fixed;
   top: 6px;
-  left: 15px;
+  right: 15px;
 }
 .loadingText {
   position: fixed;
-  top: 4px;
-  left: 5px;
+  top: 3px;
+  right: 5px;
   color: #0dcaf0;
   font-size: 15px;
 }
-@media only screen and (max-width: 600px) {
-  .loadingText {
-    font-size: 12px;
-    position: fixed;
-    top: 6px;
-  }
-}
+
 .hideload {
   display: none;
 }

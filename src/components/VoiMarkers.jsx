@@ -6,7 +6,7 @@ import { IoBatteryCharging } from "react-icons/io5";
 import useScootApis from "../hooks/useScootApis";
 import markerIcons from "../markerIcons.json";
 
-const VoiMarkers = ({ originRef, geocodeJson }) => {
+const VoiMarkers = ({ originRef, geocodeJson, map }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
   const markers = apis.voiMarkers;
@@ -33,7 +33,11 @@ const VoiMarkers = ({ originRef, geocodeJson }) => {
           key={id}
           title={"Voi"}
           position={marker}
-          onClick={() => setSelectedMarker(marker)}
+          onClick={() => {
+            map.panTo(marker);
+            map.setZoom(17);
+            setSelectedMarker(marker);
+          }}
         />
       ))}
       {selectedMarker && (

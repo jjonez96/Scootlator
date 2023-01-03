@@ -141,7 +141,7 @@ const App = () => {
       />
       <GoogleMap
         center={center}
-        zoom={4}
+        zoom={6}
         ref={mapRef}
         onClick={(ev, e) => {
           handleDestinationMapClick(ev);
@@ -162,8 +162,16 @@ const App = () => {
       >
         {onOffMarkers === true ? null : (
           <div className="hideload">
-            <VoiMarkers originRef={originRef} geocodeJson={geocodeJson} />
-            <TierMarkers originRef={originRef} geocodeJson={geocodeJson} />
+            <VoiMarkers
+              originRef={originRef}
+              geocodeJson={geocodeJson}
+              map={map}
+            />
+            <TierMarkers
+              originRef={originRef}
+              geocodeJson={geocodeJson}
+              map={map}
+            />
           </div>
         )}
         <MarkerF position={center} icon={markerIcons[0]} />

@@ -7,7 +7,7 @@ import Spinner from "react-bootstrap/Spinner";
 import useScootApis from "../hooks/useScootApis";
 import markerIcons from "../markerIcons.json";
 
-const TierMarkers = ({ originRef, geocodeJson }) => {
+const TierMarkers = ({ originRef, geocodeJson, map }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
 
@@ -41,7 +41,11 @@ const TierMarkers = ({ originRef, geocodeJson }) => {
           key={id}
           title={"Tier"}
           position={marker}
-          onClick={() => setSelectedMarker(marker)}
+          onClick={() => {
+            map.panTo(marker);
+            map.setZoom(17);
+            setSelectedMarker(marker);
+          }}
         />
       ))}
       {selectedMarker && (
