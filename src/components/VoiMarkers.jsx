@@ -5,8 +5,9 @@ import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
 import useScootApis from "../hooks/useScootApis";
 import markerIcons from "../markerIcons.json";
+import Spinner from "react-bootstrap/Spinner";
 
-const VoiMarkers = ({ originRef, geocodeJson, map }) => {
+const VoiMarkers = ({ originRef, geocodeJson, clusterer }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
   let apis = useScootApis();
   const markers = apis.voiMarkers;
@@ -24,18 +25,22 @@ const VoiMarkers = ({ originRef, geocodeJson, map }) => {
 
   return (
     <>
-      {!apis.isLoading && (
-        <p className="loadingText">Scootteja löytyi: {apis.totalMarkers}</p>
+      {apis.isLoading && (
+        <Spinner
+          animation="border"
+          variant="info"
+          size="sm"
+          className="loading"
+        />
       )}
       {markers.map((marker, id) => (
         <Marker
           icon={markerIcons[1]}
           key={id}
           title={"Voi"}
+          clusterer={clusterer}
           position={marker}
           onClick={() => {
-            map.panTo(marker);
-            map.setZoom(17);
             setSelectedMarker(marker);
           }}
         />
