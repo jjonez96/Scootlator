@@ -6,7 +6,12 @@ import LoadingScreen from "./components/LoadingScreen";
 import TierMarkers from "./components/TierMarkers";
 import useGeoLocation from "./hooks/useGeoLocation";
 import useOperators from "./hooks/useOperators";
-import { DirectionsRenderer, GoogleMap, MarkerF } from "@react-google-maps/api";
+import {
+  DirectionsRenderer,
+  GoogleMap,
+  MarkerF,
+  MarkerClusterer,
+} from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
 import mapstyle from "./mapstyle";
 import VoiMarkers from "./components/VoiMarkers";
@@ -17,7 +22,8 @@ const App = () => {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionResponse, setDirectionResponse] = useState();
   const [distance, setDistance] = useState("");
-  const [onOffMarkers, setOnOffMarkers] = useState(false);
+  const [onOffMarkersVoi, setOnOffMarkersVoi] = useState(false);
+  const [onOffMarkersTier, setOnOffMarkersTier] = useState(false);
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [libraries] = useState(["places"]);
@@ -99,6 +105,7 @@ const App = () => {
     setDistance("");
     setDuration("");
     setPrice("");
+    map.setZoom(6);
     setSelected(0);
     selectInputRef.current.value = "";
     destinationRef.current.value = "";
@@ -111,10 +118,13 @@ const App = () => {
   });
 
   /** Scoot markers on/off switch */
-  const handleScootMarkers = (event) => {
-    setOnOffMarkers((current) => !current);
+  const handleScootMarkersVoi = (event) => {
+    setOnOffMarkersVoi((current) => !current);
   };
-
+  /** Scoot markers on/off switch */
+  const handleScootMarkersTier = (event) => {
+    setOnOffMarkersTier((current) => !current);
+  };
   if (!isLoaded) {
     return <LoadingScreen />;
   }
@@ -131,8 +141,10 @@ const App = () => {
         center={center}
         selectInputRef={selectInputRef}
         calculateRoute={calculateRoute}
-        handleScootMarkers={handleScootMarkers}
-        onOffMarkers={onOffMarkers}
+        handleScootMarkersVoi={handleScootMarkersVoi}
+        handleScootMarkersTier={handleScootMarkersTier}
+        onOffMarkersVoi={onOffMarkersVoi}
+        onOffMarkersTier={onOffMarkersTier}
       />
       <CalculationResults
         duration={duration}
@@ -160,20 +172,41 @@ const App = () => {
         }}
         onLoad={(map) => setMap(map)}
       >
-        {onOffMarkers === true ? null : (
-          <div className="hideload">
-            <VoiMarkers
-              originRef={originRef}
-              geocodeJson={geocodeJson}
-              map={map}
-            />
-            <TierMarkers
-              originRef={originRef}
-              geocodeJson={geocodeJson}
-              map={map}
-            />
-          </div>
+        {onOffMarkersVoi === false ? null : (
+          <MarkerClusterer
+            gridSize={50}
+            onClick={() => {
+              destinationRef.current.value = "";
+            }}
+          >
+            {(clusterer) => (
+              <VoiMarkers
+                originRef={originRef}
+                geocodeJson={geocodeJson}
+                map={map}
+                clusterer={clusterer}
+              />
+            )}
+          </MarkerClusterer>
         )}
+        {onOffMarkersTier === false ? null : (
+          <MarkerClusterer
+            gridSize={50}
+            onClick={() => {
+              destinationRef.current.value = "";
+            }}
+          >
+            {(clusterer) => (
+              <TierMarkers
+                originRef={originRef}
+                geocodeJson={geocodeJson}
+                map={map}
+                clusterer={clusterer}
+              />
+            )}
+          </MarkerClusterer>
+        )}
+
         <MarkerF position={center} icon={markerIcons[0]} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
