@@ -78,7 +78,7 @@ There are alot of problems what im trying to solve yet for example scoot locatio
 - Scoot operator selector(using onChange)
 - Making loading screen.
 - Setting up Googlemaps API to the React project.
-- Setting up Googlemaps AutoComplete and Places.
+- Setting up Googlemaps AutoComplete, Places and MarkerClusterer.
 - How to find user location.
 - Render coordinates to input field.
 - Fetching the data from backend to frontend
