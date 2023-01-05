@@ -1,0 +1,20 @@
+[
+  {
+    "textColor": "black",
+    "url": "./rhombus3.png",
+    "height": 30,
+    "width": 30
+  },
+  {
+    "textColor": "black",
+    "url": "./rhombus2.png",
+    "height": 35,
+    "width": 35
+  },
+  {
+    "textColor": "black",
+    "url": "./rhombus.png",
+    "height": 40,
+    "width": 40
+  }
+]

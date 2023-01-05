@@ -5,7 +5,6 @@ import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
 import useScootApis from "../hooks/useScootApis";
 import markerIcons from "../markerIcons.json";
-import Spinner from "react-bootstrap/Spinner";
 
 const VoiMarkers = ({ originRef, geocodeJson, clusterer }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
