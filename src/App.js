@@ -4,19 +4,19 @@ import CalculationResults from "./components/CalculationResults";
 import Forms from "./components/Forms";
 import LoadingScreen from "./components/LoadingScreen";
 import TierMarkers from "./components/TierMarkers";
+import VoiMarkers from "./components/VoiMarkers";
 import useGeoLocation from "./hooks/useGeoLocation";
 import useOperators from "./hooks/useOperators";
+import mapstyle from "./mapstyle.json";
+import markerIcons from "./markerIcons.json";
+import clusterStyles from "./clusterIcons.json";
 import {
   DirectionsRenderer,
   GoogleMap,
   Marker,
   MarkerClusterer,
+  useJsApiLoader,
 } from "@react-google-maps/api";
-import { useJsApiLoader } from "@react-google-maps/api";
-import mapstyle from "./mapstyle";
-import VoiMarkers from "./components/VoiMarkers";
-import markerIcons from "./markerIcons.json";
-
 const App = () => {
   /** States */
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
@@ -116,9 +116,6 @@ const App = () => {
     libraries,
   });
 
-  const clearDest = () => {
-    destinationRef.current.value = "";
-  };
   /** Scoot markers on/off switch */
   const handleScootMarkers = (event) => {
     setOnOffMarkers((current) => !current);
@@ -170,7 +167,13 @@ const App = () => {
         onLoad={(map) => setMap(map)}
       >
         {onOffMarkers === false ? null : (
-          <MarkerClusterer gridSize={45} onClick={clearDest}>
+          <MarkerClusterer
+            options={{
+              styles: clusterStyles,
+              gridSize: 80,
+              maxZoom: 17,
+            }}
+          >
             {(clusterer) => (
               <div className="hideload">
                 <TierMarkers
