@@ -58,6 +58,7 @@ a {
 .hideload {
   display: none;
 }
+
 .resultsBg {
   width: 45% !important;
   border-top-left-radius: 25px;
@@ -167,12 +168,15 @@ label {
 :focus {
   color: green;
 }
+.gm-iw {
+  color: #0dcafe !important;
+}
 .gm-style .gm-style-iw-d::-webkit-scrollbar-track,
 .gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece,
 .gm-style .gm-style-iw-c,
 .gm-style .gm-style-iw-t::after {
   background: #212529;
-  color: #0dcaf0;
+  color: #0dcaf0 !important;
 }
 .gm-style .gm-style-iw-tc::after {
   background: #212529;
@@ -197,8 +201,7 @@ button.gm-ui-hover-effect > span {
 }
 
 .markBtns {
-  position: relative;
-  left: 4px;
+  margin-left: 6px;
 }
 .battery {
   position: relative;

@@ -25,13 +25,8 @@ const VoiMarkers = ({ originRef, geocodeJson, clusterer }) => {
 
   return (
     <>
-      {apis.isLoading && (
-        <Spinner
-          animation="border"
-          variant="info"
-          size="sm"
-          className="loading"
-        />
+      {!apis.isLoading && (
+        <p className="loadingText">Scootteja löytyi: {apis.totalMarkers}</p>
       )}
       {markers.map((marker, id) => (
         <Marker
@@ -73,7 +68,7 @@ const VoiMarkers = ({ originRef, geocodeJson, clusterer }) => {
               )}
             </div>
 
-            <div className="markBtns mt-1">
+            <div className="markBtns">
               <Button
                 onClick={(e) => {
                   handleScootLocationClick(e);
@@ -84,7 +79,7 @@ const VoiMarkers = ({ originRef, geocodeJson, clusterer }) => {
                 <MdMyLocation />
               </Button>
               <Button
-                className="btn btn-outline-info bg-transparent text-info m-1 border-info"
+                className="btn btn-outline-info bg-transparent text-info m-1  border-info"
                 size="sm"
               >
                 <a
