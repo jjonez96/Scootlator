@@ -73,7 +73,7 @@ const TierMarkers = ({ originRef, geocodeJson, clusterer }) => {
                 </b>
               )}
             </div>
-            <div className="markBtns mt-1 ">
+            <div className="markBtns">
               <Button
                 onClick={(e) => {
                   handleScootLocationClick(e);

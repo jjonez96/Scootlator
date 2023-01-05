@@ -9,7 +9,7 @@ import useOperators from "./hooks/useOperators";
 import {
   DirectionsRenderer,
   GoogleMap,
-  MarkerF,
+  Marker,
   MarkerClusterer,
 } from "@react-google-maps/api";
 import { useJsApiLoader } from "@react-google-maps/api";
@@ -22,8 +22,7 @@ const App = () => {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [directionResponse, setDirectionResponse] = useState();
   const [distance, setDistance] = useState("");
-  const [onOffMarkersVoi, setOnOffMarkersVoi] = useState(false);
-  const [onOffMarkersTier, setOnOffMarkersTier] = useState(false);
+  const [onOffMarkers, setOnOffMarkers] = useState(true);
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [libraries] = useState(["places"]);
@@ -117,20 +116,20 @@ const App = () => {
     libraries,
   });
 
-  /** Scoot markers on/off switch */
-  const handleScootMarkersVoi = (event) => {
-    setOnOffMarkersVoi((current) => !current);
+  const clearDest = () => {
+    destinationRef.current.value = "";
   };
   /** Scoot markers on/off switch */
-  const handleScootMarkersTier = (event) => {
-    setOnOffMarkersTier((current) => !current);
+  const handleScootMarkers = (event) => {
+    setOnOffMarkers((current) => !current);
   };
+
   if (!isLoaded) {
     return <LoadingScreen />;
   }
 
   return (
-    <>
+    <div>
       <Forms
         setSelected={setSelected}
         operator={operator}
@@ -141,10 +140,8 @@ const App = () => {
         center={center}
         selectInputRef={selectInputRef}
         calculateRoute={calculateRoute}
-        handleScootMarkersVoi={handleScootMarkersVoi}
-        handleScootMarkersTier={handleScootMarkersTier}
-        onOffMarkersVoi={onOffMarkersVoi}
-        onOffMarkersTier={onOffMarkersTier}
+        handleScootMarkers={handleScootMarkers}
+        onOffMarkers={onOffMarkers}
       />
       <CalculationResults
         duration={duration}
@@ -155,7 +152,7 @@ const App = () => {
         center={center}
         zoom={6}
         ref={mapRef}
-        onClick={(ev, e) => {
+        onClick={(ev) => {
           handleDestinationMapClick(ev);
         }}
         mapContainerClassName="map-container"
@@ -172,47 +169,31 @@ const App = () => {
         }}
         onLoad={(map) => setMap(map)}
       >
-        {onOffMarkersVoi === false ? null : (
-          <MarkerClusterer
-            gridSize={50}
-            onClick={() => {
-              destinationRef.current.value = "";
-            }}
-          >
+        {onOffMarkers === false ? null : (
+          <MarkerClusterer gridSize={45} onClick={clearDest}>
             {(clusterer) => (
-              <VoiMarkers
-                originRef={originRef}
-                geocodeJson={geocodeJson}
-                map={map}
-                clusterer={clusterer}
-              />
-            )}
-          </MarkerClusterer>
-        )}
-        {onOffMarkersTier === false ? null : (
-          <MarkerClusterer
-            gridSize={50}
-            onClick={() => {
-              destinationRef.current.value = "";
-            }}
-          >
-            {(clusterer) => (
-              <TierMarkers
-                originRef={originRef}
-                geocodeJson={geocodeJson}
-                map={map}
-                clusterer={clusterer}
-              />
+              <div className="hideload">
+                <TierMarkers
+                  originRef={originRef}
+                  geocodeJson={geocodeJson}
+                  clusterer={clusterer}
+                />
+                <VoiMarkers
+                  originRef={originRef}
+                  geocodeJson={geocodeJson}
+                  clusterer={clusterer}
+                />
+              </div>
             )}
           </MarkerClusterer>
         )}
 
-        <MarkerF position={center} icon={markerIcons[0]} />
+        <Marker position={center} icon={markerIcons[0]} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />
         )}
       </GoogleMap>
-    </>
+    </div>
   );
 };
 

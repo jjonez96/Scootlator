@@ -11,10 +11,8 @@ const Forms = ({
   center,
   calculateRoute,
   operator,
-  onOffMarkersVoi,
-  onOffMarkersTier,
-  handleScootMarkersTier,
-  handleScootMarkersVoi,
+  onOffMarkers,
+  handleScootMarkers,
   map,
   selectInputRef,
   setSelected,
@@ -120,25 +118,21 @@ const Forms = ({
               <MdElectricScooter className="text-dark" />
             </Dropdown.Toggle>
             <Dropdown.Menu className="bg-dark text-center text-light">
-              Scootit voi
-              <MdElectricScooter color="#0dcaf0" />
+              Scootit kartassa
               <Form.Check
                 type="switch"
-                onChange={handleScootMarkersVoi}
-                value={onOffMarkersVoi}
+                onChange={handleScootMarkers}
+                value={onOffMarkers}
                 id=""
-              />
-              Scootit tier
-              <MdElectricScooter color="#0dcaf0" />
-              <Form.Check
-                type="switch"
-                onChange={handleScootMarkersTier}
-                value={onOffMarkersTier}
-                id=""
+                defaultChecked={onOffMarkers}
               />
             </Dropdown.Menu>
-            {onOffMarkersTier === false ? null : <TierMarkers />}
-            {onOffMarkersVoi === false ? null : <VoiMarkers />}
+            {onOffMarkers === true ? (
+              <div>
+                <VoiMarkers />
+                <TierMarkers />
+              </div>
+            ) : null}
           </Dropdown>
           <Form.Select
             className="form-control text-light bg-dark w-75"
