@@ -4,12 +4,12 @@ import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
 import Spinner from "react-bootstrap/Spinner";
-import useScootApis from "../hooks/useScootApis";
+import useScootData from "../hooks/useScootData";
 import markerIcons from "../markerIcons.json";
 
 const TierMarkers = ({ originRef, geocodeJson, clusterer }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
-  let apis = useScootApis();
+  let apis = useScootData();
 
   const markers = apis.tierMarkers;
 

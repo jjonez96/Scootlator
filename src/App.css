@@ -161,11 +161,21 @@ label {
   height: 20px;
   transform: translateY(-50%);
   cursor: pointer;
-  background: #fff !important;
+}
+a[href^="http://maps.google.com/maps"]
+{
+  display: none !important;
 }
 
-.icon:hover,
-:focus {
+.gmnoprint a,
+.gmnoprint span,
+.gm-style-cc {
+  display: none;
+}
+.gmnoprint div {
+  background: none !important;
+}
+.icon:hover {
   color: green;
 }
 .gm-iw {
@@ -179,7 +189,7 @@ label {
   color: #0dcaf0 !important;
 }
 .gm-style .gm-style-iw-tc::after {
-  background: #212529;
+  background: #a0a0a0;
 }
 button.gm-ui-hover-effect > span {
   background-color: #0dcaf0 !important;

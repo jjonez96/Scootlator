@@ -104,7 +104,7 @@ const App = () => {
     setDistance("");
     setDuration("");
     setPrice("");
-    map.setZoom(6);
+    map.setZoom(0);
     setSelected(0);
     selectInputRef.current.value = "";
     destinationRef.current.value = "";
@@ -124,7 +124,6 @@ const App = () => {
   if (!isLoaded) {
     return <LoadingScreen />;
   }
-
   return (
     <div>
       <Forms
@@ -147,13 +146,15 @@ const App = () => {
       />
       <GoogleMap
         center={center}
-        zoom={6}
+        zoom={6 - 6}
         ref={mapRef}
         onClick={(ev) => {
           handleDestinationMapClick(ev);
         }}
         mapContainerClassName="map-container"
         options={{
+          minZoom: 6 - 1,
+          maxZoom: 6 + 14,
           zoomControl: false,
           streetViewControl: false,
           mapTypeControl: false,
@@ -170,7 +171,7 @@ const App = () => {
           <MarkerClusterer
             options={{
               styles: clusterStyles,
-              gridSize: 80,
+              gridSize: 60,
               maxZoom: 17,
             }}
           >
@@ -190,7 +191,6 @@ const App = () => {
             )}
           </MarkerClusterer>
         )}
-
         <Marker position={center} icon={markerIcons[0]} />
         {directionResponse && (
           <DirectionsRenderer directions={directionResponse} />

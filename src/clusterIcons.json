@@ -1,19 +1,19 @@
 [
   {
     "textColor": "black",
-    "url": "./rhombus3.png",
+    "url": "./circle1.png",
     "height": 30,
     "width": 30
   },
   {
     "textColor": "black",
-    "url": "./rhombus2.png",
+    "url": "./circle1.png",
     "height": 35,
     "width": 35
   },
   {
     "textColor": "black",
-    "url": "./rhombus.png",
+    "url": "./circle1.png",
     "height": 40,
     "width": 40
   }
