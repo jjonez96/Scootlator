@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { MdMyLocation } from "react-icons/md";
 import { IoBatteryCharging } from "react-icons/io5";
-import useScootApis from "../hooks/useScootApis";
+import useScootData from "../hooks/useScootData";
 import markerIcons from "../markerIcons.json";
 
 const VoiMarkers = ({ originRef, geocodeJson, clusterer }) => {
   const [selectedMarker, setSelectedMarker] = useState("");
-  let apis = useScootApis();
+  let apis = useScootData();
   const markers = apis.voiMarkers;
 
   /**Click handler for changing coordinates to address(passing address to origin input)*/

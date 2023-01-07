@@ -16,7 +16,7 @@
         "saturation": 36
       },
       {
-        "color": "#ffffff"
+        "color": "#a0a0a0"
       },
       {
         "lightness": 40
@@ -223,7 +223,7 @@
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#ffffff"
+        "color": "#a0a0a0"
       }
     ]
   },
