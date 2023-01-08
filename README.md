@@ -1,7 +1,10 @@
 # Scootlator
+This is old CRA version of this app. <br>
+Link to new repo:https://github.com/jjonez96/scootlator-nextjs 
+
 Scootlator is really handy and fast single page application(SPA) to calculate e-scoot trips such as Tier, Voi, Dott etc.
  <br>
-<b>Preview:</b> <br>
+<b>Preview:</b> 
 https://scootlator.netlify.app <br>  <br>
 ![image](https://user-images.githubusercontent.com/90967564/210266025-5084e46f-39ae-4b86-b3f6-9e6b233f0d30.png)
 ## Tech Stack: 
